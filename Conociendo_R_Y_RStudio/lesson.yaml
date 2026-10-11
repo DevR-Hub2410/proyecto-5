@@ -1,0 +1,14 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Conociendo_R_Y_RStudio
+  Author: your name goes here
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.4.5
+
+- Class: text
+  Output: El objetivo de la leccion es introducir al estudiante en el uso de R y RStudio, analizando las herramientas graficos y visuales que 
+    lo ayudaran a programar facilmente en R. Esta leccion facilitara el analisis de datos provenientes de un proceso estadistico.
+    
+- Class: text
+  Output: R es un lenguaj
