@@ -11,4 +11,98 @@
     lo ayudaran a programar facilmente en R. Esta leccion facilitara el analisis de datos provenientes de un proceso estadistico.
     
 - Class: text
-  Output: R es un lenguaj
+  Output: R es un lenguaje de programacion interpretado, lo que significa que los usuarios pueden acceder a las funciones de R atraves de un 
+    interprete de linea de comandos, a diferencia de otros lenguajes de programacion como python, java o c, R es mas especializado en el calculo 
+    y analisis estadistico, aunque con el tiempo se fue ampliando para uso general.
+    
+- Class: text
+  Output: R está dotado de un gran conjunto de funciones que permiten visualizar datos, de modo que los usuarios pueden analizar los datos, modelarlos 
+    según sus necesidades y luego crear gráficos. Además de las funciones gráficas integradas en el lenguaje, existen numerosos complementos o módulos 
+    que lo facilitan. 
+    
+- Class: text
+  Output: Para poder programar en R de manera mas sencilla y con diferentes herramientas se hara uso de RStudio, ya que este es un entorno de desarrollo 
+    integrado (IDE) diseñado especificamente para trabajar en R. Lo que lo distingue es su capacidad para simplificar el proceso de escritura de codigo, 
+    depuracion y visualizacion de datos.
+    
+- Class: text
+  Output: La inerfaz de RStudio se conforma por 5 panales importantes para su uso: el navbar, el panel de escritura de codigo, la consola, el panel de 
+    variables y el explorador de archivos.
+    
+- Class: text 
+  Output: La barra de menús se encuentra en la parte superior de RStudio e incluye opciones como File, Edit, Code, View, Session, Tools y Help. Por ejemplo, 
+    desde File podemos crear un nuevo script de R para escribir y guardar nuestro código.
+    
+- Class: text
+  Output: El editor de código es el área donde escribimos y modificamos instrucciones dentro de un script de R. Para ejecutar una instrucción, podemos colocar 
+    el cursor en la línea deseada y presionar Run, o seleccionar varias líneas para ejecutarlas juntas.
+    
+- Class: text
+  Output: La consola es el área donde podemos escribir y ejecutar instrucciones directamente. También muestra los resultados de los cálculos, los mensajes y los 
+    errores que se producen al ejecutar el código.
+    
+- Class: text
+  Output: El panel de entorno, también llamado Environment, permite consultar los objetos creados durante la sesión, como variables, vectores y tablas de datos. 
+    Así podemos revisar los datos que tenemos disponibles para trabajar.
+    
+- Class: text
+  Output: El panel de archivos, o Files, permite explorar las carpetas y los archivos de nuestro equipo. Desde sus opciones podemos establecer el directorio de 
+    trabajo mediante Set As Working Directory. Este directorio indica la carpeta que R utilizará como referencia para buscar y guardar archivos. En este mismo panel 
+    también podemos acceder a Packages para consultar los paquetes instalados y a Help para obtener información sobre las funciones de R.
+    
+- Class: text
+  Output: Hagamos unas preguntas practicas para ver si entendiste los puntos clave de RStudio.
+  
+
+# ========== Practicas ==========
+- Class: mult_question
+  Output: ¿Qué es R?
+  AnswerChoices: Un lenguaje de programación orientado principalmente al análisis estadístico; Un editor de texto para escribir documentos; Un sistema operativo; Un programa exclusivo para crear páginas web
+  CorrectAnswer: Un lenguaje de programación orientado principalmente al análisis estadístico
+  AnswerTests: omnitest(correctVal='Un lenguaje de programación orientado principalmente al análisis estadístico')
+  Hint: Recuerda que R permite realizar cálculos, analizar datos y crear gráficos.
+
+- Class: mult_question
+  Output: ¿Qué es RStudio?
+  AnswerChoices: Un entorno de desarrollo integrado que facilita trabajar con R; Un lenguaje de programación independiente de R; Una base de datos; Una función estadística
+  CorrectAnswer: Un entorno de desarrollo integrado que facilita trabajar con R
+  AnswerTests: omnitest(correctVal='Un entorno de desarrollo integrado que facilita trabajar con R')
+  Hint: RStudio proporciona herramientas para escribir código, ejecutar instrucciones y visualizar resultados.
+
+- Class: mult_question
+  Output: ¿En qué área de RStudio podemos ejecutar instrucciones directamente?
+  AnswerChoices: En la consola; En el explorador de archivos; En el panel Environment; En la barra de menús
+  CorrectAnswer: En la consola
+  AnswerTests: omnitest(correctVal='En la consola')
+  Hint: Es el área donde escribimos comandos y observamos sus resultados inmediatamente.
+
+- Class: mult_question
+  Output: ¿Para qué sirve el editor de código?
+  AnswerChoices: Para escribir y modificar instrucciones en un script; Para consultar únicamente los paquetes instalados; Para cambiar el sistema operativo; Para mostrar exclusivamente los archivos del equipo
+  CorrectAnswer: Para escribir y modificar instrucciones en un script
+  AnswerTests: omnitest(correctVal='Para escribir y modificar instrucciones en un script')
+  Hint: Piensa en el área donde puedes escribir varias líneas de código y guardarlas en un archivo.
+
+- Class: mult_question
+  Output: ¿Qué información podemos consultar en el panel Environment?
+  AnswerChoices: Los objetos creados durante la sesión; Las instrucciones de ayuda exclusivamente; Las carpetas del equipo únicamente; Los errores del sistema operativo
+  CorrectAnswer: Los objetos creados durante la sesión
+  AnswerTests: omnitest(correctVal='Los objetos creados durante la sesión')
+  Hint: Allí aparecen objetos como variables, vectores y tablas de datos.
+
+- Class: mult_question
+  Output: ¿Para qué sirve establecer el directorio de trabajo?
+  AnswerChoices: Para indicar la carpeta de referencia para buscar y guardar archivos; Para borrar todas las variables; Para instalar RStudio; Para calcular automáticamente la media
+  CorrectAnswer: Para indicar la carpeta de referencia para buscar y guardar archivos
+  AnswerTests: omnitest(correctVal='Para indicar la carpeta de referencia para buscar y guardar archivos')
+  Hint: Recuerda la opción Set As Working Directory del panel Files.
+
+- Class: mult_question
+  Output: ¿Qué opción permite consultar información sobre una función de R?
+  AnswerChoices: Help; Environment; Files; Run
+  CorrectAnswer: Help
+  AnswerTests: omnitest(correctVal='Help')
+  Hint: Esta sección proporciona documentación sobre funciones y paquetes.
+
+- Class: text
+  Output: ¡Excelente! Has repasado las principales áreas de RStudio, aprendido a ejecutar instrucciones y creado tus primeros objetos y vectores. Estos conocimientos te servirán para comenzar a utilizar R en el análisis estadístico.
