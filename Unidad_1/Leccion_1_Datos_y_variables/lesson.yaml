@@ -1,0 +1,50 @@
+- Class: meta
+  Course: Unidad_1
+  Lesson: Introduccion_a_la_Estadistica
+  Author: your name goes here
+  Type: Standard
+  Organization: UACJ
+  Version: 2.4.5
+
+#1. Población, muestra, parámetro y estadístico---------------------------------
+
+- Class: text
+  Output: Sabemos que la población se refiere al conjunto total de individuos u objetos que tienen las mismas características, y es aquel sobre el que estamos interesados en obtener información. 
+
+- Class: text
+  Output: Se puede dividir en dos tipos, la población finita e infinita. La población infinita incluye una cantidad demasiado grande de elementos y es casi imposible de contabilizarlos, mientras que la población finita tiene un número limitado y determinado de elementos.
+
+- Class: text
+  Output: Por otro lado, una muestra es una pequeña parte de la población. Esta nos ayuda a analizar o obtener datos sin tener que tomar en cuenta a todos los datos.
+  
+- Class: text
+  Output: Al igual que la población, la muestra se divide en 2 tipos, la muestra con reemplazo y sin reemplazo. El muestreo sin reemplazo es elegir el número de elementos sin repetir ninguno, mientras que en el muestreo con reemplazo sí se pueden elegir los elementos más de una vez, claramente todo esto de forma al azar.
+
+- Class: text
+  Output: Por ejemplo, si en una urna hay 5 fichas de diferentes colores y tenemos que sacar 3 fichas, en el muestreo con reemplazo al sacar un ficha podemos volver a introducirla en la urna y tendría una posibilidad de sacarla nuevamente, mientras que en el muestreo sin reemplazo si se saca una ficha esta ya no puede volver a la urna.
+  
+- Class: exact_question
+  Output: Supongamos que tenemos una urna con 13 fichas de diferentes colores y necesitamos sacar 5. ¿Cuántas fichas hay en la urna antes de sacar nuestra última ficha?. Utiliza el muestreo sin reemplazo.
+  CorrectAnswer: 9
+  AnswerTests: omnitest(correctVal=9)
+  Hint: Recuerda que en el muestreo sin reemplazo, cuando una ficha sale ya no vuelve a la urna. Analiza cuántas fichas sacaste antes de la quinta extracción y vuelve a intentarlo.
+  
+- Class: text
+  Output: ¡Muy bien! 9 es la respuesta correcta ya que, antes de sacar tu quinta ficha sacaste 4, entonces simplemente se le restaba 4 fichas al total de ellas, dándote el resultado correcto. Solamente recuerda la pequeña diferencia de estos 2 tipos de muestra y todo será más fácil. 
+
+- Class: text
+  Output: Un parámetro es aquel que puede resumir la información obtenida de ya sean tablas de datos o gráficas de toda una población, clasificándose según la información que se va a manejar. Hay varios tipos de parámetros pero los más conocidos son los de tendencia central (media, mediana y moda) y de dispersión (Rango).
+
+- Class: text
+  Output: Los estadísticos también tienen como función analizar y resumir los datos, con la diferencia que esto lo hace de una muestra de toda la población.
+
+- Class: text
+  Output: Estos temas los retomaremos más adelante, por ahora, hablemos de datos e información.
+  
+#2. Datos e información.--------------------------------------------------------
+#3. Tipos de variables.
+#4. Variables cualitativas y cuantitativas.
+#5. Variables nominales, ordinales, discretas y continuas.
+
+
+
