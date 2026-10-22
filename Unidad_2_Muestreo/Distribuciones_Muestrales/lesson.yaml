@@ -1,0 +1,119 @@
+- Class: meta
+  Course: Estadistica
+  Lesson: Distribuciones_muestraes
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.4.5
+
+- Class: text
+  Output: Continuaremos con nuestro siguiente tema llamado Distribuciones muestrales. En esta lección veremos qué pasa cuando, en lugar de analizar una sola muestra, analizamos muchas muestras distintas de la misma población.
+
+- Class: text
+  Output: Imagina que, en lugar de ver una sola muestra, sacaras muchos grupos distintos de 30 estudiantes y calcularas el promedio de cada grupo. Esos promedios, todos juntos, forman lo que llamamos una distribución muestral.
+
+- Class: text
+  Output: Es decir, se extrae una muestra aleatoria de la población y se calcula el valor de un estadístico correspondiente, y, por lo tanto, el estadístico tiene una distribución de probabilidad la cual es llamada la Distribución Muestral del Estadístico.
+
+#https://www.paginaspersonales.unam.mx/app/webroot/files/977/2015-05-05-155314_Distribuciones_Muest.pdf
+
+- Class: text
+  Output: Para esta lección, trabajaremos con una población simulada de 300 estudiantes y sus calificaciones (variable poblacion_calificaciones), que ya ha sido cargada en tu sesión.
+
+- Class: text
+  Output: Sabiendo esto, pongámoslo en práctica!
+
+- Class: cmd_question
+  Output: Para empezar, calcula la media de toda la población con mean(poblacion_calificaciones).
+  CorrectAnswer: mean(poblacion_calificaciones)
+  AnswerTests: test_media_poblacion()
+  Hint: Usa la funcion mean() sobre el vector poblacion_calificaciones.
+
+- Class: cmd_question
+  Output: Ahora calcula la desviación estándar de la población con sd(poblacion_calificaciones).
+  CorrectAnswer: sd(poblacion_calificaciones)
+  AnswerTests: test_sd_poblacion()
+  Hint: Usa la funcion sd() sobre el mismo vector.
+
+- Class: text
+  Output: Una distribución muestral es la distribución que toma un estadístico (como la media) calculado una y otra vez sobre distintas muestras de la misma población. No es la distribución de los datos originales, sino la de los resultados que obtendrías al repetir el muestreo.
+
+#https://www.ugr.es/~mvargas/tema6sd.pdf
+
+- Class: text
+  Output: Ya se generaron 1000 medias muestrales en el objeto medias_muestrales, tomando en cada repetición una muestra aleatoria de 30 estudiantes.
+
+- Class: cmd_question
+  Output: Verifica cuántas medias muestrales se generaron con length(medias_muestrales).
+  CorrectAnswer: length(medias_muestrales)
+  AnswerTests: omnitest(correctVal = 1000)
+  Hint: length() te dice cuantos elementos tiene un vector.
+
+- Class: figure
+  Output: Observa por medio de una gráfica, cómo se distribuyen esas 1000 medias muestrales. La línea roja marca la media poblacional real.
+  Figure: fig_tcl.R
+  FigureType: new
+
+- Class: text
+  Output: El Teorema del Límite Central dice que, sin importar la forma de la población original, la distribución de las medias muestrales se aproxima a una normal conforme el tamaño de muestra crece.
+
+#https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/1386/mod_resource/content/1/contenido/index.html
+
+- Class: mult_question
+  Output: Según el (TLC) y la grafica anterior, qué forma tiende a tomar la distribución de las medias muestrales cuando el tamaño de muestra es razonablemente grande?
+  AnswerChoices: Una forma aproximadamente normal (campana);Una forma uniforme, sin tendencia central;Siempre identica a la forma de los datos originales;No tiene ninguna forma reconocible
+  CorrectAnswer: Una forma aproximadamente normal (campana)
+  AnswerTests: omnitest()
+  Hint: Esto es precisamente lo que establece el Teorema del Limite Central (TCL).
+
+- Class: text
+  Output: La dispersión de esa distribución de medias se mide con el error estándar, tiende a disminuir cuando aumenta el tamaño de la(s) muestra(s). Se calcula como sigma (desviación estándar poblacional) dividido entre la raíz cuadrada de n.
+
+#https://bookdown.org/dietrichson/metodos-cuantitativos/el-error-est%C3%A1ndar-y-su-interpretaci%C3%B3n.html
+
+- Class: text
+  Output: Pongámoslo en práctica!
+
+- Class: cmd_question
+  Output: Calcula el error estándar de la media para muestras de tamaño 30, usando sigma_poblacion / sqrt(30).
+  CorrectAnswer: sigma_poblacion / sqrt(30)
+  AnswerTests: test_error_estandar_hints()
+  Hint: El error estándar es sigma_poblacion dividido entre la raíz cuadrada de 30. ||| Revisa si dividiste entre n en vez de la raíz cuadrada de n. ||| No olvides aplicar sqrt() al tamaño de muestra antes de dividir.
+
+- Class: mult_question
+  Output: Si aumentáramos el tamaño de muestra de 30 a 120, es decir, cuatro veces mas, que pasaría con el error estándar?
+  AnswerChoices: Disminuiría (la distribución de medias se haría mas angosta);Aumentaría;Se mantendría exactamente igual;Se volvería cero
+  CorrectAnswer: Disminuiría (la distribución de medias se haría mas angosta)
+  AnswerTests: omnitest()
+  Hint: El error estándar depende de 1/sqrt(n), asi que al crecer n el denominador crece y el error estandar baja.
+  
+- Class: text
+  Output: El mismo principio aplica a proporciones. Supón que el 60% de los estudiantes aprueba un curso y se encuesta a 50 de ellos.
+
+- Class: cmd_question
+  Output: Calcula el error estándar de la proporción muestral usando sqrt(p_poblacion * (1 - p_poblacion) / n_encuesta).
+  CorrectAnswer: sqrt(p_poblacion * (1 - p_poblacion) / n_encuesta)
+  AnswerTests: test_error_proporcion_hints()
+  Hint: La formula es la raíz cuadrada de [p * (1 - p) / n], usando p_poblacion y n_encuesta. ||| Revisa si olvidaste aplicar la raíz cuadrada (sqrt) a todo el cociente. ||| Verifica que estés multiplicando p_poblacion por (1 - p_poblacion), no solo usando p_poblacion.
+  
+- Class: text
+  Output: Buen trabajo! Has aprendido mucho sobre Distribuciones muestrales, ahora hagamos una pequeña reflexion.
+
+- Class: text_question
+  Output: Con tus propias palabras, explica por que crees que es util conocer la distribucion muestral de un estadistico al momento de querer hacer inferencias sobre una poblacion a partir de una sola muestra.
+  CorrectAnswer: NULL
+  AnswerTests: test_reflexion()
+  Hint: No hay una respuesta unica, escribe con tus propias palabras por que te parece util.
+
+- Class: text
+  Output: Excelente respuesta! Con esto, has terminado la lección de Distribuciones muestrales. Ya viste cómo se comporta la media muestral al repetir el muestreo, el papel del Teorema del Limite Central, y cómo calcular el error estándar para medias y proporciones. 
+  
+- Class: text
+  Output: En la última lección aplicarás todo lo aprendido en una actividad integradora, Sigamos aprendiendo!
+  
+# REFERENCIAS
+# Acuña, E. (s. f.). 6. Distribuciones muestrales. Universidad de Puerto Rico. https://www.paginaspersonales.unam.mx/app/webroot/files/977/2015-05-05-155314_Distribuciones_Muest.pdf
+#Dietrichson, A. (2019, 22 de junio). El error estándar y su interpretación. En Métodos cuantitativos. https://bookdown.org/dietrichson/metodos-cuantitativos/el-error-est%C3%A1ndar-y-su-interpretaci%C3%B3n.html
+# Moreno Salinas, J. G. (2017). Estadística inferencial: El teorema del límite central. Coordinación de Universidad Abierta y Educación a Distancia, Universidad Nacional Autónoma de México. https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/1386/mod_resource/content/1/contenido/index.html
+# Tema 6: Distribuciones muestrales. (s. f.). Universidad de Granada. https://www.ugr.es/~mvargas/tema6sd.pdf
+
