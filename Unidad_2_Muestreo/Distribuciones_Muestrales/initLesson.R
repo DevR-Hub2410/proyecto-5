@@ -1,19 +1,16 @@
-# initLesson.R
-# Leccion: Distribuciones muestrales
-# Poblacion simulada: calificaciones de 300 estudiantes (escala 0-100)
+# initLesson.R DISTRIBUCION MUESTRAL DE LA MEDIA
 
-set.seed(55)
-poblacion_calificaciones <- round(rnorm(300, mean = 78, sd = 10), 1)
-poblacion_calificaciones <- pmin(pmax(poblacion_calificaciones, 0), 100)
+# Creamos un vector fijo con 10 tiempos de respuesta de una app, en segundos.
+# Son valores fijos, no generados al azar, para que los ejercicios de
+# muestreo y simulacion trabajen siempre sobre la misma base de datos.
+tiempo <- c(2.1, 3.4, 2.8, 1.9, 2.5, 3.0, 2.2, 2.6, 3.1, 2.4)
 
-mu_poblacion    <- mean(poblacion_calificaciones)
-sigma_poblacion <- sd(poblacion_calificaciones)
-n_poblacion     <- length(poblacion_calificaciones)
 
-# 1000 medias muestrales con muestras de tamano 30, para ilustrar el TCL
-set.seed(77)
-medias_muestrales <- replicate(1000, mean(sample(poblacion_calificaciones, 30)))
+# initLesson.R DISTRIBUCION MUESTRAL DE LA PROPORCION
 
-# Ejemplo de proporcion: encuesta sobre aprobacion de un curso
-p_poblacion <- 0.6
-n_encuesta  <- 50
+set.seed(123) # Semilla para generar numeros aleatorios
+N <- 10000 # Poblacion
+p_real <- 0.65 # Proporcion poblacional
+poblacion <- sample(c("Si", "No"), size = N, replace = TRUE, # Crea la poblacion
+                    prob = c(p_real, 1 - p_real))
+n <- 30 # Tamano de muestra
