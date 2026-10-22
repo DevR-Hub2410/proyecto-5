@@ -1,10 +1,16 @@
 - Class: meta
   Course: Unidad_1
-  Lesson: Introduccion_a_la_Estadistica
-  Author: your name goes here
+  Lesson: Leccion_1_Datos_y_variables
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega 
   Type: Standard
   Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: Bienvenido a la primera lección de la Unidad 1; Datos y variables. En este espacio repasaremos los fundamentos de los temas 1 al 5, proporcionándote los conocimientos necesarios para avanzar con éxito en el resto del curso.
+
+- Class: text
+  Output: Empecemos por las bases de la estadística descriptiva; población, muestra, parámetro y estadístico.
 
 #1. Población, muestra, parámetro y estadístico---------------------------------
 
@@ -42,9 +48,182 @@
   Output: Estos temas los retomaremos más adelante, por ahora, hablemos de datos e información.
   
 #2. Datos e información.--------------------------------------------------------
-#3. Tipos de variables.
-#4. Variables cualitativas y cuantitativas.
-#5. Variables nominales, ordinales, discretas y continuas.
+
+- Class: text
+  Output: Los datos son el resultado directo de una encuesta o investigación. Son información bruta, sin interpretación ni análisis.Por ejemplo, el número 25 es un dato. La estadística descriptiva es la encargada de resumir estos datos.
+
+- Class: text
+  Output: El término datos no es útil a menos que se transforme en información. Por lo tanto, la información es la organización e interpretación de esos hechos.
+
+- Class: mult_question
+  Output: ¿Cuál de las siguientes opciones es un ejemplo de información y no solo de datos?
+  AnswerChoices: 18, 22, 25, 30;El promedio del grupo es de 8;Juan;El número 7
+  CorrectAnswer: El promedio del grupo es de 8
+  AnswerTests: omnitest(correctVal='El promedio del grupo es de 8')
+  Hint: La información es el resultado de procesar datos. Busca la opción que ya tiene un significado o conclusión.
+
+- Class: text
+  Output: En R podemos guardar datos en un vector con la función c(). Vamos a guardar las edades de 5 personas.
+
+- Class: cmd_question
+  Output: Crea un vector llamado edades con los valores 20, 22, 25, 30 y 18.
+  CorrectAnswer: edades <- c(20, 22, 25, 30, 18)
+  AnswerTests: omnitest(correctExpr='edades <- c(20, 22, 25, 30, 18)')
+  Hint: almacena el vector utilizando c() en la variable edades.
+
+- Class: text
+  Output: Ahora convertiremos esos datos en información. La función mean() calcula el promedio de un vector sin que tengamos que sumar y dividir manualmente.
+
+- Class: exact_question
+  Output: Usa la función para calcular el promedio de edad. ¿Cuál es el resultado?
+  CorrectAnswer: 23
+  AnswerTests: omnitest(correctVal=23)
+  Hint: Escribe mean(edades) en la consola y copia el resultado.
+
+- Class: text
+  Output: ¡Excelente! Pasaste de 5 datos sueltos a una información útil, el promedio de edad es 23 años.
+  
+- Class: text
+  Output: Continuemos con el tema de variables y sus tipos. 
+
+#3. Tipos de variables.---------------------------------------------------------
+
+- Class: text
+  Output: Una variable es una característica de una muestra o población de datos que puede adoptar diferentes valores y se utiliza para realizar inferencia estadística.Cuando hablamos de una variable en estadística nos referimos a algo que podemos observar, medir o registrar en un conjunto de datos.
+
+- Class: text
+  Output: Las variables se clasifican en dos grandes tipos, cualitativas y cuantitativas. En R podemos saber con qué tipo de dato estamos trabajando usando la función class().
+
+
+- Class: mult_question
+  Output: ¿Cuál de las siguientes opciones es una variable?
+  AnswerChoices: La estatura de los alumnos de un salón;El número 1.70;La palabra "azul";La función mean()
+  CorrectAnswer: La estatura de los alumnos de un salón
+  AnswerTests: omnitest(correctVal='La estatura de los alumnos de un salón')
+  Hint: Una variable es una característica que cambia de un individuo a otro, no un valor aislado.
+
+- Class: cmd_question
+  Output: Usa la función class() para ver el tipo de dato del vector edades que creaste antes.
+  CorrectAnswer: class(edades)
+  AnswerTests: omnitest(correctExpr='class(edades)')
+  Hint: Escribe el nombre del vector dentro del paréntesis en class(). 
+
+- Class: text
+  Output: puedes observar que R identifica a la variable como "numeric". Otra función muy útil es str(), que muestra el tipo y los primeros valores de una variable o de una tabla completa. La usaremos más adelante.
+
+#4. Variables cualitativas y cuantitativas.-------------------------------------
+
+- Class: text
+  Output: Las variables cualitativas describen cualidades o características no numéricas. Se expresan mediante palabras o categorías. No se pueden medir con números, aunque sí se pueden contar.
+
+- Class: text
+  Output: Las variables cuantitativas son aquellas que se pueden expresar mediante números. Ejemplos incluyen la edad, la altura, el peso o el número de elementos. Con ellas sí tiene sentido calcular promedios, medianas y otras medidas.
+
+- Class: mult_question
+  Output: ¿Cuál de las siguientes variables es cualitativa?
+  AnswerChoices: Peso en kilogramos;Número de hermanos;Color de ojos;Temperatura
+  CorrectAnswer: Color de ojos
+  AnswerTests: omnitest(correctVal='Color de ojos')
+  Hint: Las cualitativas describen categorías o cualidades, no cantidades numéricas.
+
+- Class: text
+  Output: Para variables cualitativas, la función table() cuenta cuántas veces aparece cada categoría. Vamos a guardar los colores favoritos de 6 personas.
+
+- Class: cmd_question
+  Output: Crea el vector colores con "rojo", "azul", "rojo", "verde", "azul", "rojo" como argumento para c().
+  CorrectAnswer: colores <- c("rojo", "azul", "rojo", "verde", "azul", "rojo")
+  AnswerTests: omnitest(correctExpr='colores <- c("rojo", "azul", "rojo", "verde", "azul", "rojo")')
+  Hint: No olvides las comillas en cada color, porque son texto.
+
+- Class: cmd_question
+  Output: Usa table() para contar las categorías.
+  CorrectAnswer: table(colores)
+  AnswerTests: omnitest(correctExpr='table(colores)')
+  Hint: Escribe el nombre del vector que acabas de declarar dentro del paréntesis.
+  
+- Class: exact_question
+  Output: ¿Cuántas personas eligieron el color rojo?
+  CorrectAnswer: 3
+  AnswerTests: omnitest(correctVal=3)
+  Hint: Ya utilizaste table(colores), busca dentro de la tabla el número que aparece debajo de "rojo".
+
+- Class: text
+  Output: Con las variables cuantitativas podemos hacer cálculos. La función median() nos da el valor central de los datos ordenados, y summary() nos da un resumen completo con mínimo, cuartiles, media y máximo.
+
+- Class: exact_question
+  Output: Usa median() para encontrar la mediana de las edades. ¿Cuál es el resultado?
+  CorrectAnswer: 22
+  AnswerTests: omnitest(correctVal=22)
+  Hint: Ordenadas, las edades quedan 18, 20, 22, 25, 30. La mediana es el valor que queda en medio. También puedes usar median(edades) en la consola.
+
+- Class: cmd_question
+  Output: Ahora obtén un resumen completo de las edades con la función summary().
+  CorrectAnswer: summary(edades)
+  AnswerTests: omnitest(correctExpr='summary(edades)')
+  Hint: Escribe summary(edades) y presiona Enter.
+
+#5. Variables nominales, ordinales, discretas y continuas.----------------------
+
+- Class: text
+  Output: Las variables cualitativas se dividen en nominales y ordinales. Las nominales son categorías sin un orden natural, como el color de ojos o la ciudad. Las ordinales sí tienen un orden, como el nivel de estudios (primaria, secundaria, preparatoria) o el nivel de satisfacción (bajo, medio, alto).
+
+- Class: text
+  Output: Las variables cuantitativas se dividen en discretas y continuas. Las discretas toman valores enteros que se pueden contar, como el número de alumnos o la cantidad de canicas en una bolsa. Las continuas pueden tomar cualquier valor dentro de un intervalo, como la estatura, el peso o el tiempo.
+
+- Class: mult_question
+  Output: ¿Cuál de las siguientes opciones clasifica como una variable cualitativa ordinal?
+  AnswerChoices: El tipo de música favorito de un estudiante;El número de páginas de un libro de texto;El rango militar de un oficial (Soldado, Cabo, Sargento, Teniente);La temperatura registrada en una ciudad durante el día 
+  CorrectAnswer: El rango militar de un oficial (Soldado, Cabo, Sargento, Teniente) 
+  AnswerTests: omnitest(correctVal='El rango militar de un oficial (Soldado, Cabo, Sargento, Teniente)')
+  Hint: Son categorías, pero tienen un orden claro de menor a mayor.
+
+- Class: mult_question
+  Output: ¿Qué tipo de variable es el peso de una persona en kilogramos?
+  AnswerChoices: Nominal;Ordinal;Discreta;Continua
+  CorrectAnswer: Continua
+  AnswerTests: omnitest(correctVal='Continua')
+  Hint: El peso puede tomar cualquier valor, incluso con decimales (por ejemplo, 65.3 kg), no solo enteros.
+
+- Class: text
+  Output: En R, las variables ordinales se representan con factor() indicando el orden de los niveles con levels y ordered = TRUE. Así R sabe que "bajo" es menor que "medio" y "medio" es menor que "alto".
+
+- Class: cmd_question
+  Output: Crea una variable llamada nivel que guarde el nivel de satisfacción de 4 clientes, en este orden, "bajo", "alto", "medio" y "bajo". La variable debe ser un factor ordenado, donde el orden de las categorías va de menor a mayor, "bajo", "medio" y "alto".
+  CorrectAnswer: nivel <- factor(c("bajo", "alto", "medio", "bajo"), levels = c("bajo", "medio", "alto"), ordered = TRUE)
+  AnswerTests: omnitest(correctExpr='nivel <- factor(c("bajo", "alto", "medio", "bajo"), levels = c("bajo", "medio", "alto"), ordered = TRUE)')
+  Hint: Usa la función factor(). Primero le das el vector con los 4 valores usando c(), y luego utilizas el argumento levels para indicar el orden de las categorías y el argumento ordered = TRUE para indicar que ese orden importa. Recuerda escribir los textos entre comillas.
+
+
+- Class: cmd_question
+  Output: Usa la función levels() para ver el orden de las categorías de nivel.
+  CorrectAnswer: levels(nivel)
+  AnswerTests: omnitest(correctExpr='levels(nivel)')
+  Hint: Escribe el nombre de la variable como argumento de la función.
+
+- Class: text
+  Output: Para variables discretas, table() también es útil para ver cuántas veces aparece cada valor. Imagina que registramos el número de hijos de 6 familias.
+
+- Class: cmd_question
+  Output: Crea el vector hijos con los valores 0, 2, 1, 3, 2, 2.
+  CorrectAnswer: hijos <- c(0, 2, 1, 3, 2, 2)
+  AnswerTests: omnitest(correctExpr='hijos <- c(0, 2, 1, 3, 2, 2)')
+  Hint: Escribe hijos <- c(0, 2, 1, 3, 2, 2) y presiona Enter.
+
+- Class: cmd_question
+  Output: Usa table() para contar los valores.
+  CorrectAnswer: table(hijos)
+  AnswerTests: omnitest(correctExpr='table(hijos)')
+  Hint: Escribe el nombre del vector que acabas de declarar dentro del paréntesis.
+
+- Class: exact_question
+  Output: ¿Cuántas familias tienen exactamente 2 hijos?
+  CorrectAnswer: 3
+  AnswerTests: omnitest(correctVal=3)
+  Hint: Ya utilizaste table(hijos), ahora busca el número que aparece debajo del 2.
+
+- Class: text
+  Output: ¡Muy bien! Ya sabes clasificar las variables y usar funciones de R como class(), table(), mean(), median(), summary() y factor() para trabajar con ellas. Estas herramientas las seguiremos usando en los siguientes temas.
+
 
 
 
