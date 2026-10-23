@@ -1,7 +1,380 @@
 - Class: meta
   Course: Unidad_1
   Lesson: Leccion_3_Dispersion_de_datos
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: ¡Bienvenido a la última lección de la Unidad 1; Análisis de datos! En esta lección completaremos nuestro recorrido por la estadística descriptiva, cubriendo los temas del 11 al 15 del plan de estudios.
+
+- Class: text
+  Output: Aprenderás a medir qué tan dispersos están los datos, a detectar valores atípicos con cuartiles y diagramas de caja, y a comparar conjuntos de datos. Al final pondrás todo en práctica con una actividad integradora de ingeniería de software.
+
+- Class: text
+  Output: Empecemos con las medidas de dispersión.
+
+#11. Rango, varianza y desviación estándar.-------------------------------------
+
+- Class: text
+  Output: El rango se define como la diferencia que existe entre el valor máximo y el valor mínimo de un conjunto de datos. Nos dice qué tan extendidos están los datos de un extremo a otro.
+
+- Class: text
+  Output: La varianza es una medida de variabilidad que toma en cuenta la dispersión que los valores de los datos tienen respecto a su media. Es decir, aquellos conjuntos de datos que tengan valores más alejados de la media, sea muestral o poblacional, tendrán una mayor varianza. Su resultado se expresa en unidades al cuadrado. 
+
+- Class: text
+  Output: Al igual que la varianza, la desviación estándar es una medida de variabilidad que también toma en cuenta la dispersión de los valores de los datos respecto a su media. Sin embargo, su resultado se encuentra expresado en las mismas unidades de la variable que se examina y no en valores elevados al cuadrado como lo hace la varianza. 
+
+- Class: text
+  Output: Vamos a practicar con las temperaturas máximas, en grados centígrados, que se registraron durante 5 días seguidos en una ciudad.
+
+- Class: cmd_question
+  Output: Crea un vector llamado temperaturas con los valores 15, 18, 20, 22 y 25.
+  CorrectAnswer: temperaturas <- c(15, 18, 20, 22, 25)
+  AnswerTests: omnitest(correctExpr='temperaturas <- c(15, 18, 20, 22, 25)')
+  Hint: Utiliza el operador de asignación y la función c().
+
+- Class: text
+  Output: En R, la función range() no regresa el rango como un solo número, sino el valor mínimo y el valor máximo del vector.
+
+- Class: cmd_question
+  Output: Usa la función range() para ver la temperatura mínima y la máxima del vector temperaturas.
+  CorrectAnswer: range(temperaturas)
+  AnswerTests: omnitest(correctExpr='range(temperaturas)')
+  Hint: Usa la función range() y pásale el vector como argumento.
+
+- Class: exact_question
+  Output: Con los valores que te dio range(), ¿cuál es el rango de temperaturas?
+  CorrectAnswer: 10
+  AnswerTests: omnitest(correctVal=10)
+  Hint: El rango es el máximo menos el mínimo. También puedes obtenerlo directamente con diff(range(temperaturas)).
+
+- Class: mult_question
+  Output: Si los datos de un conjunto tienen una varianza muy grande, ¿qué significa?
+  AnswerChoices: Que los datos están muy dispersos;Que los datos están muy juntos;Que todos los datos son iguales
+  CorrectAnswer: Que los datos están muy dispersos
+  AnswerTests: omnitest(correctVal='Que los datos están muy dispersos')
+  Hint: La varianza mide qué tan alejados están los datos de su media. Si es grande, ¿están cerca o lejos de ella?
+
+- Class: exact_question
+  Output: Calcula la varianza del vector temperaturas con la función var(). ¿Cuál es el resultado?
+  CorrectAnswer: 14.5
+  AnswerTests: omnitest(correctVal=14.5)
+  Hint: Usa la función var() y pásale el vector temperaturas como argumento.
+
+- Class: cmd_question
+  Output: Ahora calcula la desviación estándar del vector temperaturas con la función sd().
+  CorrectAnswer: sd(temperaturas)
+  AnswerTests: omnitest(correctExpr='sd(temperaturas)')
+  Hint: Usa la función sd() y pásale el vector como argumento.
+
+- Class: mult_question
+  Output: ¿Cómo se relaciona la desviación estándar con la varianza?
+  AnswerChoices: Es la raíz cuadrada de la varianza;Es el doble de la varianza;Es la varianza dividida entre la media
+  CorrectAnswer: Es la raíz cuadrada de la varianza
+  AnswerTests: omnitest(correctVal='Es la raíz cuadrada de la varianza')
+  Hint: Compara el resultado de var(temperaturas) con el de sd(temperaturas). Puedes comprobarlo con sqrt(var(temperaturas)).
+
+- Class: text
+  Output: ¡Muy bien! Usaste las funciones range(), var() y sd() para medir qué tan dispersos están los datos, sin tener que aplicar las fórmulas a mano. Ahora veamos cómo estas medidas nos ayudan a comparar conjuntos de datos.
+
+#12 - 13. Cuartiles y rango intercuartílico; Diagramas de caja.-----------------
+
+- Class: text
+  Output: Los cuartiles son tres valores (Q1, Q2, Q3) que dividen un conjunto de datos ordenados en cuatro partes con la misma cantidad de observaciones. Q1 deja el 25 por ciento de los datos por debajo, Q2 es la mediana (50 por ciento), y Q3 deja el 75 por ciento de los datos por debajo.
+
+- Class: text
+  Output: Por ejemplo, estas son tus calificaciones ordenadas de menor a mayor. 6, 7, 7, 8, 8, 9, 9, 10. Q1 está cerca del inicio de la lista, Q2 está en medio y Q3 está cerca del final.
+
+- Class: text
+  Output: R nos ofrece la función quantile() para calcular automáticamente los cuartiles de un vector, este nos regresa el mínimo, Q1, la mediana, Q3 y el máximo Aprendamos a usarlo calculando las horas que un usuario paso en redes sociales durante 5 días.
+
+- Class: cmd_question
+  Output: Crea un vector llamado redes con los valores  3, 4, 5, 8, 10.
+  CorrectAnswer: redes<- c(3, 4, 5, 8, 10)
+  AnswerTests: omnitest(correctExpr='redes <- c(3, 4, 5, 8, 10)')
+  Hint: Utiliza el operador de asignación y la función c().
+  
+- Class: cmd_question
+  Output: Ahora calcula los cuartiles del vector redes con la funcion quantile().
+  CorrectAnswer: quantile(redes)
+  AnswerTests: omnitest(correctExpr='quantile(redes)')
+  Hint: Ejecuta el vector creado en la función quantile().
+  
+- Class: exact_question
+  Output: ¿Cuál es el valor de Q3 en quantile(redes)?
+  CorrectAnswer: 8
+  AnswerTests: omnitest(correctVal=8)
+  Hint: Recordemos que este es el valor del punto medio entre la mediana y el valor más alto de los datos. 
+
+- Class: text
+  Output:  Por otro lado, el rango intercuartílico (IQR) es la diferencia entre el valor del cuartil superior y el del cuartil inferior. Te dice qué tan separada está la mitad de en medio de los datos.
+
+- Class: text
+  Output: Por ejemplo, si Q1 es 4 y Q3 es 6, entonces el IQR es 6 - 4, o sea 2. Eso significa que la mitad de en medio de los datos está muy junta, casi no cambia.
+
+- Class: mult_question
+  Output: ¿Cuál fórmula nos sirve para calcular el rango intercuartílico?
+  AnswerChoices: Q3 - Q1; Q3 + Q3; el maximo - el minimo; Q2 - Q1
+  CorrectAnswer: Q3 - Q1
+  AnswerTests: omnitest(correctVal='Q3 - Q1')
+  Hint: El IQR mide la diferencia entre el valor del cuartil superior y el del cuartil inferior.
+
+- Class: text
+  Output: Sabiendo esto, pongámoslo en práctica.
+
+- Class: cmd_question
+  Output: Calcula el IQR del vector redes usando la función IQR().
+  CorrectAnswer: IQR(redes)
+  AnswerTests: omnitest(correctExpr='IQR(redes)')
+  Hint: Usa la función IQR(), pasándole el vector como argumento.
+
+- Class: text
+  Output: Bien, ya nos quedó claro el tema de IQR, ahora observemos otro apartado importante dentro de los cuartiles y el rango intercuartílico.
+  
+- Class: text
+  Output: Existe una observación llamada outlier, se encuentra significativamente alejada del resto de los datos en un conjunto de datos. Los outliers pueden distorsionar significativamente las medidas estadísticas como la media, inflándolos o desinflándolos.
+
+- Class: text
+  Output: Observa en el vector redes. Si un día hubieras pasado 20 horas en redes sociales, piensa en por qué ese dato se vería como un dato raro comparado con los demás.
+  
+- Class: mult_question
+  Output: Si un dato es más grande que todos los demás, qué podrías hacer?
+  AnswerChoices: Revisar la razón detrás de ese dato;Ignorarlo sin revisar;Borrarlo del vector
+  CorrectAnswer: Revisar la razón detrás de ese dato
+  AnswerTests: omnitest(correctVal='Revisar la razón detrás de ese dato')
+  Hint: Debemos pensar en el motivo de ese dato, no dejarlo pasar.
+
+- Class: text
+  Output: ¡Bien pensado! Los outliers son peligrosos al momento de realizar cálculos y no deben dejarse pasar.
+  
+- Class: text
+  Output: Los  diagramas de caja, o boxplots, visualizan los cuartiles y el rango intercuartílico. Los puntos fuera de los bigotes (líneas) del boxplot se consideran outliers.
+
+- Class: text
+  Output: Se dice que un valor es un valor atípico si es mayor que Q3 + 1.5 * IQR (valor atípico a la derecha), o es menor que Q1 – 1.5 * IQR (valor atípico a la izquierda).
+
+- Class: cmd_question
+  Output: Realiza un diagrama de caja del vector redes usando la funcion boxplot().
+  CorrectAnswer: boxplot(redes)
+  AnswerTests: omnitest(correctExpr='boxplot(redes)')
+  Hint: Usa la función boxplot(), pasándole como argumento el vector con el que has trabajado en este ejercicio.
+
+- Class: text
+  Output: Observa el diagrama de caja y responde.
+  
+- Class: mult_question
+  Output: En un boxplot, qué representa el tamaño de la caja de Q1 a Q3?
+  AnswerChoices: El rango intercuartílico;Desviación estándar;El valor más alto
+  CorrectAnswer: El rango intercuartílico
+  AnswerTests: omnitest(correctVal='El rango intercuartílico')
+  Hint: Piensa en qué números van de Q1 a Q3.
+
+- Class: text
+  Output: ¡Listo! Usaste las funciones quantile(), IQR(), boxplot() para aprender del tema cuartiles y rango intercuartílico dentro de R. Apliquemos lo aprendido a lo largo del curso para comparar dos conjuntos de datos.
+
+#14. Comparación descriptiva de dos conjuntos de datos.-------------------------
+
+- Class: text
+  Output: Comparar dos conjuntos de datos significa observar sus medidas de tendencia central (como la media y la mediana) y sus medidas de dispersión (como el rango y la desviación estándar). Dos conjuntos pueden tener el mismo promedio y aun así ser muy diferentes.
+
+- Class: text
+  Output: Vamos a comparar las ventas diarias, en miles de pesos, de dos tiendas durante 5 días.
+
+- Class: cmd_question
+  Output: Crea un vector llamado ventasNorte con los valores 17, 19, 20, 21 y 23.
+  CorrectAnswer: ventasNorte <- c(17, 19, 20, 21, 23)
+  AnswerTests: omnitest(correctExpr='ventasNorte <- c(17, 19, 20, 21, 23)')
+  Hint: Utiliza el operador de asignación y la función c().
+
+- Class: cmd_question
+  Output: Ahora crea un vector llamado ventasSur con los valores 10, 15, 20, 25 y 30.
+  CorrectAnswer: ventasSur <- c(10, 15, 20, 25, 30)
+  AnswerTests: omnitest(correctExpr='ventasSur <- c(10, 15, 20, 25, 30)')
+  Hint: Igual que con la tienda anterior, usa el operador de asignación y la función c().
+
+- Class: exact_question
+  Output: Calcula la media de ventasSur. ¿Cuál es el resultado?
+  CorrectAnswer: 20
+  AnswerTests: omnitest(correctVal=20)
+  Hint: Escribe el resultado como número. 
+
+- Class: text
+  Output: Si calculas también la media de ventasNorte, verás que es la misma. Con solo el promedio, las dos tiendas parecerían iguales. Veamos qué pasa con la dispersión.
+
+- Class: cmd_question
+  Output: Obtén un resumen completo de ventasNorte con la función summary().
+  CorrectAnswer: summary(ventasNorte)
+  AnswerTests: omnitest(correctExpr='summary(ventasNorte)')
+  Hint: Usa la función summary() y pásale el vector como argumento.
+
+- Class: cmd_question
+  Output: Haz lo mismo con ventasSur para poder comparar los resultados.
+  CorrectAnswer: summary(ventasSur)
+  AnswerTests: omnitest(correctExpr='summary(ventasSur)')
+  Hint: Es la misma función que usaste en el paso anterior, pero con el otro vector.
+
+- Class: exact_question
+  Output: Calcula la varianza de ventasSur con la función var(). ¿Cuál es el resultado?
+  CorrectAnswer: 62.5
+  AnswerTests: omnitest(correctVal=62.5)
+  Hint: Usa la función var() y pásale el vector ventasSur como argumento.
+
+- Class: mult_question
+  Output: Si la varianza de ventasNorte es 5 y la de ventasSur es 62.5, ¿qué tienda tiene ventas más parecidas de un día a otro?
+  AnswerChoices: La tienda Norte;La tienda Sur;Las dos por igual
+  CorrectAnswer: La tienda Norte
+  AnswerTests: omnitest(correctVal='La tienda Norte')
+  Hint: Una varianza menor indica que los datos están más cerca de su media.
+
+- Class: text
+  Output: También podemos comparar dos conjuntos de datos de forma visual. Si dibujamos los dos diagramas de caja uno junto al otro, es fácil ver cuál tiene más dispersión.
+
+- Class: cmd_question
+  Output: Realiza un diagrama de caja que muestre ventasNorte y ventasSur al mismo tiempo, usando la función boxplot().
+  CorrectAnswer: boxplot(ventasNorte, ventasSur)
+  AnswerTests: omnitest(correctExpr='boxplot(ventasNorte, ventasSur)')
+  Hint: La función boxplot() acepta varios vectores separados por comas.
+
+- Class: mult_question
+  Output: Observa los diagramas. ¿Qué caja es más alta, es decir, tiene mayor rango intercuartílico?
+  AnswerChoices: La de la tienda Norte;La de la tienda Sur;Las dos son iguales
+  CorrectAnswer: La de la tienda Sur
+  AnswerTests: omnitest(correctVal='La de la tienda Sur')
+  Hint: Una caja más alta significa que el IQR es mayor y que los datos están más dispersos.
+
+- Class: text
+  Output: ¡Excelente! Dos conjuntos con la misma media pueden ser muy distintos. Por eso, al comparar conjuntos de datos, conviene revisar siempre una medida de tendencia central junto con una de dispersión, apoyándote en funciones como mean(), summary(), var() y boxplot().
+
+#15. Aplicaciones de la estadística descriptiva en Ingeniería de Software.------
+
+- Class: text
+  Output: Para finalizar el curso, aplicarás lo aprendido realizando una actividad integradora donde se aplique la estadística descriptiva a la ingeniería de software.
+
+- Class: text
+  Output: En el desarrollo de software, la estadística descriptiva ayuda a tomar decisiones con datos, por ejemplo, para saber si una aplicación responde lo bastante rápido o qué tipo de errores se presentan más seguido. Empecemos con el rendimiento.
+
+- Class: text
+  Output: Un equipo de desarrollo midió el tiempo de respuesta, en milisegundos, de una API en 9 peticiones. Los tiempos fueron 120, 125, 128, 130, 132, 135, 138, 140 y 437.
+
+- Class: cmd_question
+  Output: Crea un vector llamado tiempos que contenga los 9 tiempos de respuesta medidos por el equipo.
+  CorrectAnswer: tiempos <- c(120, 125, 128, 130, 132, 135, 138, 140, 437)
+  AnswerTests: omnitest(correctExpr='tiempos <- c(120, 125, 128, 130, 132, 135, 138, 140, 437)')
+  Hint: Utiliza el operador de asignación y la función c(), separando los valores con comas.
+
+- Class: cmd_question
+  Output: Obtén un resumen estadístico completo de los tiempos de respuesta con una sola función.
+  CorrectAnswer: summary(tiempos)
+  AnswerTests: omnitest(correctExpr='summary(tiempos)')
+  Hint: Esta función ya la usaste para ver el mínimo, los cuartiles, la media y el máximo de un vector. Pásale el vector como argumento.
+
+- Class: exact_question
+  Output: Observa el resumen. ¿Cuál es el tiempo de respuesta promedio, es decir, la media?
+  CorrectAnswer: 165
+  AnswerTests: omnitest(correctVal=165)
+  Hint: Puedes leerlo en el resumen o calcularlo con la función mean().
+
+- Class: mult_question
+  Output: Compara la media con la mediana que aparece en el resumen. ¿Por qué la media es mucho mayor que la mediana?
+  AnswerChoices: Porque un valor extremo la está inflando; Porque la mediana está mal calculada; Porque los datos están desordenados
+  CorrectAnswer: Porque un valor extremo la está inflando
+  AnswerTests: omnitest(correctVal='Porque un valor extremo la está inflando')
+  Hint: La media toma en cuenta todos los valores, incluso los que están muy alejados del resto. Fíjate cuál es el valor máximo.
+
+- Class: text
+  Output: Para saber si ese valor realmente es un valor atípico, usamos el rango intercuartílico. Recuerda que un valor es atípico si es mayor que Q3 + 1.5 * IQR.
+
+- Class: cmd_question
+  Output: Calcula el rango intercuartílico de los tiempos de respuesta con la función correspondiente.
+  CorrectAnswer: IQR(tiempos)
+  AnswerTests: omnitest(correctExpr='IQR(tiempos)')
+  Hint: Usa la función IQR() y pásale el vector como argumento.
+
+- Class: exact_question
+  Output: En este caso Q3 es 138 y el IQR es 10. ¿Cuál es el límite superior a partir del cual un tiempo se considera atípico?
+  CorrectAnswer: 153
+  AnswerTests: omnitest(correctVal=153)
+  Hint: Aplica la regla Q3 + 1.5 * IQR con los valores que se te dieron. Puedes usar R como calculadora.
+
+- Class: cmd_question
+  Output: Confirma de forma visual la presencia del valor atípico creando un diagrama de caja de los tiempos.
+  CorrectAnswer: boxplot(tiempos)
+  AnswerTests: omnitest(correctExpr='boxplot(tiempos)')
+  Hint: Usa la función boxplot() y pásale el vector como argumento. Los puntos fuera de los bigotes son los valores atípicos.
+
+- Class: text
+  Output: Tras revisar los registros, el equipo descubrió que esa petición falló por un problema de red y no refleja el rendimiento normal de la API. Vamos a analizar los datos sin ella. En R podemos quedarnos solo con los valores que cumplen una condición escribiendo la condición entre corchetes, por ejemplo vector[vector < 200] conserva únicamente los valores menores a 200.
+
+- Class: cmd_question
+  Output: Crea un vector llamado sin_atipico que contenga solo los tiempos menores a 200 milisegundos.
+  CorrectAnswer: sin_atipico <- tiempos[tiempos < 200]
+  AnswerTests: omnitest(correctExpr='sin_atipico <- tiempos[tiempos < 200]')
+  Hint: Escribe el nombre del vector, y entre corchetes la condición que deben cumplir sus valores.
+
+- Class: cmd_question
+  Output: Calcula la media de sin_atipico.
+  CorrectAnswer: mean(sin_atipico)
+  AnswerTests: omnitest(correctExpr='mean(sin_atipico)')
+  Hint: Usa la función mean()
+
+- Class: cmd_question
+  Output:  Calcula la desviación estándar del vector tiempos.
+  CorrectAnswer: sd(tiempos)
+  AnswerTests: omnitest(correctExpr='sd(tiempos)')
+  Hint: Usa la función sd()
+
+- Class: cmd_question
+  Output:  Calcula la desviación estándar del vector sin_atipico.
+  CorrectAnswer: sd(sin_atipico)
+  AnswerTests: omnitest(correctExpr='sd(sin_atipico)')
+  Hint: Usa la función sd()
+
+- Class: mult_question
+  Output: Compara ambos valores. ¿Qué pasó con la desviación estándar al quitar el valor atípico?
+  AnswerChoices: Disminuyó mucho; Aumentó mucho; Se quedó igual
+  CorrectAnswer: Disminuyó mucho
+  AnswerTests: omnitest(correctVal='Disminuyó mucho')
+  Hint: Un solo valor muy alejado hace que los datos parezcan mucho más dispersos de lo que están en realidad.
+
+- Class: text
+  Output: Ahora analicemos otro caso. Durante un mes, el equipo registró 20 errores reportados por los usuarios, clasificados por su severidad. Hubo 12 de severidad Baja, 6 de severidad Media y 2 de severidad Alta.
+
+- Class: cmd_question
+  Output: Crea un vector llamado errores con los 20 reportes, usando rep() para cada nivel de severidad y c() para unirlos, en el orden "Baja", "Media" y "Alta".
+  CorrectAnswer: errores <- c(rep("Baja", 12), rep("Media", 6), rep("Alta", 2))
+  AnswerTests: omnitest(correctExpr='errores <- c(rep("Baja", 12), rep("Media", 6), rep("Alta", 2))')
+  Hint: Usa rep("valor", veces) para cada severidad y únelas con c(). No olvides las comillas.
+
+- Class: cmd_question
+  Output: Calcula la frecuencia relativa de cada nivel de severidad.
+  CorrectAnswer: prop.table(table(errores))
+  AnswerTests: omnitest(correctExpr='prop.table(table(errores))')
+  Hint: Recuerda que prop.table() se aplica sobre el resultado de table(), añade el vector como argumento en table().
+
+- Class: exact_question
+  Output: Observa la tabla. ¿Qué proporción de los errores es de severidad Alta?
+  CorrectAnswer: 0.1
+  AnswerTests: omnitest(correctVal=0.1)
+  Hint: Busca el valor que aparece debajo de "Alta" en la tabla de frecuencias relativas.
+
+- Class: cmd_question
+  Output: Representa la frecuencia absoluta de los errores con una gráfica de barras.
+  CorrectAnswer: barplot(table(errores))
+  AnswerTests: omnitest(correctExpr='barplot(table(errores))')
+  Hint: Aplica la función barplot() sobre la tabla de frecuencias absolutas.
+
+- Class: mult_question
+  Output: ¿Cuál es la moda de la severidad de los errores?
+  AnswerChoices: Baja; Media; Alta
+  CorrectAnswer: Baja
+  AnswerTests: omnitest(correctVal='Baja')
+  Hint: La moda es la categoría que más se repite, la de la barra más alta.
+
+- Class: text
+  Output: Con estos dos análisis, el equipo ya puede tomar decisiones. Sabe que el rendimiento normal de la API ronda los 131 milisegundos, que un fallo de red puede distorsionar el promedio y que la mayoría de los errores reportados son de severidad baja.
+
+- Class: text
+  Output: ¡Felicidades, has concluido el curso! Aprendiste a organizar, graficar y resumir datos con funciones de R como table(), summary(), mean(), sd() y boxplot(). Estas herramientas te acompañarán en cualquier análisis de datos que hagas como ingeniero de software. ¡Hasta pronto!
+
