@@ -1,7 +1,402 @@
 - Class: meta
   Course: Unidad_1
   Lesson: Leccion_2_Analisis_de_datos
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: Continuemos con la lección 2 de la Unidad 1; Análisis de datos. En esta lección continuaremos profundizando en nuestra materia de estadística, cubriendo los temas del 6 al 10 del plan de estudios.
+  
+- Class: text
+  Output: Empecemos repasando los tipos de frecuencias. 
+
+#7. Frecuencia absoluta, relativa y acumulada.----------------------------------
+
+- Class: text
+  Output: La frecuencia en estadística es el número de veces que el valor de una variable se repite. En otras palabras, indica la cantidad total de un evento o elemento que estamos midiendo con fines estadísticos. La frecuencia se divide en tres puntos, Absoluta, Relativa y Acumulativa.
+
+- Class: text
+  Output: La frecuencia absoluta es una medida estadística que nos da información acerca de la cantidad de veces que se repite un suceso al realizar un número determinado de experimentos aleatorios.
+
+- Class: cmd_question
+  Output: Para iniciar con la frecuencia absoluta, crea una lista con los siguientes números;  2, 0, 1, 0, 1, 2, 0, 3, 1, 0, 5, 1, 2, 0, 0, 1, 3, 2, 0, 1 y 0, almacénala en una variable que se llame xi
+  CorrectAnswer: xi <- c(2, 0, 1, 0, 1, 2, 0, 3, 1, 0, 5, 1, 2, 0, 0, 1, 3, 2, 0, 1, 0)
+  AnswerTests: omnitest(correctExpr = 'xi <- c(2, 0, 1, 0, 1, 2, 0, 3, 1, 0, 5, 1, 2, 0, 0, 1, 3, 2, 0, 1, 0)')
+  Hint: Utiliza el operador de la asignación y la función c()
+
+- Class: text
+  Output: Vemos que hemos creado una lista de 21 números, entre ellos se encuentran los numeros 0, 1, 2, 3 y 5 repetidos, aquí es donde se encarga la frecuencia absoluta, vamos a ver cuantas veces se repite cada número en la lista.
+    
+- Class: cmd_question
+  Output: Usa la función table() para ver la cantidad de veces que se repitieron los números y guarda esos valores en una variable llamada abs_ni
+  CorrectAnswer: abs_ni <- table(xi)
+  AnswerTests: omnitest(correctExpr = 'abs_ni <- table(xi)')
+  Hint: Guarda table(xi) en la variable abs_ni
+  
+- Class: cmd_question
+  Output: Ejecuta la variable abs_ni para ver las repeticiones de los números.
+  CorrectAnswer: abs_ni
+  AnswerTests: omnitest(correctExpr = 'abs_ni')
+  Hint: Intenta ejecutando abs_ni
+  
+- Class: mult_question
+  Output: Para finalizar esta sección observa la tabla, ¿que significa que un valor tenga  una frecuencia absoluta de 8?
+  AnswerChoices: El valor aparece 8 veces en los datos; El valor representa 8% de los datos; Hay 8 valores diferentes; El valor aparece una sola vez
+  CorrectAnswer: El valor aparece 8 veces en los datos
+  AnswerTests: omnitest(correctVal = 'El valor aparece 8 veces en los datos')
+  Hint: Proporción o porcentaje de un evento.
+
+- Class: text
+  Output: La frecuencia relativa se refiere a la proporción o el porcentaje de veces que ocurre un evento particular en relación con el total de observaciones o datos en un conjunto.
+
+- Class: cmd_question
+  Output: En concreto, la frecuencia relativa es igual a la frecuencia absoluta dividida entre el número de datos que hay en la lista. Utiliza la función length() para ver la cantidad de números que hay en la lista xi.
+  CorrectAnswer: length(xi)
+  AnswerTests: omnitest(correctExpr = 'length(xi)')
+  Hint: Añade xi como argumento dentro de la función length()
+  
+- Class: cmd_question
+  Output: Es momento de calcular la frecuencia relativa, divide la variable abs_ni que es  la frecuencia absoluta entre el tamaño de la lista usando length, todo esto almacénala en una variable llamada rel_ni.
+  CorrectAnswer: rel_ni <- abs_ni / length(xi)
+  AnswerTests: omnitest(correctExpr = 'rel_ni <- abs_ni / length(xi)')
+  Hint: Deberias probar haciendo abs_ni / length(xi) en una variable rel_ni.
+  
+- Class: cmd_question
+  Output: Ejecuta la variable rel_ni para ver la tabla de frecuencia relativa.
+  CorrectAnswer: rel_ni
+  AnswerTests: omnitest(correctExpr = 'rel_ni')
+  Hint: Intenta ejecutando rel_ni.
+  
+- Class: text
+  Output: Como se puede ver, cuando se calcula la frecuencia relativa puede que salgan muchos números decimales grandes, para simplificar esos decimales puedes usar la función round(), poniendo como primer parámetro la división y como segundo parámetro 3 para que te den valores con 3 decimales, debería quedar así; round(abs_ni / length(xi), 3).
+    
+- Class: exact_question
+  Output: Para verificar que si usando el primer método o el segundo método para calcular la frecuencia relativa, suma todos los valores que dio rel_ni, ¿Cuál es el resultado?
+  CorrectAnswer: 1.00
+  AnswerTests: omnitest(correctVal = 1.00)
+  Hint: Utiliza una calculadora para realizar este cálculo.
+    
+- Class: cmd_question
+  Output: Ejecuta la función sum() para verificar que el resultado es correcto.
+  CorrectAnswer: sum(rel_ni)
+  AnswerTests: omnitest(correctExpr = 'sum(rel_ni)')
+  Hint: Ingresa rel_ni como argumento en sum().
+  
+- Class: text
+  Output: La frecuencia acumulada es el resultado de sumar progresivamente las frecuencias de cada dato en un conjunto ordenado. Nos muestra cuántos datos hay que son menores o iguales a un valor específico.
+
+- Class: text
+  Output: Existen dos tipos de frecuencias acumuladas la frecuencia absoluta acumulada y la frecuencia relativa absoluta. Para generar la frecuencia acumulada se va utilizar la función cumsum() esto para R nos vaya sumando los datos absolutos y relativos en forma de tabla.
+    
+- Class: cmd_question
+  Output: Vamos a intentar calcular la frecuencia absoluta acumulativa, el último dato que nos debe de dar es 21 porque es la cantidad de números que hay en la lista.
+  CorrectAnswer: cumsum(abs_ni)
+  AnswerTests: omnitest(correctExpr = 'cumsum(abs_ni)')
+  Hint: Recuerda usar abs_ni en la función cumsum()
+
+- Class: cmd_question
+  Output: Ahora vamos a intentar lo mismo pero con la frecuencia relativa, recuerda que el último dato que te debe de dar es 1.00 que significa el 100%
+  CorrectAnswer: cumsum(rel_ni)
+  AnswerTests: omnitest(correctExpr = 'cumsum(rel_ni)')
+  Hint: Recuerda usar rel_ni en la función cumsum()
+  
+- Class: cmd_question
+  Output: Vamos a poner todo lo que hemos hecho en una tabla, utiliza data.frame() para organizar todo en la tabla
+  CorrectAnswer: data.frame(abs_ni, rel_ni, cumsum(abs_ni), cumsum(rel_ni))
+  AnswerTests: omnitest(correctExpr = 'data.frame(abs_ni, rel_ni, cumsum(abs_ni), cumsum(rel_ni))')
+  Hint: Recuerda usar las variables de frecuencias vistas y los metodos cumsum()
+  
+- Class: text
+  Output: En R, se pueden utilizar varias funciones útiles como por ejemplo table(), sum(), length(), cumsum() y data.frame() para calcular y organizar mejor los datos obtenidos de un conjunto, que facilitan procesos de la estadística descriptiva.
+
+#6. Tablas de distribución de frecuencias.--------------------------------------
+
+- Class: text
+  Output: Toda la información obtenida acerca de los diferentes valores o modalidades que pueda tomar una variable o atributo se puede ordenar y presentar en las denominadas tablas o distribuciones de frecuencias.
+
+- Class: text
+  Output: El tipo de variable que estés analizando determina cómo se construye la tabla de frecuencias, cada valor distinto se usa como categoría, o bien se agrupan en intervalos si la variable es cuantitativa continua. 
+
+- Class: text
+  Output: Una tabla de distribución de frecuencias organiza los datos de una variable, asignando a cada categoría o valor su frecuencia correspondiente. Está compuesta por categorías (o clases) y columnas que muestran los distintos tipos de frecuencia, absoluta, relativa y acumulada.
+
+- Class: cmd_question
+  Output: Un equipo de 20 desarrolladores usa distintos lenguajes de programación. Crea un vector llamado lenguajes con 8 "Python", 6 "JavaScript", 4 "Java" y 2 "R". Usa rep() para cada grupo y c() para unirlos.
+  CorrectAnswer: lenguajes <- c(rep("Python", 8), rep("JavaScript", 6), rep("Java", 4), rep("R", 2))
+  AnswerTests: omnitest(correctExpr='lenguajes <- c(rep("Python", 8), rep("JavaScript", 6), rep("Java", 4), rep("R", 2))')
+  Hint: Usa rep("valor", veces) para cada lenguaje y únelos todos con c().
+  
+- Class: text
+  Output: Muy bien. Utilizaremos este vector para construir nuestra tabla.
+
+- Class: cmd_question
+  Output: Calcula la tabla de frecuencia absoluta del vector lenguajes.
+  CorrectAnswer: table(lenguajes)
+  AnswerTests: omnitest(correctExpr='table(lenguajes)')
+  Hint: Usa la función table() sobre el vector.
+  
+- Class: text
+  Output: Excelente. El resultado muestra cuántos desarrolladores usan cada lenguaje — esa es la frecuencia absoluta de cada categoría.Ya tienes tu primera columna, vamos por la siguiente.
+
+- Class: cmd_question
+  Output: Calcula la frecuencia relativa de cada lenguaje usando prop.table()
+  CorrectAnswer: prop.table(table(lenguajes))
+  AnswerTests: omnitest(correctExpr='prop.table(table(lenguajes))')
+  Hint: Recuerda, prop.table() se aplica sobre el resultado de table().
+  
+- Class: text
+  Output: Observa el resultado, la frecuencia relativa te dice qué proporción del equipo usa cada lenguaje. Por ejemplo, Python representa 8/20 = 0.4, es decir, el 40% del equipo. Ya tienes tu segunda columna, veamos la tercera.
+
+- Class: cmd_question
+  Output: Perfecto, ahora hagámoslo con tu tabla. Calcula la frecuencia absoluta acumulada del vector lenguajes usando cumsum() sobre la tabla.
+  CorrectAnswer: cumsum(table(lenguajes))
+  AnswerTests: omnitest(correctExpr='cumsum(table(lenguajes))')
+  Hint: Aplica cumsum() sobre el resultado de table().
+
+- Class: text
+  Output:  Está claro. El resultado muestra, para cada lenguaje, cuántos desarrolladores en total usan ese lenguaje o uno anterior en el orden de la tabla. Por ejemplo, el valor acumulado hasta “JavaScript” incluye a todos los que usan Java o JavaScript. 
+  
+- Class: text
+  Output:  Vamos por la última columna. Se define la frecuencia relativa acumulada como el cociente entre la frecuencia absoluta acumulada y la frecuencia total. La última frecuencia relativa acumulada es igual a la unidad (o a 100 si se trabaja con porcentajes).
+
+- Class: cmd_question
+  Output: Calcula la frecuencia relativa acumulada del vector lenguajes. Utiliza cumsum() y la función que utilizaste para calcular la frecuencia relativa. 
+  CorrectAnswer: cumsum(prop.table(table(lenguajes)))
+  AnswerTests: omnitest(correctExpr='cumsum(prop.table(table(lenguajes)))')
+  Hint: Aplica cumsum() sobre el resultado de prop.table().
+
+- Class: text
+  Output: Lo haces muy bien. El resultado muestra qué porcentaje acumulado del equipo usa cada lenguaje o uno anterior en el orden de la tabla. El último valor siempre debe ser 1.0 (100%), ya que incluye a todos los desarrolladores. 
+
+- Class: text
+  Output: Ya conoces todas las columnas correspondientes a una tabla de distribución de frecuencias. Vamos a unir las cuatro columnas para que puedas visualizar tu tabla completa. 
+
+- Class: cmd_question
+  Output: Crea la tabla completa llamada tabla_frecuencias con data.frame(), con columnas Lenguaje, Absoluta, Relativa, AbsolutaAcumulada y RelativaAcumulada. Recuerda utilizar las funciones que usaste para calcular cada frecuencia.
+  CorrectAnswer: tabla_frecuencias <- data.frame(Lenguaje = names(table(lenguajes)), Absoluta = as.vector(table(lenguajes)), Relativa = as.vector(prop.table(table(lenguajes))), AbsolutaAcumulada = as.vector(cumsum(table(lenguajes))), RelativaAcumulada = as.vector(cumsum(prop.table(table(lenguajes)))))
+  AnswerTests: omnitest(correctExpr='tabla_frecuencias <- data.frame(Lenguaje = names(table(lenguajes)), Absoluta = as.vector(table(lenguajes)), Relativa = as.vector(prop.table(table(lenguajes))), AbsolutaAcumulada = as.vector(cumsum(table(lenguajes))), RelativaAcumulada = as.vector(cumsum(prop.table(table(lenguajes)))))')
+  Hint: Usa data.frame() con Lenguaje = names(table(lenguajes)) y las demás columnas envueltas en as.vector() para que no arrastren nombres de fila raros. Recuerda utilizar los nombres exactos de las columnas que se indican.
+  
+- Class: cmd_question
+  Output: Muestra la tabla completa escribiendo su nombre.
+  CorrectAnswer: tabla_frecuencias
+  AnswerTests: omnitest(correctExpr='tabla_frecuencias')
+  Hint: Solo escribe el nombre del objeto para verlo en consola.
+
+- Class: mult_question
+  Output: Observa tu tabla_frecuencias completa. Python tiene 8 de frecuencia absoluta y 0.4 de frecuencia relativa. ¿Qué interpretación es correcta?
+  AnswerChoices: Python es usado por el 40% del equipo, siendo el lenguaje más común;Python es el lenguaje menos usado del equipo;El 40% de los lenguajes analizados es Python
+  CorrectAnswer: Python es usado por el 40% del equipo, siendo el lenguaje más común
+  AnswerTests: omnitest(correctVal='Python es usado por el 40% del equipo, siendo el lenguaje más común')
+  Hint: Compara la frecuencia relativa de Python (0.4) contra las de los demás lenguajes en tu tabla, ¿cuál es la más alta?
+
+- Class: text
+  Output: Excelente, ya dominas el tema. Ya sabes como organizar datos en tablas en R. Veamos el siguiente tema; Gráficas de barras y gráficas de sectores.
+
+#8. Gráficas de barras y gráficas de sectores.----------------------------------
+
+- Class: text
+  Output: Una gráfica de barras representa cada categoría con una barra, y la altura de la barra es la frecuencia de esa categoría. Se usa para variables cualitativas o cuantitativas discretas, y sus barras van separadas entre sí.
+
+- Class: text
+  Output: Una gráfica de sectores, también llamada gráfica de pastel, es un círculo dividido en partes. El tamaño de cada sector es proporcional a la frecuencia relativa de la categoría, así que nos muestra qué parte del total representa cada una.
+
+- Class: text
+  Output: En R usaremos las funciones barplot() y pie(), que reciben directamente una tabla de frecuencias. Vamos a reutilizar el vector lenguajes del tema anterior.
+
+- Class: cmd_question
+  Output: Crea la gráfica de barras de los lenguajes del equipo, aplicando la función barplot() sobre la tabla de frecuencias absolutas de lenguajes.
+  CorrectAnswer: barplot(table(lenguajes))
+  AnswerTests: omnitest(correctExpr='barplot(table(lenguajes))')
+  Hint: Primero se calcula la tabla con table() y ese resultado se pasa a barplot().
+
+- Class: exact_question
+  Output: Observa la gráfica. Usa la función max() sobre la tabla de frecuencias de lenguajes para confirmar la altura de la barra más alta. ¿Cuál es su valor?
+  CorrectAnswer: 8
+  AnswerTests: omnitest(correctVal=8)
+  Hint: Ejecuta max(table(lenguajes)) y copia el resultado.
+
+- Class: mult_question
+  Output: ¿Qué representa la altura de cada barra en esta gráfica?
+  AnswerChoices: La frecuencia de esa categoría; El nombre de la categoría; El número total de categorías
+  CorrectAnswer: La frecuencia de esa categoría
+  AnswerTests: omnitest(correctVal='La frecuencia de esa categoría')
+  Hint: Piensa en lo que calculó la función table() que le pasaste a barplot().
+  
+- Class: cmd_question
+  Output: También podemos graficar las frecuencias relativas. Crea una gráfica de barras de lenguajes, pero esta vez con las proporciones en lugar de los conteos.
+  CorrectAnswer: barplot(prop.table(table(lenguajes)))
+  AnswerTests: omnitest(correctExpr='barplot(prop.table(table(lenguajes)))')
+  Hint: Recuerda que prop.table() se aplica sobre el resultado de table().
+
+- Class: text
+  Output: Observa que la forma de las barras es la misma, solo cambia la escala del eje vertical. Ahora veamos la misma información en una gráfica de sectores.
+
+- Class: cmd_question
+  Output: Crea la gráfica de sectores de los lenguajes del equipo con la función pie().
+  CorrectAnswer: pie(table(lenguajes))
+  AnswerTests: omnitest(correctExpr='pie(table(lenguajes))')
+  Hint: Igual que con barplot(), la función pie() recibe la tabla de frecuencias.
+
+- Class: mult_question
+  Output: Observa la gráfica de sectores. ¿Qué lenguaje tiene el sector más grande?
+  AnswerChoices: Python; JavaScript; Java; R
+  CorrectAnswer: Python
+  AnswerTests: omnitest(correctVal='Python')
+  Hint: El sector más grande es el de la categoría con mayor frecuencia, es decir, la que tiene la barra más alta en la gráfica anterior.
+
+- Class: mult_question
+  Output: ¿En qué situación conviene más una gráfica de sectores?
+  AnswerChoices: Para ver cómo se reparte un total entre pocas categorías; Para ver cómo cambia un dato a lo largo del tiempo; Para medir qué tan dispersos están los datos
+  CorrectAnswer: Para ver cómo se reparte un total entre pocas categorías
+  AnswerTests: omnitest(correctVal='Para ver cómo se reparte un total entre pocas categorías')
+  Hint: Cada sector es una parte del total, así que sirve para comparar proporciones.
+
+- Class: text
+  Output: ¡Muy bien! Usaste barplot() y pie() para convertir una tabla de frecuencias en gráficas. Estas sirven para variables cualitativas y discretas, pero cuando la variable es continua necesitamos otra herramienta, veamos el siguiente tema; Histogramas y polígonos de frecuencias.
+
+#9. Histogramas y polígonos de frecuencias.-------------------------------------
+
+- Class: text
+  Output: Un histograma representa la distribución de una variable cuantitativa continua. Los datos se agrupan en intervalos llamados clases, y la altura de cada barra es la frecuencia de su clase. A diferencia de la gráfica de barras, las barras de un histograma van pegadas, porque los intervalos son continuos.
+
+- Class: text
+  Output: El polígono de frecuencias es una línea que une los puntos medios de la parte superior de cada barra del histograma. A ese punto medio de cada clase se le llama marca de clase. Nos ayuda a ver la forma de distribución.
+
+- Class: text
+  Output: Vamos a practicar con las estaturas, en centímetros, de 20 alumnos de un grupo.
+
+- Class: cmd_question
+  Output: Crea un vector llamado estaturas con los valores 150, 152, 155, 158, 160, 161, 163, 165, 166, 167, 168, 170, 171, 172, 175, 176, 178, 180, 182 y 185.
+  CorrectAnswer: estaturas <- c(150, 152, 155, 158, 160, 161, 163, 165, 166, 167, 168, 170, 171, 172, 175, 176, 178, 180, 182, 185)
+  AnswerTests: omnitest(correctExpr='estaturas <- c(150, 152, 155, 158, 160, 161, 163, 165, 166, 167, 168, 170, 171, 172, 175, 176, 178, 180, 182, 185)')
+  Hint: Utiliza el operador de asignación y la función c().
+
+- Class: text
+  Output: En R, la función hist() construye el histograma automáticamente. Con el argumento breaks podemos indicar dónde empiezan y terminan las clases, y la función seq() nos ayuda a generar esos límites sin escribirlos uno por uno.
+
+- Class: cmd_question
+  Output: Crea el histograma de estaturas con hist(), indicando con breaks que las clases vayan de 150 a 190 de 10 en 10. Usa seq() para generar los límites.
+  CorrectAnswer: hist(estaturas, breaks = seq(150, 190, by = 10))
+  AnswerTests: omnitest(correctExpr='hist(estaturas, breaks = seq(150, 190, by = 10))')
+  Hint: La función seq() recibe el valor inicial, el valor final y el argumento by con el tamaño del salto.
+
+- Class: exact_question
+  Output: Observa el histograma. ¿Cuántos alumnos hay en la clase con la barra más alta?
+  CorrectAnswer: 7
+  AnswerTests: omnitest(correctVal=7)
+  Hint: Cuenta cuántos datos caen en cada intervalo. En R cada clase incluye su límite superior, pero no el inferior, salvo la primera.
+
+- Class: mult_question
+  Output: ¿Cuál es la principal diferencia entre un histograma y una gráfica de barras?
+  AnswerChoices: El histograma agrupa datos continuos en intervalos y sus barras van pegadas; El histograma solo sirve para variables cualitativas; Las barras del histograma representan porcentajes del total
+  CorrectAnswer: El histograma agrupa datos continuos en intervalos y sus barras van pegadas
+  AnswerTests: omnitest(correctVal='El histograma agrupa datos continuos en intervalos y sus barras van pegadas')
+  Hint: Piensa en el tipo de variable que se grafica en cada caso y en cómo se ven las barras.
+
+- Class: text
+  Output: Para dibujar el polígono de frecuencias necesitamos las marcas de clase y las frecuencias. La función hist() las calcula por nosotros, solo hay que guardar el resultado en una variable. Dentro de ella, h$mids contiene las marcas de clase y h$counts contiene las frecuencias.
+
+- Class: cmd_question
+  Output: Vuelve a crear el histograma con los mismos argumentos de antes, pero guárdalo en una variable llamada h.
+  CorrectAnswer: h <- hist(estaturas, breaks = seq(150, 190, by = 10))
+  AnswerTests: omnitest(correctExpr='h <- hist(estaturas, breaks = seq(150, 190, by = 10))')
+  Hint: Usa el operador de asignación antes de la función hist().
+
+- Class: cmd_question
+  Output: Ejecuta h$mids para ver las marcas de clase.
+  CorrectAnswer: h$mids
+  AnswerTests: omnitest(correctExpr='h$mids')
+  Hint: Ejecuta el comando.
+  
+- Class: exact_question
+  Output: ¿Cuál es la marca de clase de la primera clase, la que va de 150 a 160?
+  CorrectAnswer: 155
+  AnswerTests: omnitest(correctVal=155)
+  Hint: La marca de clase es el punto medio del intervalo. Copia el primer valor de h$mids.
+
+- Class: cmd_question
+  Output: Dibuja el polígono sobre el histograma con la función lines(), usando h$mids para el eje horizontal y h$counts para el vertical y el argumento type = "b" para unir los puntos con líneas.
+  CorrectAnswer: lines(h$mids, h$counts, type = "b")
+  AnswerTests: omnitest(correctExpr='lines(h$mids, h$counts, type = "b")')
+  Hint: La función lines() recibe primero los valores de x, después los de y, y al final el argumento type.
+
+- Class: mult_question
+  Output: ¿Qué puntos une el polígono de frecuencias?
+  AnswerChoices: Los puntos medios de la parte superior de cada barra; Las esquinas izquierdas de cada barra; El punto más alto y el más bajo del histograma
+  CorrectAnswer: Los puntos medios de la parte superior de cada barra
+  AnswerTests: omnitest(correctVal='Los puntos medios de la parte superior de cada barra')
+  Hint: Observa dónde quedaron los puntos que dibujó lines() sobre las barras.
+
+- Class: text
+  Output: ¡Excelente! Con hist(), seq() y lines() pasaste de una lista de datos a una imagen de cómo se distribuyen. Para terminar la lección, recordemos las medidas que resumen un conjunto de datos en un solo número; Media, mediana y moda.
+
+#10. Media, mediana y moda.-----------------------------------------------------
+
+- Class: text
+  Output: Recordemos que la media, mediana y moda son medidas de tendencia central que sirven para resumir un conjunto de datos en un solo número. Veamos si las recuerdas.
+
+- Class: mult_question
+  Output: ¿Cuál definición representa mejor a la media aritmética?
+  AnswerChoices: Se obtiene sumando todos los valores de un conjunto de datos y luego dividiendo el resultado entre la cantidad total de valores;Es la dispersión de los datos;Representa el rango de los datos;
+  CorrectAnswer: Se obtiene sumando todos los valores de un conjunto de datos y luego dividiendo el resultado entre la cantidad total de valores
+  AnswerTests: omnitest(correctVal='Se obtiene sumando todos los valores de un conjunto de datos y luego dividiendo el resultado entre la cantidad total de valores')
+  Hint: La media proporciona una cifra que representa el valor central de un conjunto de datos.
+
+- Class: mult_question
+  Output: La mediana, a diferencia de la media, puede verse afectada por los valores extremos en un conjunto de datos escrito en orden ascendente. Entre estas opciones, ¿qué describe mejor a la mediana?
+  AnswerChoices: Es el valor que divide el conjunto en dos partes iguales, la mitad superior y la mitad inferior;El valor promedio de la población;El valor más frecuente de la población
+  CorrectAnswer: Es el valor que divide el conjunto en dos partes iguales, la mitad superior y la mitad inferior
+  AnswerTests: omnitest(correctVal='Es el valor que divide el conjunto en dos partes iguales, la mitad superior y la mitad inferior')
+  Hint: Analiza bien el concepto de mediana.
+  
+- Class: text
+  Output: Recordemos que si el conjunto tiene un número impar de observaciones, la mediana es el valor del medio. Si el número es par, se calcula como el promedio de los dos valores centrales.
+
+- Class: mult_question
+  Output: ¿Cómo se calcula la moda?
+  AnswerChoices: Se toma el valor del centro directamente;Se suman todos los datos y se dividen entre dos;Se saca el promedio de los dos valores centrales;Se elige el número mayor del conjunto;Se escoge el dato más frecuente, es decir, el que más se repite en el conjunto
+  CorrectAnswer: Se escoge el dato más frecuente, es decir, el que más se repite en el conjunto
+  AnswerTests: omnitest(correctVal='Se escoge el dato más frecuente, es decir, el que más se repite en el conjunto')
+  Hint: A diferencia de la media y la mediana, esta no requiere cálculos complejos.
+
+- Class: text
+  Output: La moda es una medida estadística que señala el valor que ocurre con mayor frecuencia en un conjunto de datos. Si varios valores tienen la misma frecuencia máxima y esta es superior a la de otros valores, el conjunto es multimodal y se consideran todas las modas. Si no hay valores repetidos, se dice que no hay moda.
+
+- Class: text
+  Output: Veamos cómo se calcula la media aritmética y la mediana en R a través de funciones.
+
+- Class: text
+  Output: Imagina que estás analizando el número de ventas realizadas por un grupo de vendedores en una semana. Los datos de ventas son los siguientes; 12, 15, 10, 18 y 14. 
+
+- Class: cmd_question
+  Output: Declara un vector dentro de una variable llamada "ventas", incluye los datos de antes.
+  CorrectAnswer: ventas <- c(12, 15, 10, 18, 14)
+  AnswerTests: omnitest(correctExpr='ventas <- c(12, 15, 10, 18, 14)')
+  Hint: Utiliza el operador de asignación y la función c().
+
+- Class: cmd_question
+  Output: Para calcular la media aritmética de un vector podemos utilizar la función mean(). Intenta escribir la función con la variable dentro. 
+  CorrectAnswer: mean(ventas)
+  AnswerTests: omnitest(correctExpr='mean(ventas)')
+  Hint: ¿Recuerdas el nombre bajo el que guardaste el vector?
+
+- Class: cmd_question
+  Output: Para calcular la mediana de un vector podemos utilizar la función median(). Usa la función para obtener la mediana de ventas.. 
+  CorrectAnswer: median(ventas)
+  AnswerTests: omnitest(correctExpr='median(ventas)')
+  Hint: El nombre del vector se escribe dentro del paréntesis.
+  
+- Class: text
+  Output: Ahora reconoces la diferencia entre las medidas de tendencia central, además, obtuviste conocimientos sobre qué funciones ayudan a realizar estos cálculos en la menor cantidad de pasos posibles.
+
+- Class: text
+  Output: Antes de terminar, repasemos algunas de las funciones de R que usaste en esta lección. table() cuenta las frecuencias absolutas, prop.table() calcula las relativas y cumsum() las acumula. Con data.frame() reuniste todo en una tabla de distribución de frecuencias.
+
+- Class: text
+  Output: Para visualizar los datos usaste barplot() y pie() con variables cualitativas, y hist() junto con lines() para construir histogramas y polígonos de frecuencias. Por último, mean() y median() te dieron la media y la mediana de un conjunto de datos sin necesidad de aplicar las fórmulas a mano.
+
+- Class: text
+  Output: ¡Felicidades, has concluido 2/3 lecciones de este curso! Ya sabes organizar, graficar y resumir datos con unas cuantas funciones. Nos vemos en la última lección de la unidad 1, ¡hasta pronto!
