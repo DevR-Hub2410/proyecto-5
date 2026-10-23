@@ -1,4 +1,16 @@
-# Code placed in this file fill be executed every time the
-      # lesson is started. Any variables created here will show up in
-      # the user's working directory and thus be accessible to them
-      # throughout the lesson.
+xi <- c(1, 0, 3, 1, 0, 0, 3, 3, 3, 3, 0, 1, 1, 1, 1, 2, 2, 0, 1)
+
+abs_ni <- table(xi)
+
+rel_ni <- abs_ni / length(xi)
+
+abs_acum <- cumsum(abs_ni)
+
+rel_acum <- cumsum(rel_ni)
+
+data.frame(
+  abs_ni,
+  rel_ni,
+  abs_acum,
+  rel_acum
+)
