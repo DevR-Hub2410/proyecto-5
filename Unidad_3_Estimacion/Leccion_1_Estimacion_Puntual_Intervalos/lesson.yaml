@@ -1,0 +1,46 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Leccion_1_Estimacion_Puntual_Intervalos
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autonoma de Ciudad Juarez
+  Version: 2.4.5
+  
+#===============================================================
+# Objetivo
+#===============================================================
+
+- Class: text
+  Output: En esta lección aprenderás a diferenciar entre población y muestra, y entre parámetro y estimador. También usarás R para calcular estimaciones puntuales e intervalos de confianza para medias y proporciones. 
+  
+- Class: text
+  Output: Además, practicarás cómo interpretar corretamente estos resultados en situaciones de ingeniería de software. 
+  
+#===============================================================
+# Población y muestra
+#===============================================================
+
+- Class: text
+  Output: Antes de estimar, recordemos dos conceptos que ya viste en la unidad de Muestreo. La población es el conjunto completo de elementos que queremos estudiar. Una muestra es un subconjunto de esa población, sellecionado para obtener información sobre ella (Toledo Díaz de León, s. f.). 
+  
+- Class: text
+  Output: En un muestreo aleatorio simple, todos los elementos de la población tienen la misma probabilidad de ser elegidos. Eso ayuda a que la muestra represente a la población. 
+  
+- Class: text
+  Output: Veamos un ejemplo. Una empresa de desarrollo de software encuestó a 1000 programadores para saber si son frontend o backend. Para agilizar el análisis, solo se tomaron los datos de 300 de ellos. 
+  
+- Class: exact_question
+  Output: En este ejemplo, ¿qué número representa la muestra?
+  CorrectAnswer: 300
+  AnswerTests: omnitest(correctVal = 300)
+  Hint: La muestra es el subconjunto de la población que se selecciona para el análisis. 
+  
+- Class: cmd_question 
+  Output: Simulemos esa selección en R. Numera a los programadores del 1 al 1000. Usa sample() para elegir 300 números al azar y guárdalos en la variable muestra. 
+  CorrectAnswer: muestra <- sample(1:1000, 300)
+  AnswerTests: test_muestra_aleatoria()
+  Hint: sample() recibe primero los números entre los que se elige, 1:1000, y después cuántos elegir. Guarda el resultado con <-.
+  
+- Class: text
+  Output: Si ejecutas sample() otra vez, obtendrás números distintos, porque la selección es aleatoria. Por eso dos muestras de la misma población casi nunca son iguales. 
+  
