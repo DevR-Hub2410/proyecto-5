@@ -1,7 +1,133 @@
 - Class: meta
   Course: Estadistica
   Lesson: Introduccion_al_muestreo
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: Bienvenido a la primera lección de Muestreo. Antes de aprender los distintos métodos de muestreo, necesitas entender por qué usamos muestras y los términos básicos que vas a usar a lo largo de este curso
+
+- Class: text
+  Output: Al terminar esta lección vas a poder diferenciar población de muestra, entender por qué se usa el muestreo en vez de usar a toda la población, y conocer los métodos de muestreo que se usarán en las siguientes lecciones.
+
+- Class: text
+  Output: Una muestra, es conocida como el subconjunto del universo o una parte representativa de la población, se apoya del muestreo como herramienta de la investigación científica que tiene como principal propósito determinar la parte de la población que se debe estudiar. #(Hernández-Ávila, C. E., y Escobar, N. A. C. (2019)).
+
+- Class: text
+  Output: Es necesario conocer y evitar el error de muestreo. Esto es hacer conclusiones muy generales a partir de la observación de solo una parte de la población y el error de inferencia en el que se hacen conclusiones hacia una población mucho más grande de la que originalmente se tomó la muestra. #(Hernández-Ávila, C. E., y Escobar, N. A. C. (2019)).
+
+- Class: text
+  Output: Por ejemplo, una empresa de software tiene 2 millones de usuarios en todo el mundo y quiere saber que tan satisfechos están con la app. Le pregunta a 50 usuarios, todos de la misma ciudad. Si después concluye que así opinan los 2 millones de usuarios en mundo, está cometiendo un error de inferencia, porque está generalizando mucho más allá de la población que realmente muestreó.
+
+- Class: text
+  Output: Ya tienes lista una población simulada para trabajar. Se llama usuarios, la cual fue creada automáticamente antes de comenzar esta lección.
+
+- Class: cmd_question
+  Output: Escribe head(usuarios) para ver las primeras filas de la población de usuarios.
+  CorrectAnswer: head(usuarios)
+  AnswerTests: omnitest(correctExpr='head(usuarios)')
+  Hint: Usa la función head() y pon dentro la lista de población creada.
+
+- Class: text
+  Output: Cada fila de usuarios representa una persona distinta que uso la app. La columna dispositivo dice en que aparato la usó, y tiempo_respuesta dice cuántos segundos tardó la app en responder.
+
+- Class: cmd_question
+  Output: Averigua cuantos usuarios tiene la población completa usando nrow(usuarios).
+  CorrectAnswer: nrow(usuarios)
+  AnswerTests: omnitest(correctExpr='nrow(usuarios)')
+  Hint: nrow() te dice cuantas filas, o sea cuantos usuarios, tiene tu data frame.
+  
+
+- Class: mult_question
+  Output: Si usuarios representa a los 200 usuarios que usó la app, y tomas solo 30 de ellos para analizar, esos 30 forman...
+  AnswerChoices: Una muestra;Una población;Un censo;Un parámetro
+  CorrectAnswer: Una muestra
+  AnswerTests: omnitest(correctVal='Una muestra')
+  Hint: Recuerda cuál es el subconjunto que seleccionas de la población completa.
+
+- Class: text
+  Output: El objetivo de la investigación por muestreo es estimar una función de interés, llamada parámetro, de la característica de interés en la población. Los parámetros se deben estimar para resolver el objetivo principal de la investigación. Cuando calculas ese mismo tipo de numero pero usando solo una muestra, se llama estadístico. #(Gutiérrez, H. A. (2016)).
+
+- Class: cmd_question
+  Output: Calcula el parámetro real, el promedio de tiempo_respuesta de toda la población usuarios, usando mean(usuarios$tiempo_respuesta).
+  CorrectAnswer: mean(usuarios$tiempo_respuesta)
+  AnswerTests: omnitest(correctExpr='mean(usuarios$tiempo_respuesta)')
+  Hint: Usa el símbolo $ para acceder a la columna tiempo_respuesta dentro de usuarios, y calcula su media.
+
+- Class: text
+  Output: Por ejemplo, si de tus 200 usuarios seleccionas una muestra pero solo de usuarios de Laptop, esa muestra no sería representativa, porque estás dejando fuera a los usuarios de Celular y Tablet, que podrían tener tiempos de respuesta distintos.
+  
+- Class: mult_question
+  Output: Cuál de estas muestras sería menos representativa de la población?
+  AnswerChoices: Una que solo incluya usuarios de un mismo dispositivo;Una que incluya una mezcla de los tres dispositivos;Una seleccionada al azar de toda la poblacion;
+  CorrectAnswer: Una que solo incluya usuarios de un mismo dispositivo
+  AnswerTests: omnitest(correctVal='Una que solo incluya usuarios de un mismo dispositivo')
+  Hint: Piensa en qué estarías dejando fuera si solo usas un tipo de dispositivo.
+
+- Class: text
+  Output: Un elemento también importante del muestreo es la identificación de la unidad de análisis, es decir, el investigador antes de construir una muestra requiere indicar con claridad cuál será el elemento de análisis específico. #(García, E. A. (2018)).
+
+- Class: text
+  Output: En nuestro caso, la unidad de análisis es cada usuario individual, no cada vez que abre la app. 
+
+- Class: cmd_question
+  Output: Usa la función sample() para tomar 10 identificadores al azar de la columna id de usuarios. Escribe sample(usuarios$id, 10).
+  CorrectAnswer: sample(usuarios$id, 10)
+  AnswerTests: omnitest(correctExpr='sample(usuarios$id, 10)')
+  Hint: sample() necesita el vector del que quieres tomar valores, y cuantos valores quieres tomar.
+
+- Class: text
+  Output: Actividad de interpretación. Acabas de tomar una muestra de 10 ids al azar. Piensa, si corrieras ese mismo comando otra vez, obtendrías exactamente los mismos 10 numeros? Por que en esta lección si obtienes siempre los mismos resultados cada vez que abres la practica?
+
+- Class: text
+  Output: El comando set.seed() se ejecutó automáticamente antes de que empezaras, éste fija el punto de partida de los numeros aleatorios que se generan. Sin el, cada que alguien corriera tu lección obtendría una muestra distinta.
+
+- Class: mult_question
+  Output: Para que sirve usar set.seed() antes de una muestra aleatoria?
+  AnswerChoices: Para obtener una muestra distinta cada vez; Para que fije el punto de partida; Para calcular la media automaticamente
+  CorrectAnswer: Para que fije el punto de partida
+  AnswerTests: omnitest(correctVal='Para que fije el punto de partida')
+  Hint: Piensa en qué pasaría si dos personas corrieran tu lección sin set.seed().
+
+- Class: text
+  Output: Actividad de aplicación. Imagina que quieres saber si los usuarios de Tablet tardan más en recibir respuesta de la app que el resto. Explica qué necesitarías comparar para responder esta pregunta, usando lo que sabes hasta ahora de población, muestra y parámetro.
+
+- Class: text
+  Output: Para responder esto, primero necesitas quedarte solo con los usuarios de Tablet. En R, puedes usar corchetes después de un vector para quedarte solo con los valores que cumplen una condición.
+
+- Class: text
+  Output: Sabiendo esto, pongámoslo en práctica.
+
+- Class: cmd_question
+  Output: Crea un vector llamado tablet, que contenga tiempo_respuesta de los usuarios de Tablet. Escribe tablet <- usuarios$tiempo_respuesta[usuarios$dispositivo == "Tablet"].
+  CorrectAnswer: tablet <- usuarios$tiempo_respuesta[usuarios$dispositivo == "Tablet"]
+  AnswerTests: omnitest(correctExpr='tablet <- usuarios$tiempo_respuesta[usuarios$dispositivo == "Tablet"]')
+  Hint: Todo lo que pongas dentro de los corchetes es la condición que deben cumplir los datos que quieres conservar.
+
+- Class: cmd_question
+  Output: Para terminar, calcula el promedio del vector tablet que acabas de crear con la función mean().
+  CorrectAnswer: mean(tablet)
+  AnswerTests: omnitest(correctExpr='mean(tablet)')
+  Hint: Ya tienes el vector filtrado guardado, solo falta sacarle la media con mean().
+
+- Class: text
+  Output: Muy bien!, Has concluido la práctica de introducción al muestreo con éxito. Ya tienes las bases para entender por que existen tantos métodos de muestreo distintos, y para que sirve cada uno.
+
+- Class: text
+  Output: En esta lección aprendiste que una población es el conjunto completo de elementos, y una muestra es un subconjunto de ella. Viste el error de muestreo y la unidad análisis. También conociste la función de set.seed(). 
+
+- Class: text
+  Output: Gracias por completar esta lección. En las siguientes lecciones vas a aprender los distintos métodos de muestreo 
+
+#===================================================================================================================
+#                                                   REFERENCIAS
+#===================================================================================================================
+
+# García, E. A. (2018). Muestreo en la investigación científico-social. Unidades de Apoyo para el Aprendizaje. CUAED/Facultad de Contaduría y Administración-UNAM. Consultado el (fecha) de (vínculo) https://repositorio-uapa.cuaed.unam.mx/repositorio/moodle/pluginfile.php/1390/mod_resource/content/1/contenido/index.html
+
+# Gutiérrez, H. A. (2016). Estrategias de muestreo. Diseño de encuestas y Estimación de parámetros. Segunda ed. Bogotá: Ediciones de la U. https://www.academia.edu/download/65621238/Estrategias_de_muestreo_diseno_Andres_Gutierrez_Rojas.pdf
+
+# Hernández-Ávila, C. E., & Escobar, N. A. C. (2019). Introducción a los tipos de muestreo. Alerta, Revista científica del Instituto Nacional de Salud, 2(1), 75-79. https://camjol.info/index.php/alerta/article/download/7535/7746
+
