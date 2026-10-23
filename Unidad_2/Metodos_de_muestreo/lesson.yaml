@@ -1,0 +1,698 @@
+- Class: meta
+  Course: Estadistica
+  Lesson: Metodos_de_muestreo
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: UACJ
+  Version: 2.4.5
+
+- Class: text
+  Output: Bienvenidos a esta lección, donde conocerás los diferentes tipos de muestreo y cómo aplicarlos. A lo largo de la lección hablaremos sobre el muestreo aleatorio simple, el muestreo sistemático, el muestreo estratificado, el muestreo por conglomerados y el muestreo por conveniencia. Al finalizar esta lección, seráS capaz de identificar, diferenciar y aplicar los principales tipos de muestreo, seleccionando el más adecuado según las características de la población y los objetivos de la investigación. Comencemos...
+  
+#=================================================================================================================
+#                                             MUESTREO ALEATORIO SIMPLE
+#=================================================================================================================
+
+- Class: text
+  Output: Muestreo aleatorio simple...
+  
+- Class: text
+  Output: Es solo uno de los varios tipos de muestreo que existen, trata de sacar individuos al azar de una lista, mejor conocido como el marco de la encuesta y todos los datos de la población tienen la misma probabilidad de ser seleccionados para ser parte de la muestra. #(Ana L, Carrilo, 2015, [16]) y (Casal & Mateu, 2003, p. 5).
+  
+- Class: text
+  Output: Un ejemplo sencillo de este tipo de muestreo, sería en un salón de clases, donde ocupan a 3 personas que participen en un concurso de cuentos, entonces deciden hacer una ruleta que contenga los nombres de los 30 alumnos del salón, al girar la ruleta tres veces nombran a 3 personas, las cuales deberán participar en dicho concurso. Este es un ejemplo claro, ya que la población serían los 30 alumnos, todos tienen la misma probabilidad de ser seleccionados y fueron seleccionados de forma aleatoria. 
+  
+- Class: mult_question
+  Output: Del ejemplo anterior, ¿qué probabilidad había de que un alumno fuera seleccionado en el primer giro?
+  AnswerChoices:  1/30; 30/1; 1/3; 0.5%
+  CorrectAnswer: 1/30
+  AnswerTests: omnitest( correctVal ='1/30')
+  Hint: Recuerda el total de alumnos que hay en el salón y cuántas veces aparece su nombre en la ruleta... 
+
+- Class: text
+  Output: ¡Excelente! Tu respuesta es correcta y es más sencillo de lo que parece, es 1/30 ya que 30 es el total de alumnos y 1 es el número de veces que aparece el nombre de cada alumno en la ruleta.
+  
+- Class: text
+  Output: En este ejemplo se seleccionó la muestra mediante una ruleta, pero aquí en Rstudio podemos seleccionarla más sencillo mediante la función sample(). Vamos a practicar un poco....
+
+- Class: cmd_question
+  Output: Ahora escribe sample(1:30, 3), este comando te mostrará 3 elementos de forma aleatoria del 1 al 30, Pruébalo... 
+  CorrectAnswer: sample(1:30, 3)
+  AnswerTests: omnitest(correctExpr='sample(1:30, 3)')
+  Hint: Escribe el comando señalado de forma idéntica.
+  
+- Class: text
+  Output: ¡Excelente! Ahora que conoces cómo funciona, contesta lo siguiente... 
+  
+- Class: mult_question
+  Output: Si tú y tu compañero ejecutan la misma función en diferentes computadoras, ¿qué valores crees que les daría?
+  AnswerChoices: Los mismos 3 elementos porque es la misma función; Darían diferentes números mientras estén dentro del rango
+  CorrectAnswer: Darían diferentes números mientras estén dentro del rango
+  AnswerTests: omnitest( correctVal ='Darían diferentes números mientras estén dentro del rango')
+  Hint: Recuerda que dicha función toma valores ALEATORIOS. 
+  
+- Class: text
+  Output: ¡Muy bien! Puede que sea un poco confuso porque es algo nuevo, pero te lo explico de forma sencilla. Da diferentes valores porque la función está hecha para arrojar datos aleatorios según el rango que le demos. Aunque tú ejecutes esa función en tu computadora te va a arrojar valores distintos todo el tiempo.
+  
+- Class: text
+  Output: También es importante mencionar que el ejemplo anterior aplica el muestreo sin reemplazo. Diferenciar el muestreo sin reemplazo del muestreo con reemplazo es más sencillo de lo que piensas. Un muestreo sin reemplazo es aquel que no permite repetir ningún elemento ya seleccionado, mientras que el muestreo con reemplazo sí permite que un mismo elemento sea seleccionado más de una vez.
+#(Ana L, Carrilo, 2015, [15]) 
+
+- Class: text
+  Output: En el caso de necesitar hacer un muestreo con reemplazo también podemos usar nuestra función, simplemente podemos agregarle replace = TRUE.
+  
+- Class: cmd_question
+  Output: Prueba con este rango de números 1:6, que representan la cantidad de caras que tiene un dado y haz que te muestre 10 datos, lo que representa los tiros. Guárdalo en una variable llamada dados.
+  CorrectAnswer: dados <- sample(1:6, 10, replace = TRUE)
+  AnswerTests: omnitest(correctExpr='dados <- sample(1:6, 10, replace = TRUE)')
+  Hint: Recuerda agregar el replace = TRUE después del número de tiros. 
+  
+- Class: cmd_question
+  Output: Escribe el nombre de tu variable.
+  CorrectAnswer: dados
+  AnswerTests: omnitest(correctExpr='dados')
+  Hint: Escribe correctamente el nombre de tu variable.
+  
+- Class: text
+  Output: ¡Excelente! Ahora ya sabes cómo aplicar el muestreo aleatorio simple, con y sin reemplazo mediante una función en RStudio. Contesta lo siguiente... 
+  
+- Class: mult_question
+  Output: En una urna hay 5 pelotas de colores y sacamos 3, pero cada vez que sacamos una vemos el color y volvemos a introducir la pelota en la urna para poder sacar nuestra segunda pelota. Esto es un ejemplo de...
+  AnswerChoices: Muestreo sin reemplazo; Muestreo con reemplazo
+  CorrectAnswer: Muestreo con reemplazo
+  AnswerTests: omnitest( correctVal ='Muestreo con reemplazo')
+  Hint: Lee de nuevo la breve definición y vuelve a intentarlo...
+  
+- Class: text
+  Output: ¡Excelente! Es un muestreo con reemplazo, ya que al momento de sacar la pelotita y querer volver a sacar otra podemos volver a introducirla en la urna. Sigamos...
+  
+- Class: text
+  Output: |
+      Para poder aplicar un muestreo aleatorio simple, se deben cumplir ciertas condiciones. Vamos averlas paso a paso... #(Toledo Díaz de León, s.f , [30-33]).
+  
+      Paso 1. Definimos nuestra población (Población finita).
+         
+      Paso 2. Se elabora un marco muestral, lista de los datos.
+         
+      Paso 3. Se numeran todos los elementos de la lista.
+         
+      Paso 4. Por último, tomamos al azar una cantidad de datos, dándole a cada elemento la misma probabilidad de ser elegido y esta será nuestra muestra.
+
+- Class: text
+  Output: Ejemplo sencillo, una empresa quiere hacer una encuesta de satisfacción laboral, toma una población de 200 empleados (población finita), los enumera (marco muestral) y selecciona 20 empleados (muestra) de forma aleatoria mediante su número de seguro social, por último les aplica la encuesta a los seleccionados. Analiza lo siguiente...
+  
+- Class: text
+  Output: Un investigador intenta hacer un estudio sobre la vida marina, comienza a hacer su marco muestral, pero al pasar de los meses no logra terminarlo...
+  
+- Class: mult_question
+  Output: Analizando esta situación, ¿se va a poder aplicar el muestreo aleatorio simple?
+  AnswerChoices: Sí, cuando termine su listado; No, porque aunque su población es finita, es casi imposible de enumerarla por completo
+  CorrectAnswer: No, porque aunque su población es finita, es casi imposible de enumerarla por completo
+  AnswerTests: omnitest( correctVal ='No, porque aunque su población es finita, es casi imposible de enumerarla por completo')
+  Hint: Recuerda las condiciones de este tipo de muestreo.
+  
+- Class: text
+  Output: ¡Excelente! Aunque la vida marina sea una población finita, es muy complicado hacer un marco muestral, ya que no sabemos con exactitud cuántos peces mueren o nacen al día, por lo que es casi imposible contarlos y por ello no se puede aplicar un muestreo aleatorio simple. Conociendo esto, no todo puede ser perfecto, este tipo de muestreo tiene sus ventajas y limitaciones, vamos a conocerlas...
+
+- Class: text
+  Output: Tiene como ventajas su facilidad de uso y su simplicidad al momento de la comprensión de los resultados, al igual que cada elemento de la población tiene la misma probabilidad de ser seleccionado. También tiene varias limitaciones, como por ejemplo, cuando una población es demasiado grande y normalmente no se puede tener un listado de los datos, por lo que no se puede aplicar este tipo de muestreo, al igual que el tener un pequeño número de datos si aplicamos este tipo de muestreo, pueden aparecer errores aleatorios. #(Canal Díaz, 2006, p. 123).
+
+- Class: mult_question
+  Output: El muestreo aleatorio simple se puede usar cuando la población es enorme y no hay un listado de los datos.
+  AnswerChoices:  V; F
+  CorrectAnswer: F
+  AnswerTests: omnitest( correctVal ='F')
+  Hint: Recuerda las limitaciones de dicho tipo de muestreo...
+  
+- Class: text
+  Output: ¡Excelente! Reconociste y aprendiste las limitaciones de este tipo de muestreo.
+  
+- Class: text
+  Output: Ahora conociendo todo esto, vamos a resolver un pequeño ejercicio...
+  
+- Class: text
+  Output: En el centro de la ciudad se abrió una pequeña librería, tan pequeña que solo tiene 94 libros, quieren tomar una muestra de 20 libros para saber el estado en el que se encuentran...
+  
+- Class: cmd_question
+  Output: Primero crea un vector llamado libros, con el rango 1:94.
+  CorrectAnswer: libros <- 1:94
+  AnswerTests: omnitest(correctExpr='libros <- 1:94')
+  Hint: Recuerda que para crear un vector se usa el símbolo <-
+  
+- Class: text
+  Output: ¡Muy bien! Ahora todos los libros se encuentran en una lista, sencillo ¿no?... 
+  
+- Class: cmd_question
+  Output: Ahora, seleccionaremos los 20 libros que van a ser nuestra muestra, todo esto de manera aleatoria. Guarda los datos en un vector llamado muestra_libros. Usa el muestreo sin reemplazo.
+  
+  CorrectAnswer: muestra_libros <- sample(libros, 20)
+  AnswerTests: omnitest(correctExpr='muestra_libros <- sample(libros, 20)')
+  Hint: Recuerda que ahora en vez de usar el rango, debemos usar el nombre de nuestro vector "libros".
+  
+- Class: text
+  Output: ¡Excelente! Sonaba muy complicado pero ya creaste tu marco muestral y seleccionaste tu muestra, es más sencillo de lo que parece...
+  
+- Class: cmd_question
+  Output: Por último, solamente escribe el nombre del vector de la muestra para ver los elementos seleccionados.
+  CorrectAnswer: muestra_libros
+  AnswerTests: omnitest(correctExpr='muestra_libros')
+  Hint: Escribe el nombre del vector sin errores. 
+  
+- Class: text
+  Output: Has llegado al final de la primera lección. Vamos a hacer una pequeña recopilación de lo aprendido, conocimos qué es el muestreo aleatorio simple, con y sin reemplazo, las condiciones o pasos que debemos seguir para aplicarlo, sus ventajas y limitaciones. También aprendiste a seleccionar una muestra mediante la función sample(). Recuerda que este muestreo solo aplica para poblaciones finitas, es importante saberlo al momento de elegir qué tipo de muestreo usar en cada situación.
+  
+- Class: text
+  Output: ¡Felicidades, has acompletado 1/6 de la lección! Ahora, ¿listo para conocer el siguiente tipo de muestreo?...
+  
+#=================================================================================================================
+#                                             MUESTREO SISTEMÁTICO
+#=================================================================================================================
+
+- Class: text
+  Output: Muestreo sistemático...
+
+- Class: text
+  Output: En esta parte del curso haremos uso de operadores para la aplicación de fórmulas y de funciones de muestreo. Al final de esta sección comprenderás cuándo y cómo aplicar el muestreo sistemático.
+  
+- Class: text
+  Output: El muestreo sistemático consiste en seleccionar cada k-ésimo elemento de una lista poblacional tras elegir aleatoriamente el primero. La letra k es la razón de muestreo, esto es, la razón del tamaño de la población correspondiente al tamaño de la muestra. #(Velázquez, 2017)
+
+- Class: text
+  Output: Los pasos para aplicarlo son; 1. Definir la población. 2. Determinar el tamaño de la muestra. 3. Calcular el intervalo de muestreo. Hacer uso de la fórmula, k = N/n.
+  
+- Class: mult_question
+  Output: Antes de continuar con los pasos. En la fórmula para calcular el intervalo del muestreo k = N/n, ¿qué representan la N mayúscula y la n minúscula en la operación?
+  AnswerChoices: Tamaño de la población (N), y tamaño de muestra (n);Tamaño de la población (n), y tamaño de muestra (N);Tamaño del intervalo (N), y tamaño de muestra (n)
+  CorrectAnswer: Tamaño de la población (N), y tamaño de muestra (n)
+  AnswerTests: omnitest(correctVal='Tamaño de la población (N), y tamaño de muestra (n)')
+  Hint: Relaciona, ¿que es más grande, población o muestra?, ¿cómo lo representamos de forma visual?
+  
+- Class: text
+  Output: Después de calcular el intervalo de muestreo (k), al dividir el tamaño de la población (N) por el tamaño de la muestra(n), donde k = N/n, debemos continuar con los siguientes pasos; 4. Elegir un punto de partida. Seleccione aleatoriamente un punto de partida entre 1 y k para iniciar el proceso de muestreo sistemático. 5. Seleccionar elementos de muestra. Proceda a seleccionar cada k-ésimo elemento de la lista de población, comenzando desde el punto de partida elegido aleatoriamente. #(Benítez, 1998)
+  
+- Class: text
+  Output: Retomando el paso 4, seleccionar el punto de partida establece el punto de referencia inicial para seleccionar los elementos de la muestra. La elección del punto de partida puede influir en la representatividad y la aleatoriedad de la muestra, afectando así la validez y la fiabilidad de los resultados del estudio.
+  
+- Class: text
+  Output: Por ejemplo, un supermercado quiere evaluar la satisfacción de sus clientes y decide encuestar a 100 personas de las aproximadamente 2,000 que visitan la tienda en un día. Apliquemos el método.
+
+- Class: text
+  Output: Primero definimos el tamaño de la población (N) = 2000 clientes esperados ese día. Luego, el tamaño de la muestra (n) = 100 clientes. Calculamos el intervalo de muestreo (k) = 2000/100 = 20. Escogemos un punto de inicio aleatorio; entre el cliente 1 y el 20, que es nuestro intervalo. Supongamos que sale el número 7.
+  
+- Class: text
+  Output: Seleccionamos la muestra; a partir de ahí, se encuesta cada 20° cliente que entra a la tienda; Cliente 7, 27, 47, 67, 87, 107, 127... y así sucesivamente hasta completar 100 encuestas. Entonces, el encargado se coloca en la entrada y deja pasar a los primeros 6 clientes, encuesta al 7º, deja pasar 19 más, encuesta al siguiente, y repite este patrón durante el resto del día.
+
+- Class: text
+  Output: Como puedes observar, es un método muy fácil de aplicar, sin embargo, tiene sus propios riesgos. En el ejemplo anterior, si existiera un patrón oculto, por ejemplo, que cada 20 clientes tienda a repetirse el mismo tipo de comprador (como familias que llegan juntas en grupos de ese tamaño), la muestra podría estar sesgada. Por eso conviene verificar que no haya periodicidad en el flujo de clientes que coincida con el intervalo k.
+  
+- Class: mult_question
+  Output: ¿En cuál de los siguientes casos NO conviene usar muestreo sistemático?
+  AnswerChoices: Una fábrica revisa cada 10º producto en una línea de ensamblaje, y el proceso tiene un defecto que se repite exactamente cada 10 unidades por un ajuste periódico de la máquina;Una biblioteca selecciona cada 15º libro de un estante ordenado alfabéticamente por autor para revisar su estado de conservación;Una universidad selecciona a cada 8º estudiante de una lista ordenada aleatoriamente por número de identificación asignado al azar;Un ayuntamiento encuesta a cada 20ª vivienda de una calle, numeradas de forma consecutiva sin ningún patrón especial
+  CorrectAnswer: Una fábrica revisa cada 10º producto en una línea de ensamblaje, y el proceso tiene un defecto que se repite exactamente cada 10 unidades por un ajuste periódico de la máquina
+  AnswerTests: omnitest(correctVal='Una fábrica revisa cada 10º producto en una línea de ensamblaje, y el proceso tiene un defecto que se repite exactamente cada 10 unidades por un ajuste periódico de la máquina')
+  Hint: ¿El intervalo de muestreo (cada 10º, cada 15º, cada 20º, cada 8º) coincide con algún ciclo, patrón o repetición que ya exista de forma natural en esa población?
+  
+- Class: text
+  Output: El muestreo sistemático falla cuando existe una periodicidad oculta en la población que coincide (o es múltiplo) del intervalo k. En este caso, si la máquina falla cada 10 unidades y se revisa cada 10ª pieza, la muestra podría caer siempre en piezas defectuosas (o siempre en piezas buenas), dando una imagen totalmente distorsionada de la calidad real de producción.
+  
+- Class: text
+  Output: Este muestreo puede aplicarse en casos donde la variable varía de forma gradual a lo largo del espacio. De esta manera, se fija la medición de las variables de interés a intervalos regulares a lo largo de la transecta. Recuerda, es necesario identificar si existe algún patrón regular en las unidades para evitar sesgos, por eso es una buena práctica revisar si existe algún patrón cíclico en la población antes de aplicar este método. #(Pereyra y Vaira, 2021)
+  
+- Class: text
+  Output: Veamos unos ejercicios de práctica.
+
+- Class: exact_question
+  Output: Tenemos un muestreo que consta de la siguiente serie de números; 24, 44, 64, 84, 104… sucesivamente hasta completar 200 muestras de una población de 4000. ¿Cuál fue el punto inicial de la secuencia?
+  CorrectAnswer: 4
+  AnswerTests: omnitest(correctVal='4')
+  Hint: ¿Qué patrones puedes observar en la secuencia?
+  
+- Class: cmd_question
+  Output: De este mismo ejercicio, aplica la fórmula del intervalo para obtener su tamaño mediante el operador de división. 
+  CorrectAnswer: 4000/200
+  AnswerTests: omnitest(correctExpr='4000/200')
+  Hint: Recuerda que la población es N, y la muestra n.
+
+- Class: text
+  Output: Ahora utilizaremos funciones para obtener nuestro muestreo. Ya tienes disponible el vector 'alturas_arboles', con la altura (en metros) de los 200 árboles, medidos en orden consecutivo a lo largo del sendero. También tienes 'N' (tamaño de la población) y 'n' (tamaño de muestra deseado).
+ 
+- Class: cmd_question
+  Output: Primero, calcula el intervalo de muestreo k, dividiendo N entre n. Guarda el resultado en un objeto llamado 'k'. Escribe tu código en el script que se abrirá y luego guarda el archivo.
+  CorrectAnswer: k <- N / n
+  AnswerTests: omnitest(correctExpr='k <- N / n')
+  Hint: Recuerda que k = N / n.
+  
+- Class: text
+  Output: Perfecto. Ahora necesitas un punto de inicio aleatorio, un número entero entre 1 y k.
+ 
+- Class: cmd_question
+  Output: Usa la función sample() para elegir un número aleatorio entre 1 y k. Guarda el resultado en un objeto llamado 'inicio'.
+  CorrectAnswer: inicio <- sample(1:k, 1)
+  AnswerTests: omnitest(correctExpr='inicio <- sample(1:k, 1)')
+  Hint: Usa sample(1:k, 1) para elegir un solo número al azar entre 1 y k.
+ 
+- Class: text
+  Output: Con el punto de inicio definido, ya puedes generar todas las posiciones que conformarán tu muestra sistemática; inicio, inicio + k, inicio + 2k, y así sucesivamente hasta cubrir la población.
+ 
+- Class: cmd_question
+  Output: Genera un vector con las posiciones seleccionadas usando seq(). Debe comenzar en 'inicio', avanzar de 'k' en 'k', y no pasarse de N. Guárdalo como 'posiciones'.
+  CorrectAnswer: posiciones <- seq(inicio, N, by = k)
+  AnswerTests: omnitest(correctExpr='posiciones <- seq(inicio, N, by = k)')
+  Hint: seq(inicio, N, by = k) genera la secuencia completa de posiciones.
+  
+- Class: text
+  Output: Ahora usa esas posiciones para extraer las alturas correspondientes del vector 'alturas_arboles'. Esta será tu muestra sistemática.
+ 
+- Class: cmd_question
+  Output: Extrae los valores de 'alturas_arboles' en las posiciones indicadas por 'posiciones', usando indexación con corchetes. Guarda el resultado como 'muestra'.
+  CorrectAnswer: muestra <- alturas_arboles[posiciones]
+  AnswerTests: omnitest(correctExpr='muestra <- alturas_arboles[posiciones]')
+  Hint: Usa alturas_arboles[posiciones] para extraer los valores en esas posiciones.
+  
+- Class: cmd_question
+  Output: Despliega la muestra obtenida.
+  CorrectAnswer: muestra
+  AnswerTests: omnitest(correctExpr='muestra')
+  Hint: Escribe el nombre de la variable que acabas de generar en la consola.
+  
+- Class: text
+  Output: Con la muestra en mano, ya puedes estimar la altura promedio de todos los árboles sin haberlos medido todos.
+ 
+- Class: cmd_question
+  Output: Calcula el promedio de 'muestra' usando la función mean(), y guárdalo como 'promedio_muestral'.
+  CorrectAnswer: promedio_muestral <- mean(muestra)
+  AnswerTests: omnitest(correctExpr='promedio_muestral <- mean(muestra)')
+  Hint: mean(muestra) calcula el promedio de tu muestra sistemática.
+
+- Class: cmd_question
+  Output: Escribe 'promedio_muestral' para desplegrarlo en la consola.
+  CorrectAnswer: promedio_muestral
+  AnswerTests: omnitest(correctExpr='promedio_muestral')
+  Hint: Solo escribe el nombre del objeto del promedio de la muestra.
+ 
+- Class: text
+  Output: Compara tu estimación muestral con el verdadero promedio poblacional, guardado en el objeto 'promedio_poblacional' (algo que en la vida real no conocerías, pero aquí sí porque simulamos toda la población).
+ 
+- Class: cmd_question
+  Output: Escribe 'promedio_poblacional' para ver el valor real, y compáralo con tu 'promedio_muestral'.
+  CorrectAnswer: promedio_poblacional
+  AnswerTests: omnitest(correctExpr='promedio_poblacional')
+  Hint: Solo escribe el nombre del objeto del promedio de la población.
+
+- Class: text
+  Output: Notarás que ambos valores están muy cerca. Eso ocurre porque, al medir árboles en orden a lo largo de la transecta a intervalos regulares, el muestreo sistemático capturó bien la variación gradual del terreno, sin necesidad de medir los 200 árboles.
+ 
+- Class: text
+  Output: Antes de terminar, recuerda siempre revisar si existe algún patrón cíclico oculto en la población (por ejemplo, si cada cierto número de árboles hay un claro en el bosque) que coincida con el intervalo k, ya que eso podría sesgar tus resultados.
+  
+- Class: text
+  Output: Implementar un muestreo sistemático de manera efectiva requiere una planificación cuidadosa y atención al detalle. Para cerrar este tema, se presentan algunas recomendaciones clave para minimizar el sesgo y garantizar la aleatoriedad en el proceso de selección de la muestra;
+  
+- Class: text
+  Output: En primer lugar, es fundamental seleccionar aleatoriamente el punto de partida dentro del marco de muestreo, apoyándose en generadores de números aleatorios o en técnicas de selección aleatoria que aseguren la imparcialidad desde el inicio del proceso. Asimismo, resulta necesario evaluar cuidadosamente el intervalo de muestreo, buscando un equilibrio adecuado entre eficiencia y representatividad, y ajustándose cuando sea necesario para evitar patrones de periodicidad que puedan introducir sesgos en la selección de la muestra.
+  
+- Class: text
+  Output: Aplicar estas recomendaciones permite fortalecer la validez del método y obtener resultados más confiables y representativos de la población estudiada.
+
+- Class: text
+  Output: ¡Felicidades! Haz avanzado de manera eficiente (2/6), Conozcamos el siguiente método de muestreo... 
+  
+#=================================================================================================================
+#                                             MUESTREO ESTRATIFICADO
+#=================================================================================================================
+
+- Class: text
+  Output: Muestreo estratificado...
+  
+- Class: text
+  Output: Al terminar esta sección vas a poder identificar cuándo conviene usar muestreo estratificado, dividir una población en estratos, y seleccionar una muestra de cada uno usando R.
+  
+- Class: text
+  Output: La estratificación es una de las técnicas más difundidas y usadas en muestreo. Permite tratar con subpoblaciones, aumenta la eficiencia de las estimaciones y contribuye a la administración eficiente de grandes encuestas. #(Gutiérrez, H. A. (2016))
+
+- Class: text
+  Output: Cuando existe en el marco de muestreo información auxiliar que permite la división de la población en subgrupos con el objetivo de seleccionar una muestra en cada subgrupo, la estrategia de muestreo utiliza un diseño de muestreo estratificado y el nombre de los subgrupos, formados antes de la recolección de la información, se denomina estratos. #(Gutiérrez, H. A. (2016))
+
+- Class: text
+  Output: Se divide la población en grupos en función de un carácter determinado y después se muestra cada grupo aleatoriamente, para obtener la parte proporcional de la muestra. Este método se aplica para evitar que por azar algún grupo esté menos representado que los otros. #(Casal, J., y Mateu, E. (2003))
+
+- Class: text
+  Output: Por ejemplo, en un estudio dentro de una universidad, si se quiere averiguar el número de horas que los estudiantes permanecen enfrente de un computador, no es una buena idea dividir la población en cursos porque los cursos no brindan una partición de la población, dado que en distintos cursos pueden estar los mismos estudiantes.
+
+- Class: text
+  Output: En nuestro caso vamos a usar el dispositivo que usa cada usuario como estrato, ya que cada usuario tiene un solo dispositivo principal, y eso si forma una partición real de la población.
+  
+- Class: cmd_question
+  Output: Crea un vector llamado dispositivo con estos 10 valores, en este orden. Movil, Movil, Laptop, Tablet, Movil, Laptop, Movil, Tablet, Laptop, Movil.
+  CorrectAnswer: dispositivo <- c("Movil", "Movil", "Laptop", "Tablet", "Movil", "Laptop", "Movil", "Tablet", "Laptop", "Movil")
+  AnswerTests: omnitest(correctExpr='dispositivo <- c("Movil", "Movil", "Laptop", "Tablet", "Movil", "Laptop", "Movil", "Tablet", "Laptop", "Movil")')
+  Hint: Usa <- y la funcion c(), con cada valor entre comillas.
+  
+- Class: text
+  Output: Muy bien! Ya tienes tu vector guardado, ahora recordemos...
+
+- Class: mult_question
+  Output: Cual es la principal razon para usar muestreo estratificado?
+  AnswerChoices: Que todos los grupos de la población queden representados;Que sea mas rapido de calcular;Que no se necesite ningun calculo en R;Que la muestra sea siempre mas grande
+  CorrectAnswer: Que todos los grupos de la población queden representados
+  AnswerTests: omnitest(correctVal='Que todos los grupos de la población queden representados')
+  Hint: Piensa en el ejemplo de la universidad.
+  
+- Class: text
+  Output: Excelente! Ahora sabes en qué se enfoca el muestreo estratificado. Ahora pongámoslo en práctica usando el vector que creaste.
+
+- Class: cmd_question
+  Output: Mira cuantos usuarios hay en cada estrato de dispositivo. Escribe table(dispositivo).
+  CorrectAnswer: table(dispositivo)
+  AnswerTests: omnitest(correctExpr='table(dispositivo)')
+  Hint: table() cuenta cuantas veces aparece cada valor dentro de un vector.
+
+- Class: text
+  Output: No siempre conviene tomar la misma cantidad de personas de cada estrato. Cuando el tamaño de la muestra en cada estrato es proporcional al tamaño de ese estrato dentro de la población completa, se le llama afijación proporcional al tamaño. Esta técnica ayuda a que los estratos con mas peso dentro de la población queden mejor representados en la muestra final, y reduce la varianza de las estimaciones. #(Puente, F., Hurtado, D., Morillo, J., Díaz, M., y Paz, G. (2017))
+
+  
+- Class: text
+  Output: Por ejemplo, si de tus 10 usuarios, 5 usan Móvil, 3 usan Laptop y 2 usan Tablet, y quieres una muestra total de 4 usuarios con afijación proporcional, te tocaría tomar 2 de Móvil, 1 de Laptop y 1 de Tablet, respetando esas mismas proporciones.
+
+- Class: text
+  Output: Veámoslo respresentado en R.
+  
+- Class: cmd_question
+  Output: Calcula cuantos usuarios de cada dispositivo te tocarían en una muestra total de 4, usando afijación proporcional. Escribe round(table(dispositivo) / length(dispositivo) * 4).
+  CorrectAnswer: round(table(dispositivo) / length(dispositivo) * 4)
+  AnswerTests: omnitest(correctExpr='round(table(dispositivo) / length(dispositivo) * 4)')
+  Hint: Divides cuantos hay en cada estrato entre el total de datos, y lo multiplicas por el tamaño de muestra que quieres, 4.
+  
+- Class: text
+  Output: Ya sabes cuantos tomar de cada estrato. Ahora vamos a tomar la muestra real de cada uno por separado, en vez de tomar una muestra de todo el vector junto.
+
+- Class: cmd_question
+  Output: Toma una muestra estratificada de 2 posiciones por cada dispositivo, usando split() para separar en estratos y sapply() para muestrear dentro de cada uno. Escribe sapply(split(1:10, dispositivo), sample, 2).
+  CorrectAnswer: sapply(split(1:10, dispositivo), sample, 2)
+  AnswerTests: omnitest(correctExpr='sapply(split(1:10, dispositivo), sample, 2)')
+  Hint: split() separa las posiciones 1 al 10 en tres grupos, uno por cada dispositivo, y sapply() aplica sample() a cada grupo por separado.
+  
+- Class: text
+  Output: Buen trabajo! Ya sabes cómo tomar muestra de cada uno por separado en lugar de usar todo el vector junto.
+
+- Class: text
+  Output: Actividad de interpretación. Compara lo que acabas de hacer con tomar una muestra aleatoria simple de 6 posiciones de todo el vector junto, sin separar por dispositivo. Explica por que la muestra estratificada te da mas seguridad de que los tres tipos de dispositivo estén representados, mientras que la muestra aleatoria simple podría dejar fuera a alguno de los tres.
+
+- Class: mult_question
+  Output: Cuál es la principal diferencia entre muestreo estratificado y muestreo por conglomerados?
+  AnswerChoices: En estratificado seleccionas dentro de cada grupo, en conglomerados seleccionas grupos completos;En estratificado no se usan grupos, en conglomerados si;Son exactamente el mismo método con distinto nombre
+  CorrectAnswer: En estratificado seleccionas dentro de cada grupo, en conglomerados seleccionas grupos completos
+  AnswerTests: omnitest(correctVal='En estratificado seleccionas dentro de cada grupo, en conglomerados seleccionas grupos completos')
+  Hint: En estratificado tomas una parte de cada estrato. En conglomerados, tomas grupos enteros y los incluyes completos, o los descartas completos.
+  
+- Class: text
+  Output: Actividad de aplicación. Imagina que tu equipo de desarrollo quiere probar una nueva version de la app, pero solo tiene recursos para probarla con 4 usuarios de tus 10. Explica en tus palabras por que seria mejor seleccionar esos 4 usuarios usando muestreo estratificado por dispositivo, en vez de tomarlos al azar de todos los 10 juntos.
+  
+- Class: text
+  Output: Con esto concluyes la sección de Muestreo Estratificado (3/6), Continuemos...
+
+#=================================================================================================================
+#                                             MUESTREO POR CONGLOMERADOS
+#=================================================================================================================
+
+- Class: text
+  Output: Muestreo por conglomerados...
+  
+- Class: text
+  Output: Los conglomerados son poblaciones o grupos definidos de manera natural, cuyos elementos comparten características biológicas, económicas, sociales, entre otras. #(Ruiz Morales & Morillo Zárate, 2004, p. 135).
+  
+- Class: text
+  Output: Un ejemplo sencillo de los conglomerados podría ser un panal de abejas, puesto que este grupo o población de dichos insectos que vive dentro de él, todo esto de forma natural e internamente heterogéneo. 
+  
+- Class: mult_question
+  Output: ¿Cuál de las siguientes opciones describe a un conglomerado?
+  AnswerChoices: Un grupo definido por el investigador según un criterio de muestreo; Un grupo definido de forma natural; Un grupo seleccionado al azar dentro de la población; Un grupo con características internas homogéneas
+  CorrectAnswer: Un grupo definido de forma natural
+  AnswerTests: omnitest( correctVal ='Un grupo definido de forma natural')
+  Hint: Recuerda el concepto de conglomerado y el ejemplo del panal de abejas.
+
+- Class: text
+  Output: ¡Excelente! Lograste identificar correctamente la respuesta, es un concepto sencillo, pero en casos donde lo necesites puedes pensar en conglomerado = grupo natural.
+
+- Class: text
+  Output: En este tipo de muestreo, la población total se divide en diferentes secciones o conglomerados, de las cuales se seleccionan aleatoriamente unas pocas, y se toman todos los elementos de las secciones seleccionadas para realizar el muestreo. A continuación, te mostraré los pasos que deberías seguir para llevar a cabo este tipo de muestreo. #(Ana L, Carrilo, 2015, [19-23]).
+  
+- Class: text
+  Output: |
+      Paso 1. Definir y delimitar los conglomerados.
+           
+      Paso 2. Elaborar un listado (marco muestral) de todos los conglomerados existentes.
+           
+      Paso 3. Seleccionar aleatoriamente algunos conglomerados.
+           
+      Paso 4. Estudiar todos los elementos de los conglomerados seleccionados (una etapa).
+           
+- Class: text
+  Output: Un ejemplo sencillo podría ser si una universidad quiere conocer el nivel de satisfacción. En vez de encuestar a todos los alumnos que sería la población, los divide por campus (conglomerado), DMCU, ICB, ICSA, IADA y DMCG, de manera aleatoria toma 3 campus y les aplica la encuesta a todos los alumnos. 
+  
+- Class: text
+  Output: Vamos a poner este ejemplo en práctica mediante código. Comencemos...
+  
+- Class: cmd_question
+  Output: Crea un vector con los 5 campus (DMCU, ICB, ICSA, IADA, DMCG), guárdalo en una variable llamada campus.
+  CorrectAnswer: campus <- c("DMCU", "ICB", "ICSA", "IADA", "DMCG")
+  AnswerTests: omnitest(correctExpr='campus <- c("DMCU", "ICB", "ICSA", "IADA", "DMCG")')
+  Hint: Recuerda que para crear un vector ocupas la función c() y asígnale nombre con <-
+  
+- Class: text
+  Output: ¡Genial! Creaste de forma correcta tu vector...
+  
+- Class: cmd_question
+  Output: Ahora usemos la función sample(), para seleccionar 3 campus.
+  CorrectAnswer: sample(campus, 3)
+  AnswerTests: omnitest(correctExpr='sample(campus, 3)')
+  Hint: Usa la función sample y el vector que creaste. sample(vector, n).
+  
+- Class: text
+  Output: ¡Muy bien! Como puedes ver el programa te arrojó los 3 campus que fueron seleccionados, ten en cuenta que la función sample() los selecciona de manera aleatoria.
+  
+- Class: text
+  Output: Analiza lo siguiente y responde...
+  
+- Class: mult_question
+  Output: Retomando el ejemplo anterior, si en vez de tomar solo 3 campus, tomamos los 5 y aplicamos la encuesta. ¿En este caso, seguiría siendo un muestreo conglomerado?
+  AnswerChoices: Sí, porque el tipo de muestreo no depende de cuántos conglomerados se incluyan; No, porque al tomar todos los conglomerados ya no hay una selección aleatoria; No, porque el cambio en el número de campus altera la variable de estudio
+  CorrectAnswer: No, porque al tomar todos los conglomerados ya no hay una selección aleatoria
+  AnswerTests: omnitest( correctVal ='No, porque al tomar todos los conglomerados ya no hay una selección aleatoria')
+  Hint: Recuerda muy bien los pasos de selección y en qué situaciones pueden aplicarse.
+           
+- Class: text
+  Output: ¡Muy bien! El muestreo por conglomerados de una etapa se caracteriza por seleccionar los grupos de manera aleatoria. Al tomar los 5 campus, ya no habría ningún grupo por seleccionar, y se perdería el sentido de reducir la población a estudiar para facilitar el análisis.
+  
+- Class: text 
+  Output: También es importante saber que, si el conglomerado tiene una enorme cantidad de elementos, puedes tomar solo una pequeña muestra de él en lugar de estudiarlo por completo, y a esto se le denomina muestreo por conglomerados en dos etapas. #(Gallego, 2011, [7]).
+
+- Class: mult_question
+  Output: Si en un campus hay 4500 alumnos y se decide seleccionar a 200 alumnos para representar a la población de ese campus, ¿aún es un muestreo conglomerado de una etapa?
+  AnswerChoices: No, ya que en una etapa se debe tomar en cuenta todos los elementos de los conglomerados; Sí, porque el campus sigue siendo uno de los conglomerados seleccionados al azar
+  CorrectAnswer: No, ya que en una etapa se debe tomar en cuenta todos los elementos de los conglomerados
+  AnswerTests: omnitest( correctVal ='No, ya que en una etapa se debe tomar en cuenta todos los elementos de los conglomerados')
+  Hint: Ten en cuenta el paso 4 de la selección. 
+  
+- Class: text
+  Output: ¡Correcto! Recuerda el ejemplo de los 3 campus seleccionados, si cada uno tiene 5,000 estudiantes, en lugar de encuestarlos a todos puedes tomar una muestra de cada conglomerado, siendo más eficiente al momento de aplicar la encuesta. Ten cuidado, porque justo ahí es cuando deja de ser una etapa y pasa a ser un muestreo por conglomerados de dos etapas.
+  
+- Class: text
+  Output: Es importante reconocer la diferencia entre estrato y conglomerado. Un estrato es un bloque homogéneo de la población, del cual se extrae una muestra, mientras que un conglomerado, como lo mencionamos al principio, es un grupo definido de forma natural que representa una pequeña parte de toda la población. Solo si la población de elementos dentro de un conglomerado es muy grande, se toma una muestra de él (dos etapas), si no, se estudia a todos. En cambio, en el muestreo estratificado, se toma una muestra de cada uno de los estratos, sin importar el número de elementos que tenga cada uno. #(Velázquez, 2017, p. 5-6.) y (Gallego, 2011, [5]).
+  
+- Class: text
+  Output: Supongamos que seguimos con el ejemplo anterior, y se seleccionó solo el campus de ICB para encuestar pero son 4500 alumnos toma una muestra aleatoria de los individuos, en lugar de encuestarlos a todos. Usa el vector alum_ICB  <- c(1:4500).
+  
+- Class: cmd_question
+  Output: Ahora selecciona 150 alumnos de forma aleatoria. Guarda los datos en una variable llamada etap_2
+  CorrectAnswer: etap_2 <- sample(alum_ICB, 150)
+  AnswerTests: omnitest(correctExpr='etap_2 <- sample(alum_ICB, 150)')
+  Hint: Recuerda usar la función sample() correctamente.
+  
+- Class: text
+  Output: ¡Excelente! Ya que sabes cómo aplicar las dos etapas de muestreo por conglomerado, realicemos un ejercicio para hacer práctica de ellos.
+  
+- Class: text
+  Output: Una cadena de restaurantes quiere aplicar una encuesta de satisfacción a sus clientes. Ten en cuenta que dicha cadena tiene 8 sucursales.
+  
+- Class: cmd_question
+  Output: El restaurante desea seleccionar aleatoriamente 2 de sus 8 sucursales. Usa la variable suc_sel para guardar los datos.
+  CorrectAnswer: suc_sel <- sample(1:8, 2)
+  AnswerTests: omnitest(correctExpr='suc_sel <- sample(1:8, 2)')
+  Hint: Recuerda usar la función sample() correctamente.
+  
+- Class: text
+  Output: Supongamos que al realizar este proceso, las sucursales seleccionadas fueron la 3 y 7, pero la sucursal 3 tiene 2000 clientes mensuales, lo cual es una cantidad significativa. 
+  
+- Class: cmd_question
+  Output: Extrae una muestra de 150 clientes de la sucursal número 3, y guárdala en una variable llamada mues_suc3. Usa el vector (sucursal_3)
+  CorrectAnswer: mues_suc3 <- sample(sucursal_3, 150)
+  AnswerTests: omnitest(correctExpr='mues_suc3 <- sample(sucursal_3, 150)')
+  Hint: Recuerda usar el vector que se te solicita (sucursal_3).
+  
+- Class: text
+  Output: Contesta lo siguiente...
+  
+- Class: mult_question
+  Output: En el ejercicio anterior, ¿usaste las dos etapas del muestreo por conglomerados?
+  AnswerChoices: Sí, ya que primero seleccionamos 2 sucursales de las 8 y luego una pequeña muestra de una de las 2 sucursales seleccionadas; No, porque solo se usó una etapa al seleccionar únicamente las sucursales
+  CorrectAnswer: Sí, ya que primero seleccionamos 2 sucursales de las 8 y luego una pequeña muestra de una de las 2 sucursales seleccionadas
+  AnswerTests: omnitest( correctVal ='Sí, ya que primero seleccionamos 2 sucursales de las 8 y luego una pequeña muestra de una de las 2 sucursales seleccionadas')
+  Hint: Analiza el ejercicio resuelto y vuelve a intentarlo...
+
+- Class: text
+  Output: Muy bien, en el ejercicio usamos las dos etapas de manera sencilla, ya que primero seleccionamos de forma al azar 2 sucursales de las 8 y después obtuvimos una muestra de 150 clientes de la sucursal 3 seleccionada.
+  
+- Class: text
+  Output: Concluiste de forma eficiente una parte más del curso (4/6). Fue facil ¿no?, sigamos con nuestro último método de muestreo...
+#=================================================================================================================
+#                                             MUESTREO POR CONVENIENCIA
+#=================================================================================================================
+
+- Class: text
+  Output: Muestreo por conveniencia...
+  
+- Class: text
+  Output: En esta fracción del curso conocerás las ventajas prácticas pertenecientes a este tipo de muestreo, así como sus limitaciones y sesgos generados. Al terminar podrás identificar por tu cuenta en qué situaciones es útil su uso y diferenciarlas de las situaciones menos favorables.
+  
+- Class: text
+  Output: El muestreo por conveniencia es un método que no utiliza selección aleatoria ni ningún criterio predefinido para elegir las unidades de muestra. En su lugar, el investigador selecciona las unidades en función de su conveniencia, como la proximidad, la disponibilidad o la voluntad de participar. Por ejemplo, clientes recurrentes de una tienda, muestras obtenidas en instituciones de salud, un grupo de pacientes, incluso amigos del investigador. #(Ardilla et al., 2004, p. 137)
+  
+- Class: text
+  Output: Además, puede proporcionar información útil o datos preliminares cuando tiene una población grande o un grupo difícil de alcanzar. No requiere el diseño de un marco muestral, la estratificación de la población ni el uso de técnicas de aleatorización. De este modo, se ahorra tiempo y recursos a la hora de localizar y contactar con las unidades de muestra.
+
+- Class: mult_question
+  Output: ¿Cuál de las siguientes situaciones describe mejor un muestreo de conveniencia?
+  AnswerChoices: Dividir a la población en grupos y seleccionar aleatoriamente dentro de cada grupo; Seleccionar 100 estudiantes al azar de una lista completa de matrícula; Encuestar a las personas que pasan frente a la entrada de un centro comercial en un momento dado; Enumerar a todos los elementos de la población y usar un generador de números aleatorios
+  CorrectAnswer: Encuestar a las personas que pasan frente a la entrada de un centro comercial en un momento dado
+  AnswerTests: omnitest(correctVal='Encuestar a las personas que pasan frente a la entrada de un centro comercial en un momento dado')
+  Hint: ¿Qué opción es más sencilla de realizar?
+  
+- Class: text
+  Output: Este muestreo tiene algunas ventajas sobre otros métodos de muestreo, pues es fácil y rápido de implementar, económico y eficiente. Puede proporcionar información útil o datos preliminares cuando tiene una población grande o un grupo difícil de alcanzar. No requiere el diseño de un marco muestral, la estratificación de la población ni el uso de técnicas de aleatorización. De este modo, se ahorra tiempo y recursos a la hora de localizar y contactar con las unidades de muestra.
+  
+- Class: text
+  Output: En pruebas piloto, la muestra de conveniencia se suele utilizar ya que permite al investigador obtener los datos básicos y las tendencias con respecto a su estudio, sin las complicaciones del uso de una muestra aleatoria. Esta técnica de muestreo es también útil para documentar que una calidad particular de una sustancia o fenómeno se produce dentro de una muestra dada.
+  
+- Class: text
+  Output: Tales pruebas piloto, o de prueba inicial son también muy útiles para la detección de relaciones entre fenómenos diferentes.Una vez realizado el estudio, si se comprueba que los resultados son favorables a sus predicciones, ya se puede plantear la posibilidad de hacer el estudio con muestras probabilísticas para generalizar el resultado. #(Morales, s.f.)
+
+- Class: text
+  Output: Sin embargo, no es uno de los preferidos debido a que en estos estudios la clave es extraer la mayor cantidad posible de información de los pocos casos de la muestra, y el método por conveniencia puede no suministrar las fuentes más ricas en información. Es menos creíble, ya que no puede justificar la selección de la muestra ni demostrar la fiabilidad o validez de los datos. #(Blanco y Castro, 2007)
+
+- Class: text
+  Output: La crítica principal son los sesgos o prejuicios del muestreo, por no demostrar imparcialidad al ser escogida, la muestra no es representativa de toda la población. Debido a la falta de control sobre las características o la diversidad de las unidades muestrales, puede ocasionar una sobrerrepresentación o infrarrepresentación de determinados grupos o variables.
+  
+- Class: mult_question
+  Output: ¿Cuál es la principal desventaja del muestreo de conveniencia?
+  AnswerChoices: Es muy costoso de implementar; Requiere demasiado tiempo de planeación; Puede producir una muestra sesgada que no representa a toda la población; No se puede aplicar a estudios cuantitativos
+  CorrectAnswer: Puede producir una muestra sesgada que no representa a toda la población
+  AnswerTests: omnitest(correctVal='Puede producir una muestra sesgada que no representa a toda la población')
+  Hint: Aquí hay 3 mentiras y una verdad.
+  
+- Class: text
+  Output: El muestreo por conveniencia es propenso a errores de muestreo y problemas de generalización, ya que es difícil estimar la variabilidad del muestreo, los intervalos de confianza o los márgenes de error. El sesgo sistemático es una diferencia constante entre los resultados de la muestra y los resultados teóricos de toda la población. No es raro que los resultados de un estudio, que utiliza una muestra de conveniencia, difieran significativamente con los resultados de toda la población, por lo que se dice que se obtienen resultados sesgados. #(Morales, s.f.)
+
+- Class: mult_question
+  Output: Un profesor quiere conocer la opinión de 'los estudiantes de la universidad' sobre el comedor, pero solo encuesta a los alumnos de su propia clase de Estadística. ¿Qué problema tiene este enfoque?
+  AnswerChoices: Es un muestreo estratificado por carrera; Es un censo, porque incluye a todos los estudiantes; Es un muestreo de conveniencia y puede no representar a toda la población estudiantil; Ninguno, es un muestreo aleatorio válido
+  CorrectAnswer: Es un muestreo de conveniencia y puede no representar a toda la población estudiantil
+  AnswerTests: omnitest(correctVal='Es un muestreo de conveniencia y puede no representar a toda la población estudiantil')
+  Hint: El profesor usó un grupo accesible (su propia clase) en lugar de seleccionar aleatoriamente entre toda la población de estudiantes, ¿qué efecto puede producir en los resultados?
+  
+- Class: mult_question
+  Output: ¿En qué escenario sería más razonable justificar el uso de un muestreo de conveniencia, a pesar de sus limitaciones?
+  AnswerChoices: Un ensayo clínico para aprobar un nuevo medicamento; Un estudio nacional para determinar políticas públicas de salud; Un sondeo exploratorio rápido y de bajo presupuesto para probar una idea antes de un estudio más riguroso; Un censo poblacional oficial
+  CorrectAnswer: Un sondeo exploratorio rápido y de bajo presupuesto para probar una idea antes de un estudio más riguroso
+  AnswerTests: omnitest(correctVal='Un sondeo exploratorio rápido y de bajo presupuesto para probar una idea antes de un estudio más riguroso')
+  Hint: ¿Qué diferencias existen en los niveles de presupuesto de cada opción mostrada?
+  
+- Class: text
+  Output: Cuando se utiliza el muestreo de conveniencia, es necesario describir cómo la muestra de las pruebas en la investigación actual sería diferente de la muestra ideal, seleccionada al azar. También es necesario describir los individuos que podrían quedar fuera durante el proceso de selección o los individuos que están sobrerrepresentados.
+
+- Class: text
+  Output: En relación con esto, es recomendable describir los posibles efectos que la exclusión de ciertos sujetos de la muestra, o la sobrerrepresentación de otros, puede tener sobre los resultados. Esto permitirá a los lectores de la investigación comprender con mayor claridad las características de la muestra analizada, así como estimar la posible diferencia entre los resultados obtenidos en esta prueba piloto y aquellos que se obtendrían si la población completa estuviera representada de manera adecuada.
+  
+- Class: text
+  Output: ¡Felicidades! Has completado (5/6) de este curso, ya conociste los 5 diferentes tipos de muestreo y el como aplicarlos, al igual que algunas ventajas, limitaciones y lo más importante, sus diferencias. Ahora que tal si recapitulamos todo lo aprendido hasta ahora...
+
+#=================================================================================================================
+#                                                RECAPITULACIÓN
+#=================================================================================================================
+  
+- Class: text
+  Output: Realizarás una comparación de métodos de muestreo. Ya conoces los 5 métodos. Ahora vamos a practicar algo más difícil, elegir cuál método conviene usar según la situación que te dan.
+  
+- Class: mult_question
+  Output: Quieres encuestar a tus usuarios sobre una nueva función de la app. No te importa a qué grupo pertenezcan, solo quieres que cualquiera tenga la misma probabilidad de ser elegido. ¿Qué método usarías?
+  AnswerChoices: Aleatorio simple;Sistemático;Estratificado;Por conglomerados;Por conveniencia
+  CorrectAnswer: Aleatorio simple
+  AnswerTests: omnitest(correctVal='Aleatorio simple')
+  Hint: Piensa en el método más básico, donde no se dividen grupos ni se sigue un patrón fijo.
+  
+- Class: mult_question
+  Output: Tienes una lista ordenada con los 10,000 usuarios registrados en la app. Decides tomar el usuario número 1, después el 51, después el 101, y así sucesivamente cada 50 posiciones. ¿Qué método estás usando?
+  AnswerChoices: Sistemático;Aleatorio simple;Estratificado;Por conglomerados;Por conveniencia
+  CorrectAnswer: Sistemático
+  AnswerTests: omnitest(correctVal='Sistemático')
+  Hint: Piensa en el método que selecciona elementos siguiendo un intervalo fijo dentro de una lista ordenada.
+  
+- Class: mult_question
+  Output: Quieres asegurarte de que tu muestra incluya usuarios de Móvil, Laptop y Tablet, en proporciones parecidas a como están distribuidos en tu población completa. ¿Qué método usarías?
+  AnswerChoices: Estratificado;Aleatorio simple;Sistemático;Por conglomerados;Por conveniencia
+  CorrectAnswer: Estratificado
+  AnswerTests: omnitest(correctVal='Estratificado')
+  Hint: Piensa en el método que divide la población en grupos y después muestrea dentro de cada uno.
+  
+- Class: mult_question
+  Output: Tu empresa tiene oficinas en 20 ciudades distintas. Por falta de presupuesto, decides elegir al azar solo 3 ciudades completas, y encuestar a TODOS los empleados de esas 3 ciudades, sin visitar las otras 17. ¿Qué método estás usando?
+  AnswerChoices: Por conglomerados;Aleatorio simple;Sistemático;Estratificado;Por conveniencia
+  CorrectAnswer: Por conglomerados
+  AnswerTests: omnitest(correctVal='Por conglomerados')
+  Hint: Piensa en el método donde seleccionas grupos completos, no una parte de cada grupo.
+  
+- Class: mult_question
+  Output: Quieres una opinión rápida sobre un cambio en la app, así que le preguntas a los primeros 20 usuarios que la abran hoy, sin ningún criterio especial de selección. ¿Qué método estás usando?
+  AnswerChoices: Por conveniencia;Aleatorio simple;Sistemático;Estratificado;Por conglomerados
+  CorrectAnswer: Por conveniencia
+  AnswerTests: omnitest(correctVal='Por conveniencia')
+  Hint: Piensa en el método más fácil y rápido de aplicar, aunque no garantice representatividad.
+  
+- Class: text
+  Output: Con esto terminamos la comparación de métodos de muestreo. Elegir el método correcto depende de qué tan importante es la representatividad, cuánto presupuesto y tiempo tienes, y si tu población tiene grupos naturales que te convenga aprovechar.
+  
+- Class: text
+  Output: Este curso presentó los cinco tipos de muestreo para elegir el más adecuado según la población y el objetivo del estudio, el aleatorio simple (misma probabilidad para todos, requiere un listado completo), el sistemático (cada k-ésimo elemento, con riesgo ante patrones ocultos), el estratificado (muestra de cada subgrupo para garantizar representación), el de conglomerados (grupos naturales completos, útil en poblaciones dispersas) y el de conveniencia (los más accesibles, rápido pero sesgado). También practicaste su aplicación en R con sample(), seq() y split(). Dicho esto, llegamos al final, !Felicidades¡ Lograste completar satisfactoriamente todo el curso sobre los diferentes tipos de muestreo. Nos vemos en las siguiente lección...
+  
+#=================================================================================================================
+#                                                REFERENCIAS
+#=================================================================================================================
+
+# Ardilla, J., Rodríguez, M. N., & Gil, F. A. (2004). Capítulo 8. Población y muestreo. In Epidemiología clínica: investigación clínica aplicada (Reimpresa ed., pp. 133-137). Ed. Médica Panamericana. https://books.google.com.mx/books?id=2UN-khOULAkC&printsec=frontcover&hl=es#v=onepage&q&f=false 
+
+# Benítez, G. S. C. (1998). Muestreo sistemático con intervalo de selección variable. Estadística española, 40(143). Recuperado de https://www.researchgate.net/publication/28050827_Muestreo_sistematico_con_intervalo_de_seleccion_variable
+
+# Blanco, C. M. C., & Castro, A. B. S. (2007). El muestreo en la investigación cualitativa. NURE investigación: Revista Científica de enfermería, (27), 10. https://dialnet.unirioja.es/servlet/articulo?codigo=7779030 
+
+# Casal, J., & Mateu, E. (2003). Tipos de muestreo. Revista de Epidemiología y Medicina Preventiva, 1(1), P. 3-7. https://www.academia.edu/35654122/TIPOS_DE_MUESTREO
+
+# Carrillo Flores, A. L. (2015). Población y muestra, [15-23]. Universidad Autónoma del Estado de México. https://ri.uaemex.mx/bitstream/handle/20.500.11799/35134/secme21544.pdf?sequence=1
+
+# Canal Díaz, N. (2006). Técnicas de muestreo. Sesgos más frecuentes. Revista Seden, p.123. https://www.revistaseden.org/files/9-CAP%209.pdf 
+
+# Gallego, M. J. (2011). Muestreo en poblaciones finitas, Estratos y Conglomerados. Universidad de Sevilla. [5-7]. https://personal.us.es/jmayor/ficheros/mu_iea_06.pdf
+
+# Gutiérrez, H. A. (2016). Estrategias de muestreo. Diseño de encuestas y Estimación de parámetros. Segunda ed. Bogotá: Ediciones de la U. https://www.academia.edu/download/65621238/Estrategias_de_muestreo_diseno_Andres_Gutierrez_Rojas.pdf
+
+# Morales, G. (s.f.). Muestreo por conveniencia. Academia.edu. https://www.academia.edu/14414134/Muestreo_por_conveniencia 
+
+# Pereyra, L. C., & Vaira, M. (2021). Diseño de muestreo. https://editorial.unju.edu.ar/images/descargas/libros/MANUAL1.pdf#page=24
+
+# Puente, F., Hurtado, D., Morillo, J., Díaz, M., & Paz, G. (2017). Cálculo muestral estratificado con afijación proporcional al tamaño para el análisis de consumo, desplazamientos e identidad local en el distrito metropolitano de Quito. FIGEMPA: Investigación Y Desarrollo, 3(1), 85–97. https://doi.org/10.29166/revfig.v1i1.60
+
+# Ruiz Morales, A., & Morillo Zárate, L. E. (2004). Epidemiología clínica: Investigación clínica aplicada. Editorial Médica Panamericana. p. 135. https://books.google.com.mx/books?hl=es&lr=&id=2UN-khOULAkC&oi=fnd&pg=PA129&dq=muestreo+por+conglomerados&ots=KvRwGZ7z0E&sig=hHqgZl7Jm28SbhfqeX5bfBsdpwk&redir_esc=y#v=onepage&q=muestreo%20por%20conglomerados&f=false
+
+# Toledo Díaz de León, N. (s.f.). Población y muestra [30-33]. Universidad Autónoma del Estado de México. https://ri.uaemex.mx/bitstream/handle/20.500.11799/63099/secme26877.pdf?sequence=1
+
+# Velázquez, A. P. (2017). Tipos de muestreo. México: Centrogeo.
+#https://centrogeo.repositorioinstitucional.mx/jspui/bitstream/1012/163/1/19-Tipos%20de%20Muestreo%20-%20%20Diplomado%20en%20An%C3%A1lisis%20de%20Informaci%C3%B3n%20Geoespacial.pdf
