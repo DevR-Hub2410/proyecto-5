@@ -158,6 +158,9 @@
   AnswerTests: omnitest(correctExpr = 'estimacion_media')
   Hint: Escribe estimacion_media
   
+- Class: text 
+  Output: El resultado es 2.23 segundos. Es la estimación puntual del tiempo medio de respuesta de la aplicación. Se calculó con solo 10 peticiones, así que aproxima la media real pero no necesariamente coincide con ella. 
+  
 - Class: text
   Output: También podemos estimar proporciones. La proporción muestral es el número de elementos que cumplen una característica entre el tamaño de la muestra, y sirve como estimación puntual de la proporción poblacional. 
   
@@ -175,6 +178,19 @@
   CorrectAnswer: proporcion_backend <- mean(tipo_desarrollador == "Backend")
   AnswerTests: test_variable_numerica('proporcion_backend', 0.6)
   Hint: Compara tipo_desarrollador con "Backend", usa mean() para obtener la proporción y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Escribe proporcion_backend para ver la estimación puntual de la proporción. 
+  CorrectAnswer: proporcion_backend
+  AnswerTests: omnitest(correctExpr = 'proporcion_backend')
+  Hint: Escribe proporcion_backend.
+  
+- Class: mult_question
+  Output: El resultado es 0.6. ¿Cuál es la interpretación más adecuada?
+  AnswerChoices: En la muestra 6 de cada 10 desarrolladores son Backend, y 0.6 es la estimación puntual de la proporción en toda la población;Exactamente el 60% de la población de desarrolladores es Backend;Hay 0.6 desarrolladores Backend en la muestra;La proporción de desarrolladores Frontend es 0.6
+  CorrectAnswer: En la muestra 6 de cada 10 desarrolladores son Backend, y 0.6 es la estimación puntual de la proporción en toda la población
+  AnswerTests: omnitest(correctVal = 'En la muestra 6 de cada 10 desarrolladores son Backend, y 0.6 es la estimación puntual de la proporción en toda la población')
+  Hint: Piensa de dónde sale el valor. Se calculó con una muestra, así que solo aproxima el valor de la población. 
   
 - Class: text
   Output: Una estimación puntual es solo un valor. No nos dice qué tan cerca está del parámetro real. Para media esa incertidumbre usamos los intervalos de confianza, que veremos a continuación. 
