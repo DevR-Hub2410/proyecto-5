@@ -1,7 +1,230 @@
 - Class: meta
   Course: Estadistica
   Lesson: Aplicacion_integral
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofia Lopez Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: Actividad integradora de Muestreo. Para finalizar el curso, vas a resolver un problema completo de principio a fin, aplicando muestreo estratificado y la distribución muestral de la media. 
+
+- Class: text 
+  Output: Trabajas en el equipo de producto de una app. La empresa quiere conocer el nivel de satisfacción general de sus usuarios, medido en una escala del 1 al 10. Revisar a todos los usuarios sería lento y costoso, así que la decisión se tomará con base en una muestra.
+
+# Paso 1. Identificar la población
+
+- Class: mult_question
+  Output: Paso 1. Identificar la población. La población con la que trabajaremos es usuarios_app, con 800 usuarios registrados. Cada usuario tiene una región, un tipo de plan (Gratuito o Premium) y una calificación de satisfacción. ¿Cuál es la población en este problema?
+  AnswerChoices: Los 800 usuarios registrados en usuarios_app;Solo los usuarios del plan Premium;Solo los usuarios de la región Norte;Los desarrolladores de la app
+  CorrectAnswer: Los 800 usuarios registrados en usuarios_app
+  AnswerTests: opcion_mc('p1')
+  Hint: La población es el conjunto completo sobre el que se quiere investigar.
+
+- Class: text
+  Output: Correcto. Ya tienes la población en el data frame 'usuarios_app', junto con 'N' (su tamaño), 'n' (el tamaño de la muestra), 'num_muestras' (cuántas veces repetiremos el muestreo), y 'media_poblacional' y 'sd_poblacional', el verdadero promedio y desviación estándar de la satisfacción de los 800 usuarios.
+
+# Paso 2. Determinar qué información se desea obtener
+
+- Class: mult_question
+  Output: Una vez identificada la población, el siguiente paso es determinar qué información se desea obtener. ¿Qué información específica se desea obtener de esta población?
+  AnswerChoices: El nivel de satisfacción general de los usuarios;El número total de usuarios registrados;La región con más usuarios;El nombre de los desarrolladores de la app
+  CorrectAnswer: El nivel de satisfacción general de los usuarios
+  AnswerTests: opcion_mc('p2')
+  Hint: Relee el objetivo que planteó la empresa al inicio de la actividad.
+
+# Pasos 3 y 4. Seleccionar y justificar el método
+
+- Class: text
+  Output: Antes de tomar una muestra, hay que decidir qué método de muestreo usar. Recuerda que el plan Gratuito representa el 70% de los usuarios y el plan Premium solo el 30%, y que los usuarios Premium suelen estar más satisfechos. Si tomamos una muestra completamente al azar sin cuidado, podríamos terminar con muy pocos usuarios Premium representados, y nuestra estimación variaría mucho de una muestra a otra.
+
+- Class: mult_question
+  Output: Para nuestro tercer paso, vamos a seleccionar un método de muestreo adecuado. Dado este riesgo, ¿qué método de muestreo sería más apropiado para asegurar que ambos tipos de plan estén representados de forma proporcional?
+  AnswerChoices: Muestreo aleatorio simple;Muestreo estratificado por plan;Muestreo por conveniencia;Muestreo sistemático
+  CorrectAnswer: Muestreo estratificado por plan
+  AnswerTests: opcion_mc('p3')
+  Hint: Piensa en el método que divide la población en grupos y selecciona de cada uno por separado.
+
+- Class: mult_question
+  Output: Justifica la elección. ¿Cuál de las siguientes es la mejor justificación para usar muestreo estratificado en este caso?
+  AnswerChoices: Porque garantiza que ambos grupos (Gratuito y Premium) queden representados según su proporción real en la población, y reduce la variabilidad de la estimación cuando los grupos difieren en satisfacción.;Porque es el método más rápido de programar en R.;Porque el muestreo estratificado siempre da resultados más precisos que cualquier otro método sin excepción.;Porque el plan Premium tiene usuarios más importantes que el plan Gratuito.
+  CorrectAnswer: Porque garantiza que ambos grupos (Gratuito y Premium) queden representados según su proporción real en la población, y reduce la variabilidad de la estimación cuando los grupos difieren en satisfacción.
+  AnswerTests: opcion_mc('p4')
+  Hint: La justificación correcta explica el problema específico que resuelve el método, no una ventaja genérica o exagerada.
+
+- Class: text
+  Output: Buen trabajo! Teniendo esto claro, continuemos con el siguiente paso...
+
+# Paso 5. Obtener una muestra utilizando R
+
+- Class: text
+  Output: Obtener una muestra utilizando R. Para hacer un muestreo estratificado, dividimos la población en estratos según el plan, y tomamos una muestra de cada estrato por separado, respetando su proporción real. Como Gratuito es el 70% y Premium el 30%, para una muestra total de n = 40 usuarios tomaremos 28 de Gratuito y 12 de Premium. Para que tu resultado sea reproducible, primero fija la semilla.
+
+- Class: cmd_question
+  Output: Fija la semilla con set.seed(10).
+  CorrectAnswer: set.seed(10)
+  AnswerTests: omnitest(correctExpr='set.seed(10)')
+  Hint: Haz uso de la semilla, escribe tal cual la función.
+
+- Class: cmd_question
+  Output: Primero, filtra la población para quedarte solo con los usuarios del plan Gratuito, usando subset(). Guarda el resultado en una variable llamada estrato_gratuito.
+  CorrectAnswer: estrato_gratuito <- subset(usuarios_app, plan == "Gratuito")
+  AnswerTests: estrato_valido('estrato_gratuito', 'Gratuito')
+  Hint: Usa subset() con usuarios_app como primer argumento y plan == "Gratuito" como condición.
+
+- Class: cmd_question
+  Output: Ahora toma una muestra de 28 registros de la columna satisfaccion de ese estrato, usando sample(). Guárdala en una variable llamada muestra_gratuito.
+  CorrectAnswer: muestra_gratuito <- sample(estrato_gratuito$satisfaccion, 28)
+  AnswerTests: muestra_valida('muestra_gratuito', '28', 'estrato_gratuito$satisfaccion', 'sample')
+  Hint: Usa sample() sobre estrato_gratuito$satisfaccion, con 28 como tamaño de muestra.
+
+- Class: cmd_question
+  Output: Repite lo mismo para el plan Premium. Filtra la población con subset() y guárdala en una variable llamada estrato_premium.
+  CorrectAnswer: estrato_premium <- subset(usuarios_app, plan == "Premium")
+  AnswerTests: estrato_valido('estrato_premium', 'Premium')
+  Hint: Usa subset() con usuarios_app como primer argumento y plan == "Premium" como condición.
+
+- Class: cmd_question
+  Output: Ahora toma una muestra de 12 registros de satisfaccion de ese estrato, y guárdala en una variable llamada muestra_premium.
+  CorrectAnswer: muestra_premium <- sample(estrato_premium$satisfaccion, 12)
+  AnswerTests: muestra_valida('muestra_premium', '12', 'estrato_premium$satisfaccion', 'sample')
+  Hint: Usa sample() sobre estrato_premium$satisfaccion, con 12 como tamaño de muestra.
+
+- Class: cmd_question
+  Output: Finalmente, une ambas muestras en una sola usando c(). Guarda el resultado en una variable llamada muestra_estratificada.
+  CorrectAnswer: muestra_estratificada <- c(muestra_gratuito, muestra_premium)
+  AnswerTests: estratificada_valida()
+  Hint: Usa c() con ambas muestras como argumentos, para combinarlas en un solo vector.
+
+- Class: text
+  Output: Lo estás haciendo muy bien! Conozcamos el siguiente paso de esta lección.
+
+# Paso 6. Calcular al menos un estadístico
+
+- Class: cmd_question
+  Output: Paso 6. Calcular al menos un estadístico. Calcula la media de muestra_estratificada usando mean(), y guárdala en una variable llamada satisfaccion_estratificada.
+  CorrectAnswer: satisfaccion_estratificada <- mean(muestra_estratificada)
+  AnswerTests: var_igual_a('satisfaccion_estratificada', 'mean(muestra_estratificada)')
+  Hint: Usa mean() sobre la variable muestra_estratificada.
+
+- Class: text
+  Output: Ese valor es tu primera estimación del nivel de satisfacción general, calculada de forma que ambos tipos de plan quedaron representados según su proporción real. Pero, como vimos anteriormente, una sola muestra no basta para confiar plenamente en el resultado. Por esto, es necesario repetir el proceso con diferentes muestras.
+
+# Paso 7. Repetir el proceso con diferentes muestras
+
+- Class: text
+  Output: Vas a repetir 'num_muestras' veces el proceso completo de muestreo estratificado y cálculo de la media, para construir la distribución muestral de la media.
+
+- Class: cmd_question
+  Output: Fija la semilla con set.seed(20) antes de la simulación.
+  CorrectAnswer: set.seed(20)
+  AnswerTests: omnitest(correctExpr='set.seed(20)')
+  Hint: Haz uso de la semilla, escribe tal cual la función.
+
+- Class: cmd_question
+  Output: Utiliza replicate() para repetir 'num_muestras' veces el proceso completo de muestreo estratificado y cálculo de la media. Guarda el resultado en una variable llamada medias_estratificadas.
+  CorrectAnswer: medias_estratificadas <- replicate(num_muestras, mean(c(sample(estrato_gratuito$satisfaccion, 28), sample(estrato_premium$satisfaccion, 12))))
+  AnswerTests: replicas_validas('medias_estratificadas', 'num_muestras')
+  Hint: Dentro de replicate() escribe num_muestras y repite exactamente el proceso de tomar ambas muestras, unirlas con c() y calcular su media.
+
+# Paso 8. Analizar la distribución muestral obtenida
+
+- Class: text
+  Output: Analiza la distribución muestral obtenida. Ahora 'medias_estratificadas' contiene 500 promedios distintos, esa es la distribución muestral de la media. Vamos a describirla con dos números, su centro y su dispersión.
+
+- Class: cmd_question
+  Output: Calcula el promedio de 'medias_estratificadas' usando mean(), y guárdalo como 'centro_distribucion'.
+  CorrectAnswer: centro_distribucion <- mean(medias_estratificadas)
+  AnswerTests: var_igual_a('centro_distribucion', 'mean(medias_estratificadas)')
+  Hint: mean() promedia los 500 promedios muestrales.
+
+- Class: cmd_question
+  Output: Calcula la desviación estándar de 'medias_estratificadas' usando sd(), y guárdala como 'error_estandar_simulado'. Este valor es una estimación del llamado 'error estándar de la media'.
+  CorrectAnswer: error_estandar_simulado <- sd(medias_estratificadas)
+  AnswerTests: var_igual_a('error_estandar_simulado', 'sd(medias_estratificadas)')
+  Hint: sd() mide qué tan dispersos están los 500 promedios entre sí.
+
+- Class: cmd_question
+  Output: La teoría dice que, para un muestreo aleatorio simple, el error estándar de la media se calcula directamente como sd_poblacional / sqrt(n), sin necesidad de simular nada. Calcúlalo y guárdalo como 'error_estandar_teorico'. Nos servirá de referencia de qué tan estable habría sido un muestreo aleatorio simple del mismo tamaño.
+  CorrectAnswer: error_estandar_teorico <- sd_poblacional / sqrt(n)
+  AnswerTests: var_igual_a('error_estandar_teorico', 'sd_poblacional / sqrt(n)')
+  Hint: Usa la fórmula sd_poblacional / sqrt(n).
+
+- Class: cmd_question
+  Output: Compara el centro con la media real escribiendo c(centro_distribucion, media_poblacional).
+  CorrectAnswer: c(centro_distribucion, media_poblacional)
+  AnswerTests: val_igual('c(centro_distribucion, media_poblacional)')
+  Hint: Usa c() para ver ambos valores juntos, en el orden que se pide.
+
+- Class: cmd_question
+  Output: Ahora compara las dispersiones escribiendo c(error_estandar_simulado, error_estandar_teorico).
+  CorrectAnswer: c(error_estandar_simulado, error_estandar_teorico)
+  AnswerTests: val_igual('c(error_estandar_simulado, error_estandar_teorico)')
+  Hint: Usa c() para ver ambos valores juntos, en el orden que se pide.
+
+- Class: text
+  Output: Notarás dos cosas. (1) 'centro_distribucion' está muy cerca de 'media_poblacional', es decir, al repetir el muestreo muchas veces los promedios se concentran alrededor de la media real de la población. (2) 'error_estandar_simulado' es menor que 'error_estandar_teorico', es decir, las estimaciones del muestreo estratificado varían menos de una muestra a otra que las de un muestreo aleatorio simple del mismo tamaño.
+
+# Paso 9. Interpretar los resultados
+
+- Class: mult_question
+  Output: Para el último paso, interpretarás los resultados. Con base en todo lo anterior, si la empresa solo hubiera confiado en 'satisfaccion_estratificada' (la primera muestra, sin repetir el proceso), ¿qué riesgo habría corrido?
+  AnswerChoices: Ninguno, una sola muestra siempre da el valor exacto de la población;Podría haber tomado una decisión basada en un valor que, por azar, se aleja del verdadero nivel de satisfacción;El resultado hubiera sido inválido porque el muestreo estratificado no sirve para este tipo de datos
+  CorrectAnswer: Podría haber tomado una decisión basada en un valor que, por azar, se aleja del verdadero nivel de satisfacción
+  AnswerTests: opcion_mc('p5')
+  Hint: Piensa en la diferencia entre un solo estimado y la distribución completa de posibles estimados que construiste en los pasos 7 y 8.
+
+- Class: mult_question
+  Output: Si en vez de estratificar hubieras usado muestreo aleatorio simple sin ningún cuidado, ¿qué riesgo real habrías corrido en este problema específico?
+  AnswerChoices: Ninguno, el resultado habría sido exactamente igual siempre;Una estimación menos estable, con más probabilidad de alejarse de la media real al depender de cuántos usuarios Premium cayeron por azar en la muestra;El código en R habría sido más difícil de escribir;La población habría cambiado de tamaño
+  CorrectAnswer: Una estimación menos estable, con más probabilidad de alejarse de la media real al depender de cuántos usuarios Premium cayeron por azar en la muestra
+  AnswerTests: opcion_mc('p6')
+  Hint: Compara error_estandar_simulado con error_estandar_teorico y recuerda el motivo original por el que elegiste estratificado.
+
+- Class: mult_question
+  Output: Si el equipo quisiera reducir el error estándar de sus estimaciones (es decir, que las medias muestrales varíen menos entre sí) sin cambiar el número de veces que repite el proceso, ¿qué debería hacer?
+  AnswerChoices: Aumentar el tamaño de la muestra ('n');Elegir siempre los mismos 40 usuarios;Dejar de usar semillas aleatorias
+  CorrectAnswer: Aumentar el tamaño de la muestra ('n')
+  AnswerTests: opcion_mc('p7')
+  Hint: Revisa la fórmula que usaste para 'error_estandar_teorico', sd_poblacional / sqrt(n). ¿Qué le pasa al resultado si n crece?
+
+- Class: text
+  Output: Exacto. Como n está en el denominador dentro de una raíz cuadrada, aumentar el tamaño de muestra reduce el error estándar (aunque con rendimientos decrecientes, para reducirlo a la mitad, hay que cuadruplicar n).
+
+# Cierre de la lección
+
+- Class: text
+  Output: Con esto finalizas el análisis. Recapitulemos todo el proceso que realizaste...
+
+- Class: text 
+  Output: Identificaste la población (usuarios_app), definiste qué información necesitabas (satisfacción general), elegiste y justificaste el muestreo estratificado por plan, obtuviste una muestra respetando esa proporción y calculaste su media. Repetiste el proceso 500 veces para construir una distribución muestral, y comparaste su centro con la media real y su error estándar con el de un muestreo aleatorio simple para evaluar qué tan confiable es tu estimación.
+
+- Class: text
+  Output: Con esto completas la actividad integradora y el curso de Muestreo Estadístico. A lo largo de las 4 lecciones aprendiste los fundamentos del muestreo, los 5 métodos principales y las 3 distribuciones muestrales más importantes. Estas herramientas son la base de cualquier análisis de datos, encuesta o proceso de toma de decisiones basado en información real. Ya estás preparado para realizar Muestras sin confusiones, Felicidades!
+
+#-----------------------------------------------
+#REFERENCIAS UTILIZADAS A LO LARGO DE LA LECCION
+
+#Heckert, N., Filliben, J., Croarkin, C., Hembree, B., Guthrie, W., Tobias, P., & Prinz, J.(2002). NIST/SEMATECH e-Handbook of Statistical Methods. National Institute of Standards and Technology. https://www.nist.gov/programs-projects/nistsematech-engineering-statistics-handbook
+
+#Mellado, J. (s.f.). Muestreo por conglomerados. Universidad Autónoma Agraria Antonio Narro.https://www.uaaan.mx/~jmelbos/muestreo/muapu5
+
+#Newbold, P., Carlson, W. L., & Thorne, B. M. (2008). Estadística para administración y economía(6.ª ed.). Pearson Educación.
+
+#Ochoa, C. (s.f.). Muestreo aleatorio simple. Definición, características y ejemplos. Netquest.https://www.netquest.com/blog/muestreo-probabilistico-muestreo-aleatorio-simple
+
+#Ochoa, C. (s.f.). Muestreo estratificado. una técnica avanzada de muestreo probabilístico. Netquest.https://www.netquest.com/blog/muestreo-probabilistico-muestreo-estratificado
+
+#Ochoa, C. (s.f.). Muestreo sistemático. qué es, ejemplos y ventajas en investigación. Netquest.https://www.netquest.com/blog/muestreo-sistematico
+
+#Ochoa, C. (s.f.). Muestreo por conglomerados explicado fácil paso a paso. Netquest.https://www.netquest.com/blog/muestreo-probabilistico-muestreo-conglomerados
+
+#Ochoa, C. (s.f.). Muestreo por Conveniencia. Qué es, ejemplos y características. Netquest.https://www.netquest.com/blog/muestreo-por-conveniencia
+
+#Ortega, C. (s.f.). Métodos de muestreo. Ejemplos y usos. QuestionPro.https://www.questionpro.com/blog/es/metodos-de-muestreo/
+
+#Otzen, T., & Manterola, C. (2017). Técnicas de muestreo sobre una población a estudio.International Journal of Morphology, 35(1), 227-232.https://scielo.conicyt.cl/pdf/ijmorphol/v35n1/art37.pdf
+
+#UNAM Sisal. (s.f.). Introducción a la estadística. https://cc.sisal.unam.mx/Guias/GuiaEstadisticaR.html
+
+#Universidad de Valencia. (s.f.). Introducción a la inferencia estadística. Universitat de València.https://www.uv.es/webgid/Inferencial/21_introduccin.html
