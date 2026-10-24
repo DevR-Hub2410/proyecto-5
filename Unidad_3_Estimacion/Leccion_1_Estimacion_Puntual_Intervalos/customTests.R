@@ -83,5 +83,51 @@ test_media_mediana <- function() {
   return(FALSE)
 }
 
+#===============================================================================
+#             Variable numérica (media, proporción o intervalo)
+#   Se reutiliza en varias preguntas. nombre es la variable que debe crear el
+#   estudiante y correcto es el valor (o vector) que debe contener.
+#===============================================================================
 
+test_variable_numerica <- function(nombre, correcto, tolerancia = 1e-4) {
+  e <- get("e", parent.frame())
+  
+  # Revisa si el estudiante asignó el resultado a la variable pedida
+  es_asignacion <- is.call(e$expr) &&
+    (identical(e$expr[[1]], as.name("<-")) ||
+       identical(e$expr[[1]], as.name("="))) &&
+    identical(e$expr[[2]], as.name(nombre))
+  
+  # Error 1: dejó el resultado completo de t.test() o prop.test()
+  if (inherits(e$val, "htest")) {
+    message("La función devuelve varios resultados. Agrega $conf.int al final para quedarte solo con el intervalo de confianza.")
+    return(FALSE)
+  }
+  
+  # Revisa si el valor obtenido coincide con el correcto 
+  valor_correcto <- is.numeric(e$val) &&
+    length(e$val) == length(correcto) &&
+    isTRUE(all.equal(as.numeric(e$val), correcto, tolerance = tolerancia))
+  
+  # Respuesta correcta 
+  if (es_asignacion && valor_correcto) {
+    return(TRUE)
+  }
+  
+  # Error 2: el valor es correcto, pero no lo guardó en la variable pedida
+  if (!es_asignacion && valor_correcto) {
+    message("El resultado es correcto, pero no lo guardaste en la variable ", nombre, ". Utiliza <- para asignar el resultado.")
+    return(FALSE)
+  }
+  
+  # Error 3: guardó algo en la variable, pero el valor no coincide 
+  if (es_asignacion) {
+    message("Guardaste el resultado en ", nombre, ", pero el valor no coincide. ", "Revisa las funciones y los vectores que utilizaste.")
+    return(FALSE)
+  }
+  
+  # Cualquier otro error 
+  message("Calcula el resultado y guárdalo en la variable ", nombre, " utilizando <-.")
+  return(FALSE)
+}
 

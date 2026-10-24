@@ -136,4 +136,47 @@
   AnswerTests: omnitest(correctVal = 'Consistencia')
   Hint: Fíjate en lo que ocurre con el estimador cuando el tamaño de la mmuestra aumenta. 
   
+#===============================================================
+# Estimación puntual
+#===============================================================
+
+- Class: text
+  Output: La estimación puntual consiste en usar un único valor, calculado con una muestra, para aproximar un parámetro de la población. El valor que obtenemos se llama estimación, y la fórmula que usamos para calcularlo es el estimador (Walpole et al., 2012).
+  
+- Class: text
+  Output: Por ejemplo, para aproximar el tiempo medio de respuesta de una aplicación, podemos medir una muestra de peticiones y calcular su media. Ese valor es una estimación puntual de la media poblacional. 
+  
+- Class: cmd_question
+  Output: Un equipo de desarrollo registró 10 tiempos de respuesta, en segundos, en el vector tiempos_respuesta. Calcula su media con mean() y guárdala en la variable estimacion_media. 
+  CorrectAnswer: estimacion_media <- mean(tiempos_respuesta)
+  AnswerTests: test_variable_numerica('estimacion_media', 2.23)
+  Hint: Calcula la media con mean() y utiliza <- para guardar el resultado en estimacion_media. 
+  
+- Class: text
+  Output: Escribe estimacion_media para ver la estimación puntual. 
+  CorrectAnswer: estimacion_media
+  AnswerTests: omnitest(correctExpr = 'estimacion_media')
+  Hint: Escribe estimacion_media
+  
+- Class: text
+  Output: También podemos estimar proporciones. La proporción muestral es el número de elementos que cumplen una característica entre el tamaño de la muestra, y sirve como estimación puntual de la proporción poblacional. 
+  
+- Class: exact_question
+  Output: En una encuesta a 80 personas, 44 prefieren el producto A. ¿Cuál es la estimación puntual de la proporción de personas que prefieren el producto A? Responde en decimal. 
+  CorrectAnswer: 0.55
+  AnswerTests: omnitest(correctVal = 0.55)
+  Hint: Divide el número de personas que prefieren el producto A entre el total de personas encuestadas. 
+  
+- Class: text
+  Output: En R, una comparación como tipo_desarrollador == "Backend" devuelve TRUE o FALSE para cada elemento. Como mean() trata TRUE como 1 y FALSE como 0, la media de esos valores es la proporción de elementos que cumplen la condición. 
+  
+- Class: cmd_question
+  Output: En el vector tipo_desarrollador se guardan los roles de 10 desarrolladores de una muestra. Calcula la proporción de desarrolladores Backend usando mean() sobre la comparación tipo_desarrollador == "Backend" y guárdala en la variable proporcion_backend. 
+  CorrectAnswer: proporcion_backend <- mean(tipo_desarrollador == "Backend")
+  AnswerTests: test_variable_numerica('proporcion_backend', 0.6)
+  Hint: Compara tipo_desarrollador con "Backend", usa mean() para obtener la proporción y guarda el resultado con <-. 
+  
+- Class: text
+  Output: Una estimación puntual es solo un valor. No nos dice qué tan cerca está del parámetro real. Para media esa incertidumbre usamos los intervalos de confianza, que veremos a continuación. 
+  
   
