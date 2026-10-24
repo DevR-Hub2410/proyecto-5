@@ -44,3 +44,39 @@
 - Class: text
   Output: Si ejecutas sample() otra vez, obtendrás números distintos, porque la selección es aleatoria. Por eso dos muestras de la misma población casi nunca son iguales. 
   
+#===============================================================
+# Parámetros
+#===============================================================
+
+- Class: text
+  Output: Hablemos ahora de los parámetros. Un parámetro es un valor numérico que describe una característica de toda la población. Puede ser una medida de tendencia central, como la media o la mediana, o una medida de dispersión, como el rango o la desviación estándar (Walpole et al., 2012).
+  
+- Class: text
+  Output: Un parámetro casi siempre es desconocido, porque medir a toda la población suele ser costoso o imposible. Por eso, más adelante lo estimaremos usando una muestra. 
+  
+- Class: text
+  Output: Veamos un ejemplo. Supón que un grupo de 5 estudiantes, que es toda la población que nos interesa, tiene calificaciones de 6, 7, 7, 8 y 10. Su media es 7.6, su mediana es 7 y su rango es 4. Como describen a toda la población, estos valores son parámetros. 
+  
+- Class: cmd_question 
+  Output: Comprobemos esos valores en R. Las calificaciones están en el vector notas. Calcula la media y la mediana y júntalas con c().
+  CorrectAnswer: c(media = mean(notas), mediana = median(notas))
+  AnswerTests: test_media_mediana()
+  Hint: Usa mean(notas) para la media, median(notas) para la mediana y c() para juntar los dos resultados. 
+  
+- Class: text
+  Output: Ahora, sin usar R, calcula el rango de las calificaciones 6, 7, 7, 8 y 10. 
+  CorrectAnswer: 4
+  AnswerTests: omnitest(correctVal = 4)
+  Hint: El rango es el valor máximo menos el valor mínimo. 
+  
+- Class: text
+  Output: En R, el rango también puede obtenerser con diff(range(notas)). La función range() devuelve el mínimo y el máximo, y diff() calcula su diferencia. 
+  
+- Class: mult_question
+  Output: Una empresa de software calcula la edad promedio de todos sus desarrolladores. ¿Qué representa este valor?
+  AnswerChoices: Una muestra;Un parámetro;Un estimador;Un dato individual
+  CorrectAnswer: Un parámetro
+  AnswerTests: omnitest(correctVal = 'Un parámetro')
+  Hint: Piensa si el promedio se calculó con toda la población o solo con una parte de ella. 
+  
+  

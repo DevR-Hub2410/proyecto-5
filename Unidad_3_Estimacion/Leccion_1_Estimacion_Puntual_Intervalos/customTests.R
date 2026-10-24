@@ -45,3 +45,43 @@ test_muestra_aleatoria <- function() {
   return(FALSE)
 }
 
+#===============================================================================
+#                          Media y mediana juntas
+#===============================================================================
+
+test_media_mediana <- function() {
+  e <- get("e", parent.frame())
+  txt <- gsub("\\s+", "", paste(deparse(e$expr), collapse = ""))
+  
+  # Respuesta correcta
+  if (is.numeric(e$val) && length(e$val) == 2 &&
+      isTRUE(all.equal(as.numeric(e$val), c(7.6, 7)))) {
+    return(TRUE)
+  }
+  
+  # Error 1: calculó solo una función, sin c()
+  if (is.call(e$expr) && deparse(e$expr[[1]]) %in% c("mean", "median")) {
+    message("Casi... Solo calculaste un valor. Junta la media y la mediana dentro de c().")
+    return(FALSE)
+  }
+  
+  # Error 2: le falta mean() o median()
+  if (!grepl("mean(", txt, fixed = TRUE) || !grepl("median(", txt, fixed = TRUE)) {
+    message("Necesitas las dos funciones dentro de c(), mean() y median().")
+    return(FALSE)
+  }
+  
+  # Error 3: puso la mediana antes que la media
+  if (is.numeric(e$val) && length(e$val) == 2 &&
+      isTRUE(all.equal(as.numeric(e$val), c(7, 7.6)))) {
+    message("Los valores están al revés. Pon primero la media y después la mediana.")
+    return(FALSE)
+  }
+  
+  # Error 4: cualquier otro caso
+  message("Revisa que estés usando el vector notas.")
+  return(FALSE)
+}
+
+
+
