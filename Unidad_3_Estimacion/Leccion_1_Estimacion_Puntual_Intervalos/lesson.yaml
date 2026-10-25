@@ -249,4 +249,62 @@
   AnswerTests: omnitest(correctVal = 'Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos')
   Hint: El intervalo estima el parámetro, la media poblacional. No describe a cada petición individual. 
   
+#===============================================================
+# Intervalo de confianza para una proporción
+#===============================================================
+
+- Class: text
+  Output: Veamos ahora el intervalo de confianza para una proporción. Funciona con la misma idea que el de la media, pero estima la proporción de la población que cumple una característica, a partir de la proporción de la muestra. 
   
+- Class: text
+  Output: Una forma de calcularlo es con la fórmula aproximada, proporción +- Z * sqrt(proporcion * (1 - proporción) / n). Para 95% de confianza usamos Z = 1.96. Esta fórmula funciona bien cuando la muestra es grande, y una regla práctica común es tener al menos 5 éxitos y 5 fracasos en la muestra (Walpole et al., 2012).
+  
+- Class: text
+  Output: Por ejemplo, se encuestó a 400 personas y 240 prefieren el producto A. La proporción muestral es 240 / 400  = 0.6. El margen de error es 1.96 * sqrt(0.6 * 0.4 / 400), que es aproximadamente 0.048.
+  
+- Class: cmd_question
+  Output: Calcula los dos límites del intervalo con la fórmula, proporción + c(-1, 1) * 1.96 * sqrt(proporción * (1 - proporción) / n), usando proporción = 0.6 y n = 400. Guarda el resultado en la variable intervalo_producto. 
+  CorrectAnswer: intervalo_producto <- 0.6 + c(-1,1) * 1.96 * sqrt(0.6 * 0.4 / 400)
+  AnswerTests: test_variable_numerica('intervalo_producto', c(0.55199, 0.64801))
+  Hint: Sustituye en la fórmula, usando 1 - 0.6 = 0.4 dentro de la raíz. c(-1, 1) calcula el límite inferior y el superior a la vez. Guarda el resultado con <-.
+  
+- Class: mult_question 
+  Output: En esa encuesta de 400 personas, el 60% prefiere el producto A y el intervalo de confianza al 95% para la proporción poblacional es (0.552, 0.648). ¿Se puede afirmar con 95% de confianza que más de la mitad de la población prefiere el producto A?
+  AnswerChoices: Sí, porque todo el intervalo queda por encima de 0.50;No, porque el intervalo llega hasta 0.648 y no hasta 1;No se puede decir nada porque solo se encuestó a una muestra;Sí, pero solo si el intervalo incluye al 0.50
+  CorrectAnswer: Sí, porque todo el intervalo queda por encima de 0.50
+  AnswerTests: omnitest(correctVal = 'Sí, porque todo el intervalo queda por encima de 0.50')
+  Hint: Compara el límite inferior del intervarlo con 0.50.
+  
+- Class: text
+  Output: Cuando tenemos los datos de la muestra, R puede calcular el intervalo con prop.test(x, n), donde x es el número de éxitos y n es el tamaño de la muestra. Esta función usa un método distinto al de la fórmula, así que sus resultados pueden diferir un poco. Igual que con t.test(), solo necesitamos el intervalo, que se obtiene con $conf.int.
+  
+- Class: cmd_question 
+  Output: En el vector tipo_desarrollador están los roles de 10 desarrolladores. Calcula el intervalo de confianza del 95% para la proporción de desarrolladores Backend con prop.test(). Usa sum(tipo_desarrollador == "Backend") como número de éxitos y length(tipo_desarrollador) como total, y guarda solo el intervalo en la variable intervalo_backend. 
+  CorrectAnswer: intervalo_backend <- prop.test(sum(tipo_desarrollador == "Backend"), length(tipo_desarrollador), conf.level = 0.95)$conf.int
+  AnswerTests: test_variable_numerica('intervalo_backend', c(0.2736697, 0.8630694))
+  Hint: Usa prop.test() con el número de Backend y el total, agrega conf.level = 0.95 y $conf.int al final, y guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Escribe intervalo_backend para ver el resultado. 
+  CorrectAnswer: intervalo_backend
+  AnswerTests: omnitest(correctExpr = 'intervalo_backend')
+  Hint: Escribe intervalo_backend.
+  
+- Class: mult_question
+  Output: El intervalo va aproximadamente de 0.27 a 0.86, un rango muy amplio. ¿Cuál es la razón principal?
+  AnswerChoices: La muestra es pequeña, solo 10 desarrolladores;El nivel de confianza es demasiado bajo;La proporción de Backend es 0.6;R calculó mal el intervalo
+  CorrectAnswer: La muestra es pequeña, solo 10 desarrolladores
+  AnswerTests: omnitest(correctVal = 'La muestra es pequeña, solo 10 desarrolladores')
+  Hint: Piensa en cuánta información tenemos. Con pocos datos, la estimación tiene más incertidumbre. 
+  
+- Class: text
+  Output: Con más datos, el intervalo sería más angosto y la estimación más precisa. Veremos cómo se relacionan el tamaño de la muestra y la precisión en la siguiente lección. 
+  
+- Class: mult_question
+  Output: Un equipo de software calcula un intervalo de confianza del 95% para la proporción de usuarios que prefieren el modo oscuro y obtiene (0.62, 0.74). ¿Cuál es la interpretación correcta?
+  AnswerChoices: Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%;El 62% de los usuarios usa siempre el modo oscuro;El 74% de los usuarios usa siempre el modo oscuro;El 95% de los usuarios prefiere el modo oscuro
+  CorrectAnswer: Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%')
+  Hint: El intervalo estima la proporción de toda la población de usuarios. No describe el comportamiento de cada usuario. 
+  
+
