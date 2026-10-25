@@ -195,4 +195,58 @@
 - Class: text
   Output: Una estimación puntual es solo un valor. No nos dice qué tan cerca está del parámetro real. Para media esa incertidumbre usamos los intervalos de confianza, que veremos a continuación. 
   
+#===============================================================
+# Intervalo de confianza para la media
+#===============================================================
+
+- Class: text
+  Output: Una estimación puntual es un solo valor y no dice qué tan cerca está del parámetro. Un intervalo de confianza resuelve esto, porque entrega un rango de valores plausibles para el parámetro, calculado con los datos de una muestra (Walpole et al., 2012).
+  
+- Class: text
+  Output: Todo intervalo de confianza tiene un nivel de confianza, que casi siempre es 95%. Significa que, si repitiéramos el muestreo muchas veces y contruyéramos un intervalo con cada muestra, aproximadamente el 95% de esos intervalos contendría el parámetro verdadero. 
+  
+- Class: text
+  Output: Empecemos con el intervalo para una media. Cuando conocemos la media muestral, la desviación estándar s y el tamaño de la muestra n, el intervalo se calcula con media +- Z * s / sqrt(n). Para 95% de confianza, el valor crítico es Z = 1.96.
+  
+- Class: text
+  Output: Por ejemplo, se midió el tiempo que tardan 36 personas en llegar al trabajo. La media fue 40 minutos y la desviación estándar fue 12. El error estándar es 12 / sqrt(36) = 2 y el margen de error es 1.96 * 2 = 3.92 minutos. 
+  
+- Class: cmd_question
+  Output: Calcula los datos límites del intervalo con la fórmula, media + c(-1,1) * Z * s / sqrt(n), usando media = 40, Z = 1.96, s = 12 y n = 36.
+  CorrectAnswer: 40 + c(-1, 1) * 1.96 * 12 / sqrt(36)
+  AnswerTests: test_ic_media()
+  Hint: Sustituye los datos en la fórmula. c(-1,1) sirve para obtener el límite inferior y superior a la vez. 
+  
+- Class: mult_question
+  Output: El intervalo de confianza al 95% para el tiempo promedio de traslado resultó (36.08, 43.92) minutos. ¿Qué conclusión es correcta?
+  AnswerChoices: El 95% de las personas tarda entre 36.08 y 43.92 minutos en llegar al trabajo;Con 95% de confianza, el tiempo promedio de traslado de toda la población está entre 36.08 y 43.92 minutos;Cualquier muestra de 36 personas tendrá una media entre 36.08 y 43.92 minutos;Los 40 minutos de la muestra son el tiempo exacto de toda la población
+  CorrectAnswer: Con 95% de confianza, el tiempo promedio de traslado de toda la población está entre 36.08 y 43.92 minutos
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, el tiempo promedio de traslado de toda la población está entre 36.08 y 43.92 minutos')
+  Hint: El intervalo habla del parámetro poblacional, la media de toda la población, no de cada persona ni de otras muestras. 
+  
+- Class: text
+  Output: Cuando tenemos todos los datos de la muestra, no hace falta aplicar la fórmula a mano. La función t.test() calcula el intervalo por nosotros. Usa la distribución t, que es más adecuada cuando la desviación estándar se estima con la muestra, así que sus resultados pueden diferir un poco de los de la fórmula con Z. 
+  
+- Class: text
+  Output: t.test() devuelve varios resultados. En esta lección solo necesitamos el intervalo de confianza, que se obtiene agregando $conf.int al final de la instrucción. 
+  
+- Class: cmd_question
+  Output: El equipo de desarrollo quiere un intervalo de confianza del 95% para la media de los tiempos de respuesta. Usa t.test() sobre tiempos_respuesta con conf.level = 0.95, agrega $conf.int y guarda el intervalo en la variable intervalo_media. 
+  CorrectAnswer: intervalo_media <- t.test(tiempos_respuesta, conf.level = 0.95)$conf.int
+  AnswerTests: test_variable_numerica('intervalo_media', c(2.0716490, 2.3883510))
+  Hint: Usa t.test() con tiempos_respuesta y conf.level = 0.95. El 95% se escribe como decimal. Agrega $conf.int al final y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Escribe intervalo_media para ver el resultado. 
+  CorrectAnswer: intervalo_media
+  AnswerTests: omnitest(correctExpr = 'intervalo_media')
+  Hint: Escribe intervalo_media.
+  
+- Class: mult_question
+  Output: El intervalo es (2.07, 2.39) segundos. ¿Cuál es la interpretación más adecuada? 
+  AnswerChoices: El 95% de las peticiones tarda entre 2.07 y 2.39 segundos;Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos;Todas las peticiones tardan entre 2.07 y 2.39 segundos;El tiempo medio de respuesta es exactamente 2.23 segundos
+  CorrectAnswer: Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos')
+  Hint: El intervalo estima el parámetro, la media poblacional. No describe a cada petición individual. 
+  
   

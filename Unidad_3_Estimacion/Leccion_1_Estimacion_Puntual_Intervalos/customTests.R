@@ -131,3 +131,33 @@ test_variable_numerica <- function(nombre, correcto, tolerancia = 1e-4) {
   return(FALSE)
 }
 
+#===============================================================================
+#                  Intervalo de confianza para una media
+#===============================================================================
+
+test_ic_media <- function() {
+  e <- get("e", parent.frame())
+  txt <- gsub("\\s+", "", paste(deparse(e$expr), collapse = ""))
+  
+  # Respuesta correcta
+  if (is.numeric(e$val) && length(e$val) == 2 && 
+      isTRUE(all.equal(as.numeric(e$val), c(36.08, 43.92), tolerance = 1e-6))) {
+    return(TRUE)
+  }
+  
+  # Error 1: obtuvo un solo límite (sin c(-1,1))
+  if (is.numeric(e$val) && length(e$val) == 1) {
+    message("Casi... Solo obtuviste un límite. Usa c(-1,1) para calcular el inferior y el superior a la vez.")
+    return(FALSE)
+  }
+  
+  # Error 2: olvidó la raíz cuadrada
+  if (!grepl("sqrt(", txt, fixed = TRUE)) {
+    message("Falta la raíz cuadrada del tamaño de muestra, s / sqrt(n).")
+    return(FALSE)
+  }
+  
+  # Error 3: datos u orden de operaciones incorrectos
+  message("Revisa tus datos, media = 40, Z = 1.96, s = 12 y n = 36. Cuida también el orden de la operación.")
+  return(FALSE)
+}
