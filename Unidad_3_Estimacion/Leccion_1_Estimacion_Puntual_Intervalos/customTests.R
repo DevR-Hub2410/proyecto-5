@@ -4,7 +4,7 @@
 
 test_muestra_aleatoria <- function() {
   e <- get("e", parent.frame())
-  v <- e%val
+  v <- e$val
   
   # Revisa si el resultado se guardó en la variable muestra
   es_asignacion <- is.call(e$expr) &&
@@ -161,3 +161,127 @@ test_ic_media <- function() {
   message("Revisa tus datos, media = 40, Z = 1.96, s = 12 y n = 36. Cuida también el orden de la operación.")
   return(FALSE)
 }
+
+#===============================================================================
+#                     Intervalo exacto con binom.test
+#===============================================================================
+
+test_ic_binom <- function() {
+  e <- get("e", parent.frame())
+  txt <- gsub("\\s+", "", paste(deparse(e$expr), collapse = ""))
+  
+  # Respuesta correcta
+  if (is.numeric(e$val) && length(e$val) == 2 &&
+      isTRUE(all.equal(as.numeric(e$val), c(0.02521073, 0.55609546), tolerance = 1e-6))) {
+    return(TRUE)
+  }
+  
+  # Error 1: escribió binom.test(2, 10) sin $conf.int
+  if (identical(e$expr, quote(binom.test(2, 10))) || inherits(e$val, "htest")) {
+    message("Ya casi. Agrega $conf.int al final para ver solo el intervalo.")
+    return(FALSE)
+  }
+  
+  # Error 2: no usó binom.test
+  if (!grepl("binom.test(", txt, fixed = TRUE)) {
+    message("Usa la función binom.test().")
+    return(FALSE)
+  }
+  
+  # Error 3: argumentos incorrectos 
+  message("Revisa los argumentos, binom.test(éxitos, total). Aquí son 2 módulos con errores críticos de 10 revisados.")
+  return(FALSE)
+}
+
+#===============================================================================
+#       Intervalo para la media de calificaciones (actividad integradora)
+#===============================================================================
+
+test_ic_calificaciones <- function() {
+  e <- get("e", parent.frame())
+  datos <- get("calificaciones", envir = globalenv())
+  correcto <- as.numeric(t.test(datos, conf.level = 0.95)$conf.int)
+  
+  # Revisa si el estudiante asignó el resultado a la variable pedida
+  es_asignacion <- is.call(e$expr) &&
+    (identical(e$expr[[1]], as.name("<-")) ||
+       identical(e$expr[[1]], as.name("="))) &&
+    identical(e$expr[[2]], as.name("intervalo_calificaciones"))
+  
+  # Error 1: dejó el resultado completo de t.test()
+  if (inherits(e$val, "htest")) {
+    message("t.test() devuelve varios resultados. Agrega $conf.int al final para quedarte solo con el intervalo.")
+    return(FALSE)
+  }
+
+  valor_correcto <- is.numeric(e$val) && length(e$val) == 2 &&
+    isTRUE(all.equal(as.numeric(e$val), correcto, tolerance = 1e-4))
+  
+  # Respuesta correcta 
+  if (es_asignacion && valor_correcto) {
+    return(TRUE)
+  }
+  
+  # Error 2: el intervalo es correcto, pero no lo guardó
+  if (!es_asignacion && valor_correcto) {
+    message("El intervalo es correcto, pero no lo guardaste en la variable intervalo_calificaciones. Utiliza <- para asignar el resultado.")
+    return(FALSE)
+  }
+  
+  # Error 3: guardó algo, pero el valor no coincide 
+  if (es_asignacion) {
+    message("Guardaste el resultado, pero el valor no coincide. Revisa que uses t.test() con calificaciones y conf.level = 0.95.")
+    return(FALSE)
+  }
+  
+  message("Usa t.test() con calificaciones, agrega $conf.int y guarda el resultado en intervalo_calificaciones con <-.")
+  return(FALSE)
+}
+
+#===============================================================================
+#       Intervalo para la proporción de modo oscuro (actividad integradora)
+#   El valor correcto se calcula con los datos del vector modo_oscuro.
+#===============================================================================
+
+test_is_oscuro <- function() {
+  e <- get("e", parent.frame())
+  datos <- get("modo_oscuro", envir = globalenv())
+  correcto <- as.numeric(prop.test(sum(datos == "Si"), length(datos), conf.level = 0.95)$conf.int)
+  
+  # Revisa si el estudiante asignó el resultado a la variable pedida
+  es_asignacion <- is.call(e$expr) &&
+    (identical(e$expr[[1]], as.name("<-")) ||
+       identical(e$expr[[1]], as.name("="))) &&
+    identical(e$expr[[2]], as.name("intervalo_oscuro"))
+  
+  # Error 1: dejó el resultado completo de prop.test()
+  if (inherits(e$val, "htest")) {
+    message("prop.test() devuelve varios resultados. Agrega $conf.int al final para quedarte solo con el intervalo.")
+    return(FALSE)
+  }
+  
+  valor_correcto <- is.numeric(e$val) && length(e$val) == 2 &&
+    isTRUE(all.equal(as.numeric(e$val), correcto, tolerance = 1e-4))
+  
+  # Respuesta correcta 
+  if (es_asignacion && valor_correcto) {
+    return(FALSE)
+  }
+  
+  # Error 2: el intervalo es correcto, pero no lo guardó
+  if (!es_asignacion && valor_correcto) {
+    message("El intervalo es correcto, pero no lo guardaste en la variable intervalo_oscuro. Utiliza <- para asignar el resultado.")
+    return(FALSE)
+  }
+  
+  # Error 3: guardó algo, pero el valor no coincide 
+  if (es_asignacion) {
+    message("Guardaste el resultado, pero el valor no coincide. Revisa que el número de éxitos sea sum(modo_oscuro == \"Si\") y el total sea length(modo_oscuro).")
+    return(FALSE)
+  }
+  
+  message("Usa prop.test() con el número de usuarios que dicen \"Si\" y el total, agrega $conf.int y guarda el resultado en intervalo_oscuro con <-.")
+  return(FALSE)
+  
+}
+

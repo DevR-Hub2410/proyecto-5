@@ -307,4 +307,124 @@
   AnswerTests: omnitest(correctVal = 'Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%')
   Hint: El intervalo estima la proporción de toda la población de usuarios. No describe el comportamiento de cada usuario. 
   
+#===============================================================
+# Método exacto para una proporción
+#===============================================================
+
+- Class: text
+  Output: La fórmula aproximada de proporciones necesita una muestra grande. Cuando la muestra es pequeña o hay muy poco éxitos, se usa el método exacto, basado en la distribución binomial, también llamado método de Clopper-Pearson (R Core Team, s. f.).
+  
+- Class: text
+  Output: Por ejemplo, un equipo revisó 10 módulos de un sistema y encontró errores críticos en 2 de ellos. La proporción muestral es 0.20, pero con solo 2 éxitos la fórmula aproximada no es confiable. En R usamos binom.test(x, n), donde x es el número de éxitos y n el total de la muestra. 
+  
+- Class: cmd_question
+  Output: Obtén el intervalo de confianza exacto para 2 módulos con errores críticos de 10 revisados. Usa binom.test() y agrega $conf.int al final para ver solo el intervalo. 
+  CorrectAnswer: binom.test(2, 10)$conf.int
+  AnswerTests: test_ic_binom()
+  Hint: La estructura es binom.test(éxitos, total)$conf.int.
+  
+- Class: text
+  Output: El intervalo es aproximadamente (0.03, 0.56). Por defecto, binom.test() usa 95% de confianza. Fíjate en lo amplio que es, porque con una muestra de 10 hay mucha incetidumbre sobre la proporción real. 
+  
+#===============================================================
+# Actividad integradora
+#===============================================================
+
+- Class: text
+  Output: Pongamos todo junto. Una empresa de software quiere analizar la experiencia de sus usarios. Seleccionó una muestra de 15 usuarios y registró su calificación de la aplicación en el vector calificaciones. También registró si cada usuarios utiliza el modo oscuro en el vector modo_oscuro. 
+  
+- Class: cmd_question
+  Output: Primero, calcula la media de las calificaciones y guárdala en la variable media_calificaciones. 
+  CorrectAnswer: media_calificaciones <- mean(calificaciones)
+  AnswerTests: test_variable_numerica('media_calificaciones', 4.193333)
+  Hint: Usa mean() sobre el vector calificaciones y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Ahora calcula la proporción de usuarios que utilizan el modo oscuro y guárdala en la variable proporcion_oscuro. Recuerda que en modo_oscuro los valores son "Si" o "No".
+  CorrectAnswer: proporcion_oscuro <- mean(modo_oscuro == "Si")
+  AnswerTests: test_variable_numerica('proporcion_oscuro', 0.6)
+  Hint: Compara modo_oscuro con "Si" y usa mean() para obtener la proporción. Guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Calcula un intervalo de confianza del 95% para la media de las calificaciones con t.test(). Agrega $conf.int y guarda el intervalo en la variable intervalo_calificaciones. 
+  CorrectAnswer: intervalo_calificaciones <- t.test(calificaciones, conf.level = 0.95)$conf.int
+  AnswerTests: test_ic_calificaciones()
+  Hint: Usa t.test() con calificaciones y conf.level = 0.95, agrega $conf.int al final y guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Escribe intervalo_calificaciones para ver el resultado. 
+  CorrectAnswer: intervalo_calificaciones
+  AnswerTests: omnitest(correctExpr = 'intervalo_calificaciones')
+  Hint: Escribe intervalo_calificaciones. 
+  
+- Class: text
+  Output: El intervalo se construye alrededor de la estimación puntual. La distancia entre la media y cualquiera de los límites es el margen de error. 
+  
+- Class: cmd_question 
+  Output: Calcula el margen de error restando la media al límite superior del intervalo. Usa media_calificaciones e intervalo_calificaciones[2] y guarda el resultado en la variable margen_error.
+  CorrectAnswer: margen_error <- intervalo_calificaciones[2] - media_calificaciones
+  AnswerTests: test_variable_numerica('margen_error', 0.168059, 1e-3)
+  Hint: El límite superior es el segundo elemento del intervalo, y se obtiene con intervalo_calificaciones[2]. Réstale la media y guarda el resultado con <-. 
+  
+- Class: mult_question
+  Output: El intervalo es aproximadamente (4.03, 4.36). ¿Qué significa este resultado?
+  AnswerChoices: Todos los usuarios calificaron la aplicación entre 4.03 y 4.36;Con 95% de confianza, la calificacion media de todos los usuarios está entre 4.03 y 4.36;El 95% de los usuarios calificó con 4.03;La muestra contiene 4.36 usuarios
+  CorrectAnswer: Con 95% de confianza, la calificacion media de todos los usuarios está entre 4.03 y 4.36
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, la calificacion media de todos los usuarios está entre 4.03 y 4.36')
+  Hint: El intervalo estima el parámetro poblacional, la media de todos los usuarios. No describe a cada usuario. 
+  
+- Class: text
+  Output: Ahora veamos el modo oscuro. La proporción de la muestra es una estimación puntual. Antes de calcular el intervalo, comprobemos qué indica por sí sola. 
+
+- Class: text
+  Output: Comprueba si la proporción muestral es mayor que 0.5 Escribe una comparación con proporcion_oscuro.
+  CorrectAnswer: proporcion_oscuro > 0.5
+  AnswerTests: omnitest(correctval = TRUE)
+  Hint: Usa el operador > para comparar proporcion_oscuro con 0.5.
+  
+- Class: cmd_question
+  Output: La muestra sugiere que más de la mitad usa el modo oscuro. Veamos si el intervalo lo confirma. Usa prop.test() con sum(modo_oscuro == "Si") como número de éxitos y length(modo_oscuro) como total. Agrega conf.level = 0.95 y $conf.int, y guarda el intervalo en la variable intervalo_oscuro. 
+  CorrectAnswer: intervalo_oscuro <- prop.test(sum(modo_oscuro == "Si"), length(modo_oscuro), conf.level = 0.95)$conf.int
+  AnswerTests: test_ic_oscuro()
+  Hint: Usa prop.test() con el número de usuarios que dicen "Si" y el total, agrega conf.level = 95 y $conf.int al final, y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Escribe intervalo_oscuro para ver el resultado.
+  CorrectAnswer: intervalo_oscuro
+  AnswerTests: omnitest(correctExpr = 'intervalo_oscuro')
+  Hint: Escribe intervalo_oscuro.
+  
+- Class: mult_question
+  Output: Observa el intervalo que obtuviste. ¿Se puede afirmar con 95% de confianza que más de la mitad de los usuarios utiliza el modo oscuro?
+  AnswerChoices: Si, porque la proporción muestral es 0.6;No, porque el intervalo incluye valores menores que 0.50;Si, porque el nivel de confianza es 95%;No, porque la muestra no tiene usuarios que usen el modo oscuro
+  CorrectAnswer: No, porque el intervalo incluye valores menores que 0.50
+  AnswerTests: omnitest(correctVal = 'No, porque el intervalo incluye valores menores que 0.50')
+  Hint: Compara el límite inferior del intervalo con 0.50, como hiciste con la encuesta del producto A. 
+  
+- Class: text
+  Output: Aunque la proporción muestral es 0.6, la muestra tiene solo 15 usuarios y el intervalo es muy amplio. Con una muestra más grande, el intervalo sería más angosto y podríamos concluir con más certeza. 
+  
+#===============================================================
+# Cierre
+#===============================================================
+
+- Class: text
+  Output: Antes de terminar, repasemos las ideas principales. La población es el conjunto total que queremos estudiar y la muestra es un subconjunto de ella. Un parámetro describe a la población, y un estadístico se calcula con una muestra. Un estimador es un estadístico que usamos para aproximar un parámetro desconocido. 
+  
+- Class: text
+  Output: La estimación puntual usa un único valor para aproximar el parámetro, y un intervalo de confianza da un rango de valores con un nivel de confianza. Usamos R para calcular medias, proporciones e intervalos con t.test(), prop.test() y binom.test(), y practicamos cómo interpretarlos
+  
+- Class: text
+  Output: Estos procedimientos sirven en situaciones reales de ingeniría de software, como analizar tiempos de respuesta, preferencias de usuarios o resultados de pruebas. En la siguiente lección veremos cómo se relacionan el nivel de confianza, la presición y el tamaño de la muestra. 
+  
+- Class: text
+  Output: Referencias de esta lección. Walpole, Myers, Myers y Ye (2012), Probabilidad y estadística para ingeniería y ciencias. Toledo Díaz de León (s. f.), Población y muestra. Universitat de València (s. f.), Características de los estimadores. R Core Team (s. f.), documentación del paquete stats.
+
+#===============================================================
+# REFERENCIAS
+#===============================================================
+# Walpole, R. E., Myers, R. H., Myers, S. L., & Ye, K. (2012). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). Pearson.
+# Toledo Díaz de León, N. (s. f.). Población y muestra. Universidad Autónoma del Estado de México. https://ri.uaemex.mx/bitstream/handle/20.500.11799/63099/secme26877.pdf?sequence=1
+# Universitat de València. (s. f.). 4.2 Características estimadores. En Estadística Inferencial, Tema 8: Estimación. https://www.uv.es/webgid/Inferencial/42_caractersticas_estimadores.html
+# R Core Team. (s. f.). Documentación de prop.test (paquete stats). https://search.r-project.org/CRAN/refmans/stats/html/prop.test.html
 
