@@ -7,8 +7,8 @@ tiempos_respuesta <- c(
 )
 
 tipo_desarrollador <- c(
-  "Backend", "Frontend", "Backend", "Frontend",
-  "Backend", "Frontend", "Backend", "Frontend"
+  "Backend", "Frontend", "Backend", "Backend", "Frontend",
+  "Backend", "Frontend", "Backend", "Backend", "Frontend"
 )
 
 calificaciones <- c(
