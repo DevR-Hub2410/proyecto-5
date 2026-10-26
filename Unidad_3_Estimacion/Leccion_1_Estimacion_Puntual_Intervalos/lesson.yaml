@@ -21,7 +21,7 @@
 #===============================================================
 
 - Class: text
-  Output: Antes de estimar, recordemos dos conceptos que ya viste en la unidad de Muestreo. La población es el conjunto completo de elementos que queremos estudiar. Una muestra es un subconjunto de esa población, sellecionado para obtener información sobre ella (Toledo Díaz de León, s. f.). 
+  Output: Antes de estimar, recordemos dos conceptos que ya viste en la unidad de Muestreo. La población es el conjunto completo de elementos que queremos estudiar. Una muestra es un subconjunto de esa población, seleccionado para obtener información sobre ella (Toledo Díaz de León, s. f.). 
   
 - Class: text
   Output: En un muestreo aleatorio simple, todos los elementos de la población tienen la misma probabilidad de ser elegidos. Eso ayuda a que la muestra represente a la población. 
@@ -70,7 +70,7 @@
   Hint: El rango es el valor máximo menos el valor mínimo. 
   
 - Class: text
-  Output: En R, el rango también puede obtenerser con diff(range(notas)). La función range() devuelve el mínimo y el máximo, y diff() calcula su diferencia. 
+  Output: En R, el rango también puede obtenerse con diff(range(notas)). La función range() devuelve el mínimo y el máximo, y diff() calcula su diferencia. 
   
 - Class: mult_question
   Output: Una empresa de software calcula la edad promedio de todos sus desarrolladores. ¿Qué representa este valor?
@@ -134,7 +134,7 @@
   AnswerChoices: Insesgadez;Consistencia;Eficiencia;Suficiencia
   CorrectAnswer: Consistencia
   AnswerTests: omnitest(correctVal = 'Consistencia')
-  Hint: Fíjate en lo que ocurre con el estimador cuando el tamaño de la mmuestra aumenta. 
+  Hint: Fíjate en lo que ocurre con el estimador cuando el tamaño de la muestra aumenta. 
   
 #===============================================================
 # Estimación puntual
@@ -152,7 +152,7 @@
   AnswerTests: test_variable_numerica('estimacion_media', 2.23)
   Hint: Calcula la media con mean() y utiliza <- para guardar el resultado en estimacion_media. 
   
-- Class: text
+- Class: cmd_question
   Output: Escribe estimacion_media para ver la estimación puntual. 
   CorrectAnswer: estimacion_media
   AnswerTests: omnitest(correctExpr = 'estimacion_media')
@@ -193,7 +193,7 @@
   Hint: Piensa de dónde sale el valor. Se calculó con una muestra, así que solo aproxima el valor de la población. 
   
 - Class: text
-  Output: Una estimación puntual es solo un valor. No nos dice qué tan cerca está del parámetro real. Para media esa incertidumbre usamos los intervalos de confianza, que veremos a continuación. 
+  Output: Una estimación puntual es solo un valor. No nos dice qué tan cerca está del parámetro real. Para medir esa incertidumbre usamos los intervalos de confianza, que veremos a continuación. 
   
 #===============================================================
 # Intervalo de confianza para la media
@@ -203,10 +203,10 @@
   Output: Una estimación puntual es un solo valor y no dice qué tan cerca está del parámetro. Un intervalo de confianza resuelve esto, porque entrega un rango de valores plausibles para el parámetro, calculado con los datos de una muestra (Walpole et al., 2012).
   
 - Class: text
-  Output: Todo intervalo de confianza tiene un nivel de confianza, que casi siempre es 95%. Significa que, si repitiéramos el muestreo muchas veces y contruyéramos un intervalo con cada muestra, aproximadamente el 95% de esos intervalos contendría el parámetro verdadero. 
+  Output: Todo intervalo de confianza tiene un nivel de confianza, que casi siempre es 95%. Significa que, si repitiéramos el muestreo muchas veces y construyéramos un intervalo con cada muestra, aproximadamente el 95% de esos intervalos contendría el parámetro verdadero. 
   
 - Class: text
-  Output: Empecemos con el intervalo para una media. Cuando conocemos la media muestral, la desviación estándar s y el tamaño de la muestra n, el intervalo se calcula con media +- Z * s / sqrt(n). Para 95% de confianza, el valor crítico es Z = 1.96.
+  Output: Empecemos con el intervalo para una media. Cuando conocemos la media muestral, la desviación estándar s y el tamaño de la muestra n, el intervalo se calcula, con media +- Z * s / sqrt(n). Para 95% de confianza, el valor crítico es Z = 1.96.
   
 - Class: text
   Output: Por ejemplo, se midió el tiempo que tardan 36 personas en llegar al trabajo. La media fue 40 minutos y la desviación estándar fue 12. El error estándar es 12 / sqrt(36) = 2 y el margen de error es 1.96 * 2 = 3.92 minutos. 
@@ -283,6 +283,9 @@
   CorrectAnswer: intervalo_backend <- prop.test(sum(tipo_desarrollador == "Backend"), length(tipo_desarrollador), conf.level = 0.95)$conf.int
   AnswerTests: test_variable_numerica('intervalo_backend', c(0.2736697, 0.8630694))
   Hint: Usa prop.test() con el número de Backend y el total, agrega conf.level = 0.95 y $conf.int al final, y guarda el resultado con <-. 
+  
+- Class: text
+  Output: Como la muestra de este ejemplo es pequeña, R puede mostrar un aviso que dice que la aproximación puede no se adecuada. No es un error. Es una advertencia de que prop.test() usa un método aproximado, y más adelante veremos una alternativa exacta. 
   
 - Class: cmd_question 
   Output: Escribe intervalo_backend para ver el resultado. 
