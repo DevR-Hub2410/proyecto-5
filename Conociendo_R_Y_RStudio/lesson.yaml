@@ -26,7 +26,7 @@
     depuracion y visualizacion de datos.
     
 - Class: text
-  Output: La inerfaz de RStudio se conforma por 5 panales importantes para su uso: el navbar, el panel de escritura de codigo, la consola, el panel de 
+  Output: La inerfaz de RStudio se conforma por 5 panales importantes para su uso el navbar, el panel de escritura de codigo, la consola, el panel de 
     variables y el explorador de archivos.
     
 - Class: text 
