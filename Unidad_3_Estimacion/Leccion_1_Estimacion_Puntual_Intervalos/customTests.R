@@ -243,7 +243,7 @@ test_ic_calificaciones <- function() {
 #   El valor correcto se calcula con los datos del vector modo_oscuro.
 #===============================================================================
 
-test_is_oscuro <- function() {
+test_ic_oscuro <- function() {
   e <- get("e", parent.frame())
   datos <- get("modo_oscuro", envir = globalenv())
   correcto <- as.numeric(prop.test(sum(datos == "Si"), length(datos), conf.level = 0.95)$conf.int)
@@ -265,7 +265,7 @@ test_is_oscuro <- function() {
   
   # Respuesta correcta 
   if (es_asignacion && valor_correcto) {
-    return(FALSE)
+    return(TRUE)
   }
   
   # Error 2: el intervalo es correcto, pero no lo guardó
