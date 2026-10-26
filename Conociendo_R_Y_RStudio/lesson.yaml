@@ -1,14 +1,15 @@
 - Class: meta
   Course: Curso_Estadistica
   Lesson: Conociendo_R_Y_RStudio
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: Universidad Autonoma de Ciudad Juarez
   Version: 2.4.5
 
 - Class: text
   Output: El objetivo de la leccion es introducir al estudiante en el uso de R y RStudio, analizando las herramientas graficos y visuales que 
-    lo ayudaran a programar facilmente en R. Esta leccion facilitara el analisis de datos provenientes de un proceso estadistico.
+    lo ayudaran a programar facilmente en R. Esta leccion tambien ayudara a aprender a los comandos basicos de R, de manera que el alumno pueda utilizarlos 
+    en el analisis estadistico.
     
 - Class: text
   Output: R es un lenguaje de programacion interpretado, lo que significa que los usuarios pueden acceder a las funciones de R atraves de un 
@@ -106,3 +107,234 @@
 
 - Class: text
   Output: ¡Excelente! Has repasado las principales áreas de RStudio, aprendido a ejecutar instrucciones y creado tus primeros objetos y vectores. Estos conocimientos te servirán para comenzar a utilizar R en el análisis estadístico.
+  
+# ========== R basico ==========
+- Class: text
+  Output: Comenzaremos a programar en R con instrucciones sencillas. Primero aprenderemos a mostrar mensajes y resultados utilizando 
+    print(). También conoceremos cómo ejecutar operaciones directamente en la consola.
+  
+- Class: cmd_question
+  Output: Escribe el mensaje "Hola Mundo desde R" utilizando la funcion print().
+  CorrectAnswer: print("Hola Mundo desde R")
+  AnswerTests: omnitest(correctExpr = 'print("Hola Mundo desde R")')
+  Hint: Recuerda que para imprimir un mensaje debes usar comillas doble en el print().
+  
+- Class: cmd_question
+  Output: No solo se usa para imprimir mensajes, tambien puedes imprimir operaciones, imprime la suma 5 + 6 usando print.
+  CorrectAnswer: print(5 + 6)
+  AnswerTests: omnitest(correctExpr = 'print(5 + 6)')
+  Hint: Debes de poner adentro del print() la suma.
+  
+- Class: cmd_question
+  Output: No requieres usar el print para imprimir operaciones,, escribe en la terminal 5 + 6 - 7.
+  CorrectAnswer: 5 + 6 - 7
+  AnswerTests: omnitest(correctExpr = '5 + 6 - 7')
+  Hint: No requieres de print() para que R te imprima el resultado.
+  
+- Class: cmd_question
+  Output: Calcula el resultado de multiplicar 4 por 3 directamente en la consola.
+  CorrectAnswer: 4 * 3
+  AnswerTests: omnitest(correctExpr='4 * 3')
+  Hint: En R, el operador de multiplicación es el asterisco (*).
+
+- Class: cmd_question
+  Output: Calcula el resultado de dividir 20 entre 4.
+  CorrectAnswer: 20 / 4
+  AnswerTests: omnitest(correctExpr='20 / 4')
+  Hint: Utiliza la barra inclinada (/) para dividir dos números.
+  
+- Class: cmd_question
+  Output: Tambien puedes compara dos valores, verifica si 10 es menor que 5.
+  CorrectAnswer: 10 < 5
+  AnswerTests: omnitest(correctExpr='10 < 5')
+  Hint: Utiliza el simbolo de menor (<) para comparar los dos valores.
+  
+- Class: cmd_question
+  Output: ¿10 es mayor o igual que 1?.
+  CorrectAnswer: 10 >= 1
+  AnswerTests: omnitest(correctExpr='10 >= 1')
+  Hint: Utiliza el simbolo de mayor o igual (>=) para comparar los dos valores.
+  
+- Class: text
+  Output: En R podemos almacenar valores en variables. Para crear uno, escribimos su nombre, el operador de asignación <- y el 
+    valor que deseamos guardar. Por ejemplo, x <- 25 almacena el valor 25 en la variable x. Las variables pueden guardar números enteros, 
+    números decimales, valores lógicos y texto.
+    
+- Class: cmd_question
+  Output: Crea una variable llamada x que sea igual a 67.
+  CorrectAnswer: x <- 67
+  AnswerTests: omnitest(correctExpr = 'x <- 67')
+  Hint: Recuerda que para asignar un valor a una variable debes de usar estos simbolos <-.
+  
+- Class: cmd_question
+  Output: Escribe la variable x para ver que valor tiene.
+  CorrectAnswer: x
+  AnswerTests: omnitest(correctExpr = 'x')
+  Hint: Debes de ingresar x en la terminal.
+  
+- Class: text
+  Output: Las variables también pueden utilizarse en operaciones matemáticas. En lugar de escribir los números directamente, podemos 
+    utilizar los nombres de los objetos que los contienen. De esta manera, podemos reutilizar los valores almacenados en diferentes cálculos.
+  
+- Class: cmd_question
+  Output: Crea una variable y que sea igual a 33.
+  CorrectAnswer: y <- 33
+  AnswerTests: omnitest(correctExpr = 'y <- 33')
+  Hint: Debes de ingresar x en la terminal.
+  
+- Class: cmd_question
+  Output: Escribe la suma de x e y .
+  CorrectAnswer: x + y
+  AnswerTests: omnitest(correctExpr = 'x + y')
+  Hint: Tienes que sumar x + y.
+  
+- Class: cmd_question
+  Output: Calcula la diferencia entre x e y utilizando el operador de resta.
+  CorrectAnswer: x - y
+  AnswerTests: omnitest(correctExpr='x - y')
+  Hint: Utiliza x como primer valor e y como segundo valor, separados por -.
+  
+- Class: text
+  Output: R permite generar secuencias numéricas de forma sencilla mediante el operador de dos puntos (:). Al escribir un número inicial 
+    y uno final separados por dos puntos, R genera una secuencia de números enteros consecutivos, incluyendo ambos extremos. Por ejemplo, 1:5 
+    produce los valores del 1 al 5.
+    
+- Class: cmd_question
+  Output: Prueba imprimiendo los numeros del 1 al 10.
+  CorrectAnswer: 1:10
+  AnswerTests: omnitest(correctExpr = '1:10')
+  Hint: Recuerda poner primero 1, dos puntos, y al final 10.
+  
+- Class: cmd_question
+  Output: Genera una secuencia descendente desde el 5 hasta el 1.
+  CorrectAnswer: 5:1
+  AnswerTests: omnitest(correctExpr='5:1')
+  Hint: Para generar una secuencia descendente, escribe primero el número mayor y después el menor.
+  
+- Class: text
+  Output: ¡Excelente! Has aprendido a mostrar mensajes, realizar operaciones matemáticas, crear objetos y consultar sus valores. También conoces 
+    algunos tipos de datos y sabes generar secuencias numéricas. Estos conocimientos serán la base para trabajar con vectores y realizar cálculos estadísticos en R.
+    
+# ============ Vectores y funciones basicas ============
+- Class: text
+  Output: Aprenderemos a trabajar con vectores y funciones básicas de R. Los vectores permiten almacenar varios valores en un 
+    mismo objeto, mientras que las funciones nos ayudan a realizar operaciones y analizar esos valores. Estos conocimientos serán fundamentales 
+    para trabajar con datos estadísticos.
+
+- Class: text
+  Output: Un vector es una estructura que permite almacenar varios elementos del mismo tipo. Para crear uno utilizamos la función c(), que combina 
+    los valores indicados dentro de sus paréntesis. Por ejemplo, c(5, 10, 15) crea un vector con tres números.
+
+- Class: cmd_question
+  Output: Crea un vector llamado numeros que contenga los valores 5, 10 y 15 utilizando c().
+  CorrectAnswer: numeros <- c(5, 10, 15)
+  AnswerTests: omnitest(correctExpr='numeros <- c(5, 10, 15)')
+  Hint: Utiliza <- para asignar el vector y escribe los tres valores dentro de c(), separados por comas.
+
+- Class: cmd_question
+  Output: Escribe numeros en la consola para mostrar todos los elementos del vector.
+  CorrectAnswer: numeros
+  AnswerTests: omnitest(correctExpr='numeros')
+  Hint: Escribe únicamente el nombre del vector.
+
+- Class: text
+  Output: Podemos acceder a un elemento específico de un vector utilizando corchetes []. En R, los índices comienzan en 1, por lo que el primer elemento 
+    se encuentra en la posición 1, el segundo en la posición 2 y así sucesivamente.
+
+- Class: cmd_question
+  Output: Obtén el primer elemento del vector numeros.
+  CorrectAnswer: numeros[1]
+  AnswerTests: omnitest(correctExpr='numeros[1]')
+  Hint: Escribe el nombre del vector seguido de [1].
+
+- Class: cmd_question
+  Output: Obtén el tercer elemento del vector numeros.
+  CorrectAnswer: numeros[3]
+  AnswerTests: omnitest(correctExpr='numeros[3]')
+  Hint: Utiliza el índice 3 entre corchetes.
+
+- Class: text
+  Output: También podemos consultar cuántos elementos contiene un vector mediante la función length(). Esta función recibe el nombre del vector entre 
+    paréntesis y devuelve la cantidad de elementos que contiene.
+
+- Class: cmd_question
+  Output: Utiliza length() para contar cuántos elementos contiene el vector numeros.
+  CorrectAnswer: length(numeros)
+  AnswerTests: omnitest(correctExpr='length(numeros)')
+  Hint: Escribe length() y coloca numeros dentro de los paréntesis.
+
+- Class: text
+  Output: R permite realizar operaciones matemáticas directamente sobre los vectores. Por ejemplo, si sumamos 2 a un vector numérico, R suma 2 
+    a cada uno de sus elementos. También podemos multiplicar, restar o dividir sus valores sin tener que operar elemento por elemento.
+
+- Class: cmd_question
+  Output: Suma 5 a cada elemento del vector numeros.
+  CorrectAnswer: numeros + 5
+  AnswerTests: omnitest(correctExpr='numeros + 5')
+  Hint: Escribe numeros + 5 para sumar cinco a cada elemento.
+
+- Class: cmd_question
+  Output: Multiplica cada elemento del vector numeros por 2.
+  CorrectAnswer: numeros * 2
+  AnswerTests: omnitest(correctExpr='numeros * 2')
+  Hint: Utiliza el operador * entre el nombre del vector y el número 2.
+
+- Class: text
+  Output: Ahora conoceremos algunas funciones básicas que permiten analizar los valores de un vector. La función sum() calcula la suma de sus elementos, 
+    mientras que min() y max() permiten encontrar el valor mínimo y máximo, respectivamente.
+
+- Class: cmd_question
+  Output: Calcula la suma de todos los elementos del vector numeros utilizando sum().
+  CorrectAnswer: sum(numeros)
+  AnswerTests: omnitest(correctExpr='sum(numeros)')
+  Hint: Escribe sum() y coloca numeros dentro de los paréntesis.
+
+- Class: cmd_question
+  Output: Encuentra el valor más pequeño del vector numeros utilizando min().
+  CorrectAnswer: min(numeros)
+  AnswerTests: omnitest(correctExpr='min(numeros)')
+  Hint: La función min() devuelve el menor valor del vector.
+
+- Class: cmd_question
+  Output: Encuentra el valor más grande del vector numeros utilizando max().
+  CorrectAnswer: max(numeros)
+  AnswerTests: omnitest(correctExpr='max(numeros)')
+  Hint: Utiliza max() con el nombre del vector.
+
+- Class: text
+  Output: Una de las funciones más importantes en estadística es mean(), que calcula la media aritmética de un conjunto de valores. Para obtenerla, 
+    sumamos todos los elementos y dividimos el resultado entre la cantidad de elementos. En R podemos realizar este cálculo directamente con mean().
+
+- Class: cmd_question
+  Output: Calcula la media aritmética de los elementos del vector numeros utilizando mean().
+  CorrectAnswer: mean(numeros)
+  AnswerTests: omnitest(correctExpr='mean(numeros)')
+  Hint: Escribe mean() y coloca numeros dentro de los paréntesis.
+
+- Class: cmd_question
+  Output: Crea un vector llamado calificaciones que contenga los valores 8, 9, 7 y 10.
+  CorrectAnswer: calificaciones <- c(8, 9, 7, 10)
+  AnswerTests: omnitest(correctExpr='calificaciones <- c(8, 9, 7, 10)')
+  Hint: Utiliza c() para agrupar las cuatro calificaciones.
+
+- Class: cmd_question
+  Output: Calcula la media de las calificaciones utilizando mean().
+  CorrectAnswer: mean(calificaciones)
+  AnswerTests: omnitest(correctExpr='mean(calificaciones)')
+  Hint: Utiliza mean() con el nombre calificaciones.
+
+- Class: text
+  Output: También podemos utilizar summary() para obtener un resumen de los valores de un vector numérico. Este resumen incluye el mínimo, el primer 
+    cuartil, la mediana, la media, el tercer cuartil y el máximo. Es una herramienta útil para comenzar a explorar un conjunto de datos.
+
+- Class: cmd_question
+  Output: Utiliza summary() para obtener un resumen estadístico del vector calificaciones.
+  CorrectAnswer: summary(calificaciones)
+  AnswerTests: omnitest(correctExpr='summary(calificaciones)')
+  Hint: Escribe summary() y coloca calificaciones dentro de los paréntesis.
+
+- Class: text
+  Output: ¡Excelente! Has aprendido a crear vectores con c(), consultar elementos mediante índices y contar sus valores con length(). También utilizaste 
+    funciones como sum(), min(), max(), mean() y summary() para analizar datos. Estos conocimientos te ayudarán a construir tablas de frecuencia y calcular 
+    medidas estadísticas en las siguientes lecciones.
+  
