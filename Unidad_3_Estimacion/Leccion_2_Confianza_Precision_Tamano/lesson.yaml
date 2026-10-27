@@ -37,16 +37,16 @@
   
 - Class: mult_question
   Output: ¿Cuál de las siguientes afirmaciones describe correctamente el nivel de confianza del 95%?
-  AnswerChoices: Hay un 95% de probabilidad de que la media poblacional esté dentro de este intervalo específico;Si repitiéramos el muestreo muchas vecesm, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional;El 95% de los datos de la muestra caen dentro del intervalo;La media muestral es igual a la media poblacional el 95% de las veces
+  AnswerChoices: Hay un 95% de probabilidad de que la media poblacional esté dentro de este intervalo específico;Si repitiéramos el muestreo muchas veces, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional;El 95% de los datos de la muestra caen dentro del intervalo;La media muestral es igual a la media poblacional el 95% de las veces
   CorrectAnswer: Si repitiéramos el muestreo muchas veces, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional
-  AnswerTests: omnitest(correctVal = 'Si repitiéramos el muestreo muchas vecesm, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional')
+  AnswerTests: omnitest(correctVal = 'Si repitiéramos el muestreo muchas veces, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional')
   Hint: Piensa a qué se refiere el 95%, si un intervalo que ya calculaste o a lo que pasaría al repetir el procedimiento muchas veces. 
   
 - Class: text
   Output: El 95% es el nivel más usado, pero no el único. También se usan el 90% y el 99%. El 95% es una convención y no una regla, y la elección depende de qué tan costoso sea equivocarse y de qué tan precisa se necesite la estimación (Dunn, s. f.).
   
 - Class: text
-  Output: Al auementar el nivel de confianza, el procedimiento acierta más veces, pero el intervalo se hace más ancho y la estimación es menos precisa. Con 90% el intervalo es más estrecho, pero el procedimiento acierta menos veces. Con 99% acierta casi siempre, pero el intervalo es más ancho. El 95% suele considerarse un equilibrio entre ambas cosas. 
+  Output: Al aumentar el nivel de confianza, el procedimiento acierta más veces, pero el intervalo se hace más ancho y la estimación es menos precisa. Con 90% el intervalo es más estrecho, pero el procedimiento acierta menos veces. Con 99% acierta casi siempre, pero el intervalo es más ancho. El 95% suele considerarse un equilibrio entre ambas cosas. 
   
 - Class: text
   Output: Para construir un intervalo se necesita un valor z, que depende del nivel de confianza. Con 95% de confianza queda 2.5% en cada cola de la distribución normal, así que buscamos el valor z que deja 0.975 de área acumulada. En R se obtiene con qnorm(0.975).
@@ -58,7 +58,7 @@
   Hint: El 95% de confianza deja 0.025 en cada cola, así que el área acumulada que debes usar en qnorm() es 0.975. Guarda el resultado con <-.
   
 - Class: text
-  Output: Obtuviste aproximadamente 1.96, el mismo valor que usamos en la lección anterior. Los valores para 90% y 99% ya estan cargados, junto con el de 95%, z_90, z_95, z_99.
+  Output: Obtuviste aproximadamente 1.96, el mismo valor que usamos en la lección anterior. Los valores para 90% y 99% ya están cargados, junto con el de 95%, z_90, z_95, z_99.
   
 - Class: cmd_question
   Output: Escribe c(z_90, z_95, z_99) para ver los tres valores juntos. 
@@ -155,18 +155,18 @@
   AnswerTests: omnitest(correctVal = 'Disminuye')
   Hint: Ganas confianza, pero el margen de error crece. Piensa qué pasa con la precisión cuando el intervalo se ensancha. 
   
-#==============================
+#===============================================================
 # Efecto del tamaño de muestra
-#==============================
+#===============================================================
 - Class: text
-  Output: El tamaño de la muestra afecta directamente la precision y el margen de error de una estimacion. Cuando aumenta el tamaño de la muestra, se obtiene mas informacion y normalmente disminuye el margen de error, lo que permite obtener una estimacion mas precisa.
+  Output: El tamaño de la muestra afecta directamente la precisión y el margen de error de una estimación. Cuando aumenta el tamaño de la muestra se obtiene más información y, normalmente, disminuye el margen de error, lo que permite una estimación más precisa.
 
 - Class: text
-  Output: El tamaño de muestra aparece en el denominador de la formula del margen de error, dentro de una raiz cuadrada. Por esta razon, aumentar el numero de observaciones reduce el margen de error, pero no de manera proporcional. Por ejemplo, para reducir el margen de error a la mitad, se necesita cuadruplicar el tamaño de la muestra.
+  Output: El tamaño de muestra aparece en el denominador de la fórmula del margen de error, dentro de una raíz cuadrada. Por esta razón, aumentar el número de observaciones reduce el margen de error, pero no de manera proporcional. Por ejemplo, para reducir el margen de error a la mitad se necesita cuadruplicar el tamaño de la muestra.
 
-#==============================
-# Actividad
-#==============================
+- Class: text
+  Output: Un detalle importante. Un tamaño de muestra grande reduce el margen de error, pero no garantiza que la muestra sea representativa. Para eso, la muestra debe seleccionarse de forma aleatoria.
+
 - Class: cmd_question
   Output: Calcula el margen de error con un nivel de confianza del 95% para tamaños de muestra de 20, 40 y 80. Utiliza el vector c(20, 40, 80) y guarda los resultados en la variable margenes_por_n.
   CorrectAnswer: margenes_por_n <- z_95 * sd_muestral / sqrt(c(20, 40, 80))
@@ -174,25 +174,25 @@
   Hint: Utiliza z_95 * sd_muestral y divide entre sqrt(c(20, 40, 80)). Guarda el resultado con <-.
 
 - Class: cmd_question
-  Output: Ejecuta margenes_por_n para observar los margenes de error obtenidos.
+  Output: Escribe margenes_por_n para ver los márgenes de error obtenidos.
   CorrectAnswer: margenes_por_n
   AnswerTests: omnitest(correctExpr = 'margenes_por_n')
-  Hint: Escribe margenes_por_n para mostrar los resultados.
+  Hint: Escribe margenes_por_n.
+
+- Class: text
+  Output: Los márgenes son aproximadamente 16, 11 y 8 ms. Cada vez que se duplica el tamaño de la muestra, el margen baja, pero menos de lo que podrías esperar.
 
 - Class: figure
-  Output: Esta grafica muestra como disminuye el margen de error conforme aumenta el tamaño de la muestra. Observa que al principio disminuye mas rapidamente y despues la reduccion es menor.
+  Output: Esta gráfica muestra cómo disminuye el margen de error conforme aumenta el tamaño de la muestra. Observa que al principio disminuye más rápido y después la reducción es menor.
   Figure: fig_efecto_n.R
   FigureType: new
 
-#==============================
-# Actividad
-#==============================
 - Class: mult_question
   Output: Si duplicas el tamaño de muestra de 20 a 40, ¿el margen de error se reduce exactamente a la mitad?
-  AnswerChoices: Si, se reduce exactamente a la mitad;No, se reduce menos de la mitad porque depende de la raiz cuadrada de n;No cambia en absoluto;Se duplica
-  CorrectAnswer: No, se reduce menos de la mitad porque depende de la raiz cuadrada de n
-  AnswerTests: omnitest(correctVal = 'No, se reduce menos de la mitad porque depende de la raiz cuadrada de n')
-  Hint: El tamaño de muestra esta dentro de una raiz cuadrada, por lo que duplicarlo no divide el margen de error entre dos.
+  AnswerChoices: Sí, se reduce exactamente a la mitad;No, se reduce menos de la mitad porque depende de la raíz cuadrada de n;No cambia en absoluto;Se duplica
+  CorrectAnswer: No, se reduce menos de la mitad porque depende de la raíz cuadrada de n
+  AnswerTests: omnitest(correctVal = 'No, se reduce menos de la mitad porque depende de la raíz cuadrada de n')
+  Hint: El tamaño de muestra está dentro de una raíz cuadrada. Compara los dos primeros valores de margenes_por_n.
 
 - Class: cmd_question
   Output: Calcula el margen de error con un nivel de confianza del 95% para un tamaño de muestra de 160 y guarda el resultado en la variable margen_n160. Este tamaño es cuatro veces una muestra de 40 observaciones.
@@ -201,65 +201,77 @@
   Hint: Utiliza z_95 * sd_muestral / sqrt(160).
 
 - Class: exact_question
-  Output: Compara el margen de error original, margen_95, con margen_n160. ¿Por cuantas veces aproximadamente se redujo el margen de error al pasar de n = 40 a n = 160? Escribe solo el numero.
+  Output: Compara el margen de error original, margen_95, con margen_n160. ¿Por cuántas veces aproximadamente se redujo el margen de error al pasar de n = 40 a n = 160? Escribe solo el número.
   CorrectAnswer: 2
   AnswerTests: test_num_aprox(2, 0.05)
-  Hint: Divide margen_95 entre margen_n160. Al cuadruplicar el tamaño de la muestra, el margen de error se reduce aproximadamente a la mitad.
-  
-#==============================
-# Determinacion del tamaño de muestra
-#==============================
+  Hint: Divide margen_95 entre margen_n160 y fíjate en cuántas veces se multiplicó el tamaño de la muestra.
+
+#===============================================================
+# Determinación del tamaño de muestra
+#===============================================================
 - Class: text
-  Output: En una investigacion es importante determinar el numero de participantes u observaciones que sera necesario incluir para alcanzar los objetivos del estudio. Este numero se conoce como tamaño de muestra y puede calcularse mediante formulas matematicas o herramientas estadisticas.
+  Output: En una investigación es importante decidir cuántas observaciones se necesitan para alcanzar los objetivos del estudio. Ese número es el tamaño de muestra, y se calcula con fórmulas matemáticas a partir del margen de error que estamos dispuestos a aceptar y del nivel de confianza deseado (Lane et al., s. f.).
 
 - Class: text
-  Output: Para determinar el tamaño de muestra, primero debemos establecer el margen de error que estamos dispuestos a aceptar y el nivel de confianza deseado. Para estimar una media, podemos utilizar la formula n = (z * sd / E)^2, donde z es el valor critico, sd es la desviacion estandar y E es el margen de error permitido. Para estimar una proporcion, utilizamos n = (z^2 * p * (1 - p)) / E^2, donde p representa la proporcion esperada. Si no conocemos p, podemos utilizar 0.5 como estimacion inicial.
+  Output: Para estimar una media se usa n = (z * sd / E)^2, donde z es el valor crítico, sd es la desviación estándar y E es el margen de error permitido. Para estimar una proporción se usa n = (z^2 * p * (1 - p)) / E^2, donde p es la proporción esperada.
 
-#==============================
-# Actividad
-#==============================
+- Class: text
+  Output: Si no conocemos p, usamos p = 0.5. El producto p * (1 - p) es máximo cuando p = 0.5, así que con ese valor obtenemos el tamaño de muestra más grande, que sirve sea cual sea la proporción real.
+
+- Class: text
+  Output: Un tamaño de muestra debe ser un número entero y siempre se redondea hacia arriba. Por ejemplo, con 95% de confianza, p = 0.5 y E = 0.05, la fórmula da 384.16, y se necesitan 385 observaciones. Si redondeáramos hacia abajo, el margen de error quedaría un poco por encima del deseado.
+
 - Class: cmd_question
-  Output: Una empresa desea estimar el tiempo medio de respuesta de sus servidores con un nivel de confianza del 95% y un margen de error de como maximo 10 milisegundos. Utiliza z_95 y sd_muestral para calcular el tamaño de muestra necesario. Redondea hacia arriba con ceiling() y guarda el resultado en n_requerido_media.
+  Output: Una empresa desea estimar el tiempo medio de respuesta de un servidor con un nivel de confianza del 95% y un margen de error de como máximo 10 milisegundos. Usa z_95 y sd_muestral para calcular cuántas mediciones necesita. Redondea hacia arriba con ceiling() y guarda el resultado en n_requerido_media.
   CorrectAnswer: n_requerido_media <- ceiling((z_95 * sd_muestral / 10)^2)
   AnswerTests: test_n_media()
-  Hint: Despeja n de la formula E = z * sd / sqrt(n). Utiliza n = (z * sd / E)^2 y redondea hacia arriba con ceiling().
+  Hint: Despeja n de la fórmula E = z * sd / sqrt(n). Utiliza n = (z * sd / E)^2 y redondea hacia arriba con ceiling().
 
 - Class: cmd_question
-  Output: Ejecuta la variable para verificar n_requerido_media.
+  Output: Escribe n_requerido_media para ver el resultado.
   CorrectAnswer: n_requerido_media
   AnswerTests: omnitest(correctExpr = 'n_requerido_media')
-  Hint: Escribe n_requerido_media para mostrar el resultado.
+  Hint: Escribe n_requerido_media.
+
+- Class: mult_question
+  Output: Si la empresa quisiera reducir el margen de error deseado de 10 ms a 5 ms, es decir, a la mitad, ¿qué pasaría con el tamaño de muestra necesario?
+  AnswerChoices: Se duplicaría;Se multiplicaría aproximadamente por cuatro;Se reduciría a la mitad;No cambiaría
+  CorrectAnswer: Se multiplicaría aproximadamente por cuatro
+  AnswerTests: omnitest(correctVal = 'Se multiplicaría aproximadamente por cuatro')
+  Hint: Recuerda la relación que viste entre el margen de error y la raíz cuadrada de n. En la fórmula de n, E está elevado al cuadrado.
 
 - Class: cmd_question
-  Output: Ahora calcula el tamaño de muestra necesario para estimar una proporcion con un margen de error de 0.03 y un nivel de confianza del 95%. Como no conocemos la proporcion esperada, utiliza p = 0.5. Guarda el resultado en n_requerido_prop.
+  Output: Ahora calcula el tamaño de muestra necesario para estimar una proporción con un margen de error de 0.03 y un nivel de confianza del 95%. Como no conocemos la proporción esperada, usa p = 0.5. Guarda el resultado en n_requerido_prop.
   CorrectAnswer: n_requerido_prop <- ceiling((z_95^2 * 0.5 * 0.5) / 0.03^2)
   AnswerTests: test_n_prop()
-  Hint: Utiliza n = (z^2 * p * (1 - p)) / E^2, con z_95, p = 0.5 y E = 0.03.
-  
+  Hint: Utiliza n = (z^2 * p * (1 - p)) / E^2, con z_95, p = 0.5 y E = 0.03. Recuerda que el tamaño de muestra debe ser un número entero.
+
 - Class: cmd_question
-  Output: Ejecuta la variable para verificar n_requerido_prop.
+  Output: Escribe n_requerido_prop para ver el resultado.
   CorrectAnswer: n_requerido_prop
   AnswerTests: omnitest(correctExpr = 'n_requerido_prop')
-  Hint: Escribe n_requerido_prop para mostrar el resultado.
+  Hint: Escribe n_requerido_prop.
 
-#==============================
-# Actividad
-#==============================
 - Class: text
-  Output: En ocasiones, el tamaño de muestra calculado supera la cantidad de observaciones que se pueden obtener debido a limitaciones de tiempo o presupuesto. En ese caso, es importante analizar como cambia el margen de error con el tamaño de muestra disponible.
+  Output: A veces el tamaño de muestra calculado es más grande de lo que se puede obtener por tiempo o presupuesto. En ese caso conviene calcular qué margen de error se tendría con la muestra disponible.
 
 - Class: cmd_question
-  Output: Imagina que tu jefe solamente autoriza medir 100 servidores, aunque el tamaño de muestra requerido para estimar la media sea mayor. Calcula el margen de error que tendrias con n = 100 y un nivel de confianza del 95%. Guarda el resultado en margen_100.
-  CorrectAnswer: margen_100 <- z_95 * sd_muestral / sqrt(100)
-  AnswerTests: test_margen_100()
-  Hint: Utiliza la formula E = z * sd / sqrt(n), sustituyendo n por 100.
+  Output: Imagina que solo se pueden tomar 30 mediciones, menos de las que calculaste en n_requerido_media. Calcula el margen de error que tendrías con n = 30 y un nivel de confianza del 95%. Guarda el resultado en margen_30.
+  CorrectAnswer: margen_30 <- z_95 * sd_muestral / sqrt(30)
+  AnswerTests: test_margen_30()
+  Hint: Utiliza la fórmula E = z * sd / sqrt(n), sustituyendo n por 30.
 
 - Class: cmd_question
-  Output: Ejecuta margen_100 para observar el margen de error que se obtiene con las 100 observaciones disponibles.
-  CorrectAnswer: margen_100
-  AnswerTests: omnitest(correctExpr = 'margen_100')
-  Hint: Escribe margen_100 para mostrar el resultado.
+  Output: Escribe margen_30 para ver el resultado.
+  CorrectAnswer: margen_30
+  AnswerTests: omnitest(correctExpr = 'margen_30')
+  Hint: Escribe margen_30.
+
+- Class: mult_question
+  Output: Compara margen_30 con el margen de 10 ms que se quería. ¿Qué conclusión es correcta?
+  AnswerChoices: Con 30 mediciones el margen de error es mayor que 10 ms, así que la estimación es menos precisa de lo deseado;Con 30 mediciones el margen de error es menor que 10 ms;Con 30 mediciones el margen de error es exactamente 10 ms;El tamaño de muestra no influye en el margen de error
+  CorrectAnswer: Con 30 mediciones el margen de error es mayor que 10 ms, así que la estimación es menos precisa de lo deseado
+  AnswerTests: omnitest(correctVal = 'Con 30 mediciones el margen de error es mayor que 10 ms, así que la estimación es menos precisa de lo deseado')
+  Hint: Compara el valor de margen_30 con 10.
   
   
-- Class: text
-  Output: Has llegado al final de Confianza, Precisión y Tamaño de Muestra. A lo largo de esta lección aprendiste cómo interpretar los intervalos de confianza, comprender la influencia del nivel de confianza en el margen de error, analizar la relación entre el tamaño de muestra y la precisión, y calcular cuántas observaciones necesitas para obtener estimaciones confiables.
