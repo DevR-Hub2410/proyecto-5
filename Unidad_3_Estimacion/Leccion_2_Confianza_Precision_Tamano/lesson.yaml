@@ -1,0 +1,21 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Confianza_Precision_Tamano
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autonoma de Ciudad Juarez
+  Version: 2.4.5
+  
+#===============================================================
+# Objetivo
+#===============================================================
+
+- Class: text
+  Output: En esta lección aprenderás qué significa el nivel de confianza, el margen de error y la precisión de una estimación, y cómo se relacionan con el tamaño de la muestra. 
+  
+- Class: text
+  Output: También usarás R para comparar los niveles de confianza de 90%, 95% y 99%, para ver cómo cambia el margen de error al aumentar el tamaño de la muestra y para calcular el tamaño de muestra que necesita un estudio. 
+  
+- Class: text
+  Output: Para practicar, ya están cargados en R los tiempos de respuesta, en milisegundos, de una muestra de 40 mediciones de un servidor. Están en el vector tiempos_servidor. También tienes sus datos resumidos, media_muestral, sd_muestral y n_muestra, y los valores z que usaremos más adelante, z_90, z_95, z_99.
+  
