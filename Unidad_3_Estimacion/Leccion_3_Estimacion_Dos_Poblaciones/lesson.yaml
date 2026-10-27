@@ -153,9 +153,15 @@
 
 - Class: cmd_question
   Output: En R, prop.test() permite construir un intervalo de confianza para la diferencia entre dos proporciones. Ejecuta la función utilizando los éxitos y los totales de A y B, respectivamente.
-  CorrectAnswer: prop.test(c(exito_A, exito_B), c(total_A, total_B))$conf.int
-  AnswerTests: test_variable_numerica('intervalo_prop', c(-0.3214919, -0.0785081))
+  CorrectAnswer: intervalo_prop <- prop.test(c(exito_A, exito_B), c(total_A, total_B))$conf.int
+  AnswerTests: omnitest(correctExpr='intervalo_prop <- prop.test(c(exito_A, exito_B), c(total_A, total_B))$conf.int')
   Hint: Los éxitos van juntos en un vector con c(), y los totales en otro vector con c(). Agrega $conf.int al final.
+
+- Class: cmd_question
+  Output: Escribe la variable intervalo_prop para ver el resultado
+  CorrectAnswer: intervalo_prop
+  AnswerTests: omnitest(correctExpr='intervalo_prop')
+  Hint: Escribe la variable intervalo_prop en la linea de comandos
 
 - Class: text
   Output: El resultado es el intervalo de confianza para (p_A - p_B). Si el intervalo incluye al cero, los datos son compatibles con que ambas proporciones sean iguales. Si todo el intervalo queda por encima de cero, la proporción de A es mayor que la de B; si queda por debajo, la proporción de A es menor que la de B.
@@ -194,7 +200,7 @@
 - Class: cmd_question
   Output: En R, var.test() calcula el intervalo de confianza para la razón de varianzas de dos muestras. Ejecuta la función utilizando tiempos_A y tiempos_B.
   CorrectAnswer: var.test(tiempos_A, tiempos_B)$conf.int
-  AnswerTests: test_intervalo_var()
+  AnswerTests: omnitest(correctExpr = 'var.test(tiempos_A, tiempos_B)$conf.int')
   Hint: Utiliza var.test() con los dos vectores separados por una coma y agrega $conf.int al final.
 
 - Class: text
@@ -212,7 +218,7 @@
 #===============================================================
 
 - Class: text
-  Output: Para cerrar los temas de estimación, vamos a construir de forma manual una de las piezas centrales de los intervalos: el error estándar de 
+  Output: Para cerrar los temas de estimación, vamos a construir de forma manual una de las piezas centrales de los intervalos, el error estándar de 
     la diferencia de medias. Esta cantidad representa cuánto varía típicamente la diferencia entre dos medias muestrales de una muestra a otra.
 
 - Class: text
@@ -222,8 +228,14 @@
 - Class: cmd_question
   Output: Calcula el error estándar de la diferencia de medias y guárdalo en la variable se_manual, utilizando tiempos_A y tiempos_B.
   CorrectAnswer: se_manual <- sqrt(var(tiempos_A)/length(tiempos_A) + var(tiempos_B)/length(tiempos_B))
-  AnswerTests: test_se_manual()
+  AnswerTests: omnitest(correctExpr = 'se_manual <- sqrt(var(tiempos_A)/length(tiempos_A) + var(tiempos_B)/length(tiempos_B))')
   Hint: Utiliza var() para calcular las varianzas, length() para obtener los tamaños de muestra y sqrt() para aplicar la raíz cuadrada a toda la suma.
+  
+- Class: cmd_question 
+  Output: Ejecuta el se_manual para ver el resultado.
+  CorrectAnswer: se_manual
+  AnswerTests: omnitest(correctExpr = 'se_manual')
+  Hint: Escribe se_manual.
 
 #===============================================================
 # Actividad integradora
@@ -236,7 +248,7 @@
 - Class: cmd_question
   Output: Calcula un intervalo de confianza del 90% para la diferencia de medias entre tiempos_A y tiempos_B. Guarda el resultado en intervalo_90.
   CorrectAnswer: intervalo_90 <- t.test(tiempos_A, tiempos_B, conf.level = 0.90)$conf.int
-  AnswerTests: test_variable_numerica('intervalo_90', c(0.2901343, 0.5598657))
+  AnswerTests: omnitest(correctExpr = 'intervalo_90 <- t.test(tiempos_A, tiempos_B, conf.level = 0.90)$conf.int')
   Hint: Utiliza t.test() con ambos vectores, indica conf.level = 0.90 y extrae el intervalo con $conf.int.
   
 - Class: cmd_question 
@@ -258,7 +270,7 @@
 - Class: cmd_question 
   Output: Calcula el intervalo de confianza del 95% para el cociente de varianzas de tiempos_A y tiempos_B con var.test() y guarda solamente el intervalo en la variable intervalo_var. 
   CorrectAnswer: intervalo_var <- var.test(tiempos_A, tiempos_B, conf.level = 0.95)$conf.int
-  AnswerTests: test_variable_numerica('intervalo_var', c(0.3950437, 4.7668279))
+  AnswerTests: omnitest(correctExpr = 'intervalo_var <- var.test(tiempos_A, tiempos_B, conf.level = 0.95)$conf.int')
   Hint: Utiliza var.test() con los dos vectores y conf.level = 0.95, agrega $conf.int al final y guarda el resultado con <-. 
   
 - Class: cmd_question 

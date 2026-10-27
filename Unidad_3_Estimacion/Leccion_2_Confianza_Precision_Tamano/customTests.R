@@ -95,3 +95,37 @@ test_num_aprox <- function(esperado, tol = 0.01) {
   ok
 }
 
+test_margenes_por_n <- function() {
+  e <- get("e", parent.frame())
+  .verifica(e, "margenes_por_n", z_95 * sd_muestral / sqrt(c(20, 40, 80)), 1e-3,
+            "Debe salir un vector con tres margenes, uno por cada tamano de muestra.")
+}
+
+test_margen_n160 <- function() {
+  e <- get("e", parent.frame())
+  .verifica(e, "margen_n160", z_95 * sd_muestral / sqrt(160), 1e-3,
+            "Usa la formula del margen de error sustituyendo n por 160.")
+}
+
+# ---------------------------------------------------------------
+# Tema Efectos del tamaño de la muestra
+# ---------------------------------------------------------------
+
+test_n_media <- function() {
+  e <- get("e", parent.frame())
+  .verifica(e, "n_requerido_media", ceiling((z_95 * sd_muestral / 10)^2), 1e-6,
+            "Usa n = (z * sd / E)^2 con z_95 y E = 10, y no olvides ceiling().")
+}
+
+test_n_prop <- function() {
+  e <- get("e", parent.frame())
+  .verifica(e, "n_requerido_prop", ceiling((z_95^2 * 0.5 * 0.5) / 0.03^2), 1e-6,
+            "Usa n = (z^2 * p * (1 - p)) / E^2 con p = 0.5 y E = 0.03.")
+}
+
+test_margen_100 <- function() {
+  e <- get("e", parent.frame())
+  .verifica(e, "margen_100", z_95 * sd_muestral / sqrt(100), 1e-3,
+            "Usa la misma formula del margen de error, sustituyendo n por 100.")
+}
+
