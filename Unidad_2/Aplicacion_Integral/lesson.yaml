@@ -176,10 +176,10 @@
 
 - Class: mult_question
   Output: Si en vez de estratificar hubieras usado muestreo aleatorio simple sin ningún cuidado, ¿qué riesgo real habrías corrido en este problema específico?
-  AnswerChoices: Ninguno, el resultado habría sido exactamente igual siempre;Una estimación menos estable, con más probabilidad de alejarse de la media real al depender de cuántos usuarios Premium cayeron por azar en la muestra;El código en R habría sido más difícil de escribir;La población habría cambiado de tamaño
-  CorrectAnswer: Una estimación menos estable, con más probabilidad de alejarse de la media real al depender de cuántos usuarios Premium cayeron por azar en la muestra
+  AnswerChoices: Una estimación menos estable, por depender de cuántos usuarios Premium cayeron por azar en la muestra;Ninguno, el resultado siempre sería igual;El código habría sido más difícil de escribir;La población habría cambiado de tamaño
+  CorrectAnswer: Una estimación menos estable, por depender de cuántos usuarios Premium cayeron por azar en la muestra
   AnswerTests: opcion_mc('p6')
-  Hint: Compara error_estandar_simulado con error_estandar_teorico y recuerda el motivo original por el que elegiste estratificado.
+  Hint: Compara 'error_estandar_simulado' con 'error_estandar_teorico', y piensa en por qué elegiste estratificado desde un inicio.
 
 - Class: mult_question
   Output: Si el equipo quisiera reducir el error estándar de sus estimaciones (es decir, que las medias muestrales varíen menos entre sí) sin cambiar el número de veces que repite el proceso, ¿qué debería hacer?
