@@ -88,7 +88,7 @@
   Output: La frecuencia acumulada es el resultado de sumar progresivamente las frecuencias de cada dato en un conjunto ordenado. Nos muestra cuántos datos hay que son menores o iguales a un valor específico.
 
 - Class: text
-  Output: Existen dos tipos de frecuencias acumuladas la frecuencia absoluta acumulada y la frecuencia relativa absoluta. Para generar la frecuencia acumulada se va utilizar la función cumsum() esto para R nos vaya sumando los datos absolutos y relativos en forma de tabla.
+  Output: Existen dos tipos de frecuencias acumuladas; la frecuencia absoluta acumulada y la frecuencia relativa acumulada. Para generar la frecuencia acumulada se va utilizar la función cumsum() esto para R nos vaya sumando los datos absolutos y relativos en forma de tabla.
     
 - Class: cmd_question
   Output: Vamos a intentar calcular la frecuencia absoluta acumulativa, el último dato que nos debe de dar es 21 porque es la cantidad de números que hay en la lista.
@@ -173,11 +173,26 @@
 - Class: text
   Output: Ya conoces todas las columnas correspondientes a una tabla de distribución de frecuencias. Vamos a unir las cuatro columnas para que puedas visualizar tu tabla completa. 
 
+- Class: text
+  Output: Para armar la tabla completa, primero guardaremos las frecuencias en variables y después las uniremos con data.frame().
+
 - Class: cmd_question
-  Output: Crea la tabla completa llamada tabla_frecuencias con data.frame(), con columnas Lenguaje, Absoluta, Relativa, AbsolutaAcumulada y RelativaAcumulada. Recuerda utilizar las funciones que usaste para calcular cada frecuencia.
-  CorrectAnswer: tabla_frecuencias <- data.frame(Lenguaje = names(table(lenguajes)), Absoluta = as.vector(table(lenguajes)), Relativa = as.vector(prop.table(table(lenguajes))), AbsolutaAcumulada = as.vector(cumsum(table(lenguajes))), RelativaAcumulada = as.vector(cumsum(prop.table(table(lenguajes)))))
-  AnswerTests: omnitest(correctExpr='tabla_frecuencias <- data.frame(Lenguaje = names(table(lenguajes)), Absoluta = as.vector(table(lenguajes)), Relativa = as.vector(prop.table(table(lenguajes))), AbsolutaAcumulada = as.vector(cumsum(table(lenguajes))), RelativaAcumulada = as.vector(cumsum(prop.table(table(lenguajes)))))')
-  Hint: Usa data.frame() con Lenguaje = names(table(lenguajes)) y las demás columnas envueltas en as.vector() para que no arrastren nombres de fila raros. Recuerda utilizar los nombres exactos de las columnas que se indican.
+  Output: Guarda la tabla de frecuencia absoluta del vector lenguajes en una variable llamada abs_len.
+  CorrectAnswer: abs_len <- table(lenguajes)
+  AnswerTests: omnitest(correctExpr='abs_len <- table(lenguajes)')
+  Hint: Usa el operador de asignación y la función table().
+
+- Class: cmd_question
+  Output: Ahora guarda la frecuencia relativa en una variable llamada rel_len, calculándola a partir de abs_len.
+  CorrectAnswer: rel_len <- prop.table(abs_len)
+  AnswerTests: omnitest(correctExpr='rel_len <- prop.table(abs_len)')
+  Hint: La función prop.table() se aplica sobre una tabla de frecuencias, y ya tienes una guardada en abs_len.
+
+- Class: cmd_question
+  Output: Crea la tabla completa llamada tabla_frecuencias con data.frame(), con las columnas Lenguaje, Absoluta, Relativa, AbsolutaAcumulada y RelativaAcumulada. Usa abs_len y rel_len, y la función cumsum() para las acumuladas.
+  CorrectAnswer: tabla_frecuencias <- data.frame(Lenguaje = names(abs_len), Absoluta = as.vector(abs_len), Relativa = as.vector(rel_len), AbsolutaAcumulada = as.vector(cumsum(abs_len)), RelativaAcumulada = as.vector(cumsum(rel_len)))
+  AnswerTests: omnitest(correctExpr='tabla_frecuencias <- data.frame(Lenguaje = names(abs_len), Absoluta = as.vector(abs_len), Relativa = as.vector(rel_len), AbsolutaAcumulada = as.vector(cumsum(abs_len)), RelativaAcumulada = as.vector(cumsum(rel_len)))')
+  Hint: Usa data.frame() con Lenguaje = names(abs_len). Las demás columnas van envueltas en as.vector() para que no arrastren nombres de fila raros. Usa los nombres exactos de las columnas que se indican.
   
 - Class: cmd_question
   Output: Muestra la tabla completa escribiendo su nombre.
