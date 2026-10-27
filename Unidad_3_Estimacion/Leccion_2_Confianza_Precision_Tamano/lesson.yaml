@@ -73,3 +73,85 @@
   AnswerTests: omnitest(correctVal = 'Se hace más ancho')
   Hint: Compara los tres valores z que acabas de ver. Mientras mayor sea z, más lejos de la media llegan los límites del intervalo. 
   
+#===============================================================
+# Margen de error
+#===============================================================
+
+- Class: text
+  Output: El margen de error describe qué tan lejos puede estar la estimación puntual del parámetro, dado un nivel de confianza y un tamaño de muestra. Para una media se calcula con E = z * sd / sqrt(n), y el intervalo de confianza es la media +- E (Lane et al., s. f.).
+  
+- Class: text
+  Output: Por ejemplo, en una encuesta a 1000 estudiantes, el 60% dice que prefiere estudiar con música, con un margen de error de aproximadamente 3 puntos porcentuales. Entonces el intervalo va de 57% a 63%. Se estima que el 60% de los estudiantes prefiere estudiar con música, pero el valor real podría estar entre 57% y 63%.
+  
+- Class: exact_question
+  Output: Una encuesta estima que el 60% de los estudiantes prefiere estudiar con música, con un margen de error de 3%. ¿Cuál es el límite inferior del intervalo? Escribe solo el número. 
+  CorrectAnswer: 57
+  AnswerTests: omnitest(correctVal = 57)
+  Hint: El límite inferior es la estimación puntual menos el margen de error. 
+  
+- Class: text
+  Output: Ahora calculemos un margen de error con los datos del servidor. Ya están cargados la desviación estándar, sd_muestral, el tamaño de la muestra, n_muestra, y el valor z, z_95.
+  
+- Class: cmd_question
+  Output: Calcula el margen de error para 95% de confianza usando z_95, sd_muestral y n_muestra. Guárdalo en la variable margen_95.
+  CorrectAnswer: margen_95 <- z_95 * sd_muestral / sqrt(n_muestra)
+  AnswerTests: test_margen_95()
+  Hint: La fórmula es E = z * sd / sqrt(n). Recuerda que n va dentro de una raíz cuadrada. 
+  
+- Class: cmd_question
+  Output: Escribe margen_95 para ver el resultado. 
+  CorrectAnswer: margen_95
+  AnswerTests: omnitest(correctExpr = 'margen_95')
+  Hint: Escribe margen_95.
+  
+- Class: text
+  Output: El margen de error es de aproximadamente 11 ms. Como la media muestral es 251.8 ms, el intervalo de confianza del 95% va aproximadamente de 241 a 263 ms. Es decir, estimamos que el tiempo medio de respuesta del servidor está en ese rango. 
+  
+#===============================================================
+# Precisión
+#===============================================================
+
+- Class: text
+  Output: La precisión de una estimación está relacionada con el ancho del intervalo de confianza. Si el margen de error es pequeño, el intervalo es estrecho y la estimación es más precisa. Si el margen es grande, el intervalo es amplio y la estimación es menos precisa. 
+  
+- Class: text 
+  Output: Por ejemplo, supón que el 60% de los estudiantes aprobó Cálculo II. Con un margen de error de 10%, el intervalo va de 50% a 70%, y tenemos poca precisión. Con un margen de 2%, el intervalo va de 58% a 62%, y la precisión es mucho mayor. 
+  
+- Class: mult_question
+  Output: Un equipo obtiene dos estimaciones para la misma proporción. La primera tiene un margen de error de 8% y la segunda tiene un margen de error de 2%. ¿Cuál tiene mayor precisión?
+  AnswerChoices: La estimación con margen de error de 8%;La estimación con margen de error de 2%;Ambas tienen la misma precisión;No es posible determinarlo
+  CorrectAnswer: La estimación con margen de error de 2%
+  AnswerTests: omnitest(correctVal = 'La estimación con margen de error de 2%')
+  Hint: Piensa en el ancho del intervalo que produce cada margen de error. 
+  
+- Class: text
+  Output: Veamos cómo cambia el margen de error con el nivel de confianza. Ya tienes cargados z_90, z_95, z_99. Como R trabaja con vectores, puedes calcular los tres márgenes de una sola vez. 
+  
+- Class: cmd_question
+  Output: Calcula el margen de error para los tres niveles, 90%, 95% y 99%, usando el vector c(z_90, z_95, z_99). Guarda el resultado con margenes_comparados. 
+  CorrectAnswer: margenes_comparados <- c(z_90, z_95, z_99) * sd_muestral / sqrt(n_muestra)
+  AnswerTests: test_margenes_comparados()
+  Hint: Multiplica c(z_90, z_95, z_99) por sd_muestral y divide entre sqrt(n_muestra). Guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Escribe margenes_comparados para ver los tres márgenes. 
+  CorrectAnswer: margenes_comparados
+  AnswerTests: omnitest(correctExpr = 'margenes_comparados')
+  Hint: Escribe margenes_comparados.
+  
+- Class: text
+  Output: Los márgenes son aproximadamente 9, 11 y 15 ms para 90%, 95% y 99%. A mayor nivel de confianza, mayor margen de error. 
+  
+- Class: exact_question
+  Output: Sin usar la muestra, solo con los valores z, ¿aproximadamente cuántas veces más grande es el margen de error al 99% comparado con el margen al 90%? Redondea a 1 decimal y escribe solo el número. 
+  CorrectAnswer: 1.6
+  AnswerTests: test_num_aprox(1.6, 0.1)
+  Hint: Divide z_99 entre z_90. El resultado no depende de la desviación estándar ni de n. 
+- Class: mult_question
+  Output: ¿Qué le pasa a la precisión de un intervalo cuando subes el nivel de confianza de 90% a 99%, manteniendo todo lo demás igual?
+  AnswerChoices: Aumenta;Disminuye;No cambia;Depende solo del tamaño de la muestra 
+  CorrectAnswer: Disminuye
+  AnswerTests: omnitest(correctVal = 'Disminuye')
+  Hint: Ganas confianza, pero el margen de error crece. Piensa qué pasa con la precisión cuando el intervalo se ensancha. 
+  
+  
