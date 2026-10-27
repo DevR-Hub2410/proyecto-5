@@ -140,7 +140,7 @@
   Output: Observa en el vector redes. Si un día hubieras pasado 20 horas en redes sociales, piensa en por qué ese dato se vería como un dato raro comparado con los demás.
   
 - Class: mult_question
-  Output: Si un dato es más grande que todos los demás, qué podrías hacer?
+  Output: Si un dato es más grande que todos los demás, ¿qué podrías hacer?
   AnswerChoices: Revisar la razón detrás de ese dato;Ignorarlo sin revisar;Borrarlo del vector
   CorrectAnswer: Revisar la razón detrás de ese dato
   AnswerTests: omnitest(correctVal='Revisar la razón detrás de ese dato')
@@ -214,6 +214,13 @@
   CorrectAnswer: summary(ventasSur)
   AnswerTests: omnitest(correctExpr='summary(ventasSur)')
   Hint: Es la misma función que usaste en el paso anterior, pero con el otro vector.
+  
+- Class: mult_question
+  Output: Compara los dos resúmenes que obtuviste. ¿Qué conclusión es correcta sobre las ventas de las dos tiendas?
+  AnswerChoices: Tienen la misma media y la misma mediana, pero las ventas de la tienda Sur varían mucho más; La tienda Sur vende más en promedio porque tiene el valor máximo más alto; La tienda Norte vende menos en promedio porque su valor máximo es menor; Las dos tiendas son iguales porque tienen la misma media
+  CorrectAnswer: Tienen la misma media y la misma mediana, pero las ventas de la tienda Sur varían mucho más
+  AnswerTests: omnitest(correctVal='Tienen la misma media y la misma mediana, pero las ventas de la tienda Sur varían mucho más')
+  Hint: Primero compara la media y la mediana de los dos resúmenes. Después fíjate en qué tan separados están el mínimo y el máximo de cada tienda.
 
 - Class: exact_question
   Output: Calcula la varianza de ventasSur con la función var(). ¿Cuál es el resultado?
