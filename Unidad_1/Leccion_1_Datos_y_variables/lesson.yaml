@@ -43,6 +43,13 @@
 
 - Class: text
   Output: Los estadísticos también tienen como función analizar y resumir los datos, con la diferencia que esto lo hace de una muestra de toda la población.
+  
+- Class: mult_question
+  Output: En una universidad con 5,000 alumnos, se encuestó a una muestra de 200 y se encontró que el promedio de estatura de esos 200 alumnos es de 168 cm. ¿Cómo se llama ese valor de 168 cm?
+  AnswerChoices: Un estadístico, porque se calculó a partir de una muestra; Un parámetro, porque resume los datos de los alumnos encuestados; Un estadístico, porque se calculó con toda la población; Un parámetro, porque es un promedio
+  CorrectAnswer: Un estadístico, porque se calculó a partir de una muestra
+  AnswerTests: omnitest(correctVal='Un estadístico, porque se calculó a partir de una muestra')
+  Hint: Fíjate de dónde salieron los datos. Si el valor resume solo una parte de la población es un estadístico, y si resume a toda la población es un parámetro.
 
 - Class: text
   Output: Estos temas los retomaremos más adelante, por ahora, hablemos de datos e información.
@@ -50,7 +57,7 @@
 #2. Datos e información.--------------------------------------------------------
 
 - Class: text
-  Output: Los datos son el resultado directo de una encuesta o investigación. Son información bruta, sin interpretación ni análisis.Por ejemplo, el número 25 es un dato. La estadística descriptiva es la encargada de resumir estos datos.
+  Output: Los datos son el resultado directo de una encuesta o investigación. Son información bruta, sin interpretación ni análisis. Por ejemplo, el número 25 es un dato. La estadística descriptiva es la encargada de resumir estos datos.
 
 - Class: text
   Output: El término datos no es útil a menos que se transforme en información. Por lo tanto, la información es la organización e interpretación de esos hechos.

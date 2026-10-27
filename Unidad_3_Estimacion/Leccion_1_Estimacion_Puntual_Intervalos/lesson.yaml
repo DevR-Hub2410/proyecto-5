@@ -21,7 +21,7 @@
 #===============================================================
 
 - Class: text
-  Output: Antes de estimar, recordemos dos conceptos que ya viste en la unidad de Muestreo. La población es el conjunto completo de elementos que queremos estudiar. Una muestra es un subconjunto de esa población, sellecionado para obtener información sobre ella (Toledo Díaz de León, s. f.). 
+  Output: Antes de estimar, recordemos dos conceptos que ya viste en la unidad de Muestreo. La población es el conjunto completo de elementos que queremos estudiar. Una muestra es un subconjunto de esa población, seleccionado para obtener información sobre ella (Toledo Díaz de León, s. f.). 
   
 - Class: text
   Output: En un muestreo aleatorio simple, todos los elementos de la población tienen la misma probabilidad de ser elegidos. Eso ayuda a que la muestra represente a la población. 
@@ -44,3 +44,390 @@
 - Class: text
   Output: Si ejecutas sample() otra vez, obtendrás números distintos, porque la selección es aleatoria. Por eso dos muestras de la misma población casi nunca son iguales. 
   
+#===============================================================
+# Parámetros
+#===============================================================
+
+- Class: text
+  Output: Hablemos ahora de los parámetros. Un parámetro es un valor numérico que describe una característica de toda la población. Puede ser una medida de tendencia central, como la media o la mediana, o una medida de dispersión, como el rango o la desviación estándar (Walpole et al., 2012).
+  
+- Class: text
+  Output: Un parámetro casi siempre es desconocido, porque medir a toda la población suele ser costoso o imposible. Por eso, más adelante lo estimaremos usando una muestra. 
+  
+- Class: text
+  Output: Veamos un ejemplo. Supón que un grupo de 5 estudiantes, que es toda la población que nos interesa, tiene calificaciones de 6, 7, 7, 8 y 10. Su media es 7.6, su mediana es 7 y su rango es 4. Como describen a toda la población, estos valores son parámetros. 
+  
+- Class: cmd_question 
+  Output: Comprobemos esos valores en R. Las calificaciones están en el vector notas. Calcula la media y la mediana y júntalas con c().
+  CorrectAnswer: c(media = mean(notas), mediana = median(notas))
+  AnswerTests: test_media_mediana()
+  Hint: Usa mean(notas) para la media, median(notas) para la mediana y c() para juntar los dos resultados. 
+  
+- Class: text
+  Output: Ahora, sin usar R, calcula el rango de las calificaciones 6, 7, 7, 8 y 10. 
+  CorrectAnswer: 4
+  AnswerTests: omnitest(correctVal = 4)
+  Hint: El rango es el valor máximo menos el valor mínimo. 
+  
+- Class: text
+  Output: En R, el rango también puede obtenerse con diff(range(notas)). La función range() devuelve el mínimo y el máximo, y diff() calcula su diferencia. 
+  
+- Class: mult_question
+  Output: Una empresa de software calcula la edad promedio de todos sus desarrolladores. ¿Qué representa este valor?
+  AnswerChoices: Una muestra;Un parámetro;Un estimador;Un dato individual
+  CorrectAnswer: Un parámetro
+  AnswerTests: omnitest(correctVal = 'Un parámetro')
+  Hint: Piensa si el promedio se calculó con toda la población o solo con una parte de ella. 
+  
+#===============================================================
+# Estadístico y estimador
+#===============================================================
+
+- Class: text
+  Output: Antes de hablar de los estimadores, necesitamos definir qué es un estadístico. Un estadístico es una medida calculada con los datos de una muestra, como la media muestral o la proporción muestral. 
+  
+- Class: text
+  Output: Conviene distinguir dos palabras. El estimador es la regla o fórmula que usamos, por ejemplo calcular la media muestral.La estimación es el valor concreto que obtenemos al aplicar esa regla a una muestra particular. Con otra muestra, la estimación cambiaría. 
+  
+- Class: mult_question
+  Output: ¿Cuál es la diferencia entre un parámetro y un estimador?
+  AnswerChoices: El parámetro se calcula con la muestra y el estimador con la población;El parámetro describe a toda la población y el estimador se calcula con la muestra para aproximarlo;Son lo mismo y solo cambia el nombre;El estimador solo existe para poblaciones infinitas
+  CorrectAnswer: El parámetro describe a toda la población y el estimador se calcula con la muestra para aproximarlo
+  AnswerTests: omnitest(correctVal = 'El parámetro describe a toda la población y el estimador se calcula con la muestra para aproximarlo')
+  Hint: Piensa de dónde sale cada valor. Uno describe a toda la población y el otro se obtiene con los datos de la muestra. 
+  
+- Class: mult_question
+  Output: Una empresa quiere conocer el tiempo promedio que tardan sus usuarios en cargar una aplicación. Selecciona 100 usuarios y calcula el promedio de sus tiempos de carga. ¿Qué representa ese promedio?
+  AnswerChoices: El parámetro poblacional;La población;Un estimador;El tamaño de la población
+  CorrectAnswer: Un estimador
+  AnswerTests: omnitest(correctVal = 'Un estimador')
+  Hint: El promedio se calculó con una muestra y sirve para aproximar el valor de toda la población. 
+  
+#===============================================================
+# Características de un buen estimador
+#===============================================================
+
+- Class: text
+  Output: No todos los estimadores son igual de buenos. Para juzgar qué tan adecuado es un estimador, se revisan cuatro características principales (Universitat de València, s. f.).
+  
+- Class: text
+  Output: La primera es la insesgadez. Un estimador es insesgado si el promedio de sus valores, al tomar muchas muestras, es igual al parámetro. Es decir, no tiende a sobreestimar ni subestimar. Por ejemplo, si la media poblacional es 168 cm y tomamos 1000 muestras, el promedio de sus medias muestrales será casi 168 cm. 
+  
+- Class: text
+  Output: La segunda es la consistencia. Un estimador es consistente si, al aumentar el tamaño de la muestra, sus valores se acercan cada vez más al parámetro. Por ejemplo, con una media poblacional de 168 cm, una muestra pequeña podría dar 171, una mediana 169 y una muy grande 168.1. Estos números son ilustrativos. 
+  
+- Class: text
+  Output: La tercera es la eficiencia. Entre dos estimadores del mismo parámetro, es más eficiente el que tiene menor varianza, porque sus resultados varían menos de una muestra a otra. Por ejemplo, en una población normal, la media muestral varía menos que la mediana muestral para estimar el centro. 
+  
+- Class: text
+  Output: La cuarta es la suficiencia. Un estimador es suficiente si resume toda la información que la muestra contiene sobre el parámetro. Por ejemplo, en 5 lanzamientos de una moneda, saber que salieron 3 caras basta para estimar la probabilidad de cara, el orden de los resultados no aporta información adicional. 
+  
+- Class: mult_question
+  Output: Un estimador presenta una menor varianza que otro estimador del mismo parámetro. ¿Qué característica se relaciona con esta situación?
+  AnswerChoices: Insesgadez;Consistencia;Eficiencia;Suficiencia
+  CorrectAnswer: Eficiencia
+  AnswerTests: omnitest(correctVal = 'Eficiencia')
+  Hint: Piensa en qué caracteristica se relaciona con la variabilidad de los resultados de un estimador.
+  
+- Class: mult_question
+  Output: Un equipo de desarrollo observa que, al pasar de 50 a 5000 registros en la muestra, la media muestral de los tiempos de respuesta se acerca cada vez más a la media real de todos los usuarios. ¿Qué característica del estimador se observa?
+  AnswerChoices: Insesgadez;Consistencia;Eficiencia;Suficiencia
+  CorrectAnswer: Consistencia
+  AnswerTests: omnitest(correctVal = 'Consistencia')
+  Hint: Fíjate en lo que ocurre con el estimador cuando el tamaño de la muestra aumenta. 
+  
+#===============================================================
+# Estimación puntual
+#===============================================================
+
+- Class: text
+  Output: La estimación puntual consiste en usar un único valor, calculado con una muestra, para aproximar un parámetro de la población. El valor que obtenemos se llama estimación, y la fórmula que usamos para calcularlo es el estimador (Walpole et al., 2012).
+  
+- Class: text
+  Output: Por ejemplo, para aproximar el tiempo medio de respuesta de una aplicación, podemos medir una muestra de peticiones y calcular su media. Ese valor es una estimación puntual de la media poblacional. 
+  
+- Class: cmd_question
+  Output: Un equipo de desarrollo registró 10 tiempos de respuesta, en segundos, en el vector tiempos_respuesta. Calcula su media con mean() y guárdala en la variable estimacion_media. 
+  CorrectAnswer: estimacion_media <- mean(tiempos_respuesta)
+  AnswerTests: test_variable_numerica('estimacion_media', 2.23)
+  Hint: Calcula la media con mean() y utiliza <- para guardar el resultado en estimacion_media. 
+  
+- Class: cmd_question
+  Output: Escribe estimacion_media para ver la estimación puntual. 
+  CorrectAnswer: estimacion_media
+  AnswerTests: omnitest(correctExpr = 'estimacion_media')
+  Hint: Escribe estimacion_media
+  
+- Class: text 
+  Output: El resultado es 2.23 segundos. Es la estimación puntual del tiempo medio de respuesta de la aplicación. Se calculó con solo 10 peticiones, así que aproxima la media real pero no necesariamente coincide con ella. 
+  
+- Class: text
+  Output: También podemos estimar proporciones. La proporción muestral es el número de elementos que cumplen una característica entre el tamaño de la muestra, y sirve como estimación puntual de la proporción poblacional. 
+  
+- Class: exact_question
+  Output: En una encuesta a 80 personas, 44 prefieren el producto A. ¿Cuál es la estimación puntual de la proporción de personas que prefieren el producto A? Responde en decimal. 
+  CorrectAnswer: 0.55
+  AnswerTests: omnitest(correctVal = 0.55)
+  Hint: Divide el número de personas que prefieren el producto A entre el total de personas encuestadas. 
+  
+- Class: text
+  Output: En R, una comparación como tipo_desarrollador == "Backend" devuelve TRUE o FALSE para cada elemento. Como mean() trata TRUE como 1 y FALSE como 0, la media de esos valores es la proporción de elementos que cumplen la condición. 
+  
+- Class: cmd_question
+  Output: En el vector tipo_desarrollador se guardan los roles de 10 desarrolladores de una muestra. Calcula la proporción de desarrolladores Backend usando mean() sobre la comparación tipo_desarrollador == "Backend" y guárdala en la variable proporcion_backend. 
+  CorrectAnswer: proporcion_backend <- mean(tipo_desarrollador == "Backend")
+  AnswerTests: test_variable_numerica('proporcion_backend', 0.6)
+  Hint: Compara tipo_desarrollador con "Backend", usa mean() para obtener la proporción y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Escribe proporcion_backend para ver la estimación puntual de la proporción. 
+  CorrectAnswer: proporcion_backend
+  AnswerTests: omnitest(correctExpr = 'proporcion_backend')
+  Hint: Escribe proporcion_backend.
+  
+- Class: mult_question
+  Output: El resultado es 0.6. ¿Cuál es la interpretación más adecuada?
+  AnswerChoices: En la muestra 6 de cada 10 desarrolladores son Backend, y 0.6 es la estimación puntual de la proporción en toda la población;Exactamente el 60% de la población de desarrolladores es Backend;Hay 0.6 desarrolladores Backend en la muestra;La proporción de desarrolladores Frontend es 0.6
+  CorrectAnswer: En la muestra 6 de cada 10 desarrolladores son Backend, y 0.6 es la estimación puntual de la proporción en toda la población
+  AnswerTests: omnitest(correctVal = 'En la muestra 6 de cada 10 desarrolladores son Backend, y 0.6 es la estimación puntual de la proporción en toda la población')
+  Hint: Piensa de dónde sale el valor. Se calculó con una muestra, así que solo aproxima el valor de la población. 
+  
+- Class: text
+  Output: Una estimación puntual es solo un valor. No nos dice qué tan cerca está del parámetro real. Para medir esa incertidumbre usamos los intervalos de confianza, que veremos a continuación. 
+  
+#===============================================================
+# Intervalo de confianza para la media
+#===============================================================
+
+- Class: text
+  Output: Una estimación puntual es un solo valor y no dice qué tan cerca está del parámetro. Un intervalo de confianza resuelve esto, porque entrega un rango de valores plausibles para el parámetro, calculado con los datos de una muestra (Walpole et al., 2012).
+  
+- Class: text
+  Output: Todo intervalo de confianza tiene un nivel de confianza, que casi siempre es 95%. Significa que, si repitiéramos el muestreo muchas veces y construyéramos un intervalo con cada muestra, aproximadamente el 95% de esos intervalos contendría el parámetro verdadero. 
+  
+- Class: text
+  Output: Empecemos con el intervalo para una media. Cuando conocemos la media muestral, la desviación estándar s y el tamaño de la muestra n, el intervalo se calcula, con media +- Z * s / sqrt(n). Para 95% de confianza, el valor crítico es Z = 1.96.
+  
+- Class: text
+  Output: Por ejemplo, se midió el tiempo que tardan 36 personas en llegar al trabajo. La media fue 40 minutos y la desviación estándar fue 12. El error estándar es 12 / sqrt(36) = 2 y el margen de error es 1.96 * 2 = 3.92 minutos. 
+  
+- Class: cmd_question
+  Output: Calcula los datos límites del intervalo con la fórmula, media + c(-1,1) * Z * s / sqrt(n), usando media = 40, Z = 1.96, s = 12 y n = 36.
+  CorrectAnswer: 40 + c(-1, 1) * 1.96 * 12 / sqrt(36)
+  AnswerTests: test_ic_media()
+  Hint: Sustituye los datos en la fórmula. c(-1,1) sirve para obtener el límite inferior y superior a la vez. 
+  
+- Class: mult_question
+  Output: El intervalo de confianza al 95% para el tiempo promedio de traslado resultó (36.08, 43.92) minutos. ¿Qué conclusión es correcta?
+  AnswerChoices: El 95% de las personas tarda entre 36.08 y 43.92 minutos en llegar al trabajo;Con 95% de confianza, el tiempo promedio de traslado de toda la población está entre 36.08 y 43.92 minutos;Cualquier muestra de 36 personas tendrá una media entre 36.08 y 43.92 minutos;Los 40 minutos de la muestra son el tiempo exacto de toda la población
+  CorrectAnswer: Con 95% de confianza, el tiempo promedio de traslado de toda la población está entre 36.08 y 43.92 minutos
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, el tiempo promedio de traslado de toda la población está entre 36.08 y 43.92 minutos')
+  Hint: El intervalo habla del parámetro poblacional, la media de toda la población, no de cada persona ni de otras muestras. 
+  
+- Class: text
+  Output: Cuando tenemos todos los datos de la muestra, no hace falta aplicar la fórmula a mano. La función t.test() calcula el intervalo por nosotros. Usa la distribución t, que es más adecuada cuando la desviación estándar se estima con la muestra, así que sus resultados pueden diferir un poco de los de la fórmula con Z. 
+  
+- Class: text
+  Output: t.test() devuelve varios resultados. En esta lección solo necesitamos el intervalo de confianza, que se obtiene agregando $conf.int al final de la instrucción. 
+  
+- Class: cmd_question
+  Output: El equipo de desarrollo quiere un intervalo de confianza del 95% para la media de los tiempos de respuesta. Usa t.test() sobre tiempos_respuesta con conf.level = 0.95, agrega $conf.int y guarda el intervalo en la variable intervalo_media. 
+  CorrectAnswer: intervalo_media <- t.test(tiempos_respuesta, conf.level = 0.95)$conf.int
+  AnswerTests: test_variable_numerica('intervalo_media', c(2.0716490, 2.3883510))
+  Hint: Usa t.test() con tiempos_respuesta y conf.level = 0.95. El 95% se escribe como decimal. Agrega $conf.int al final y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Escribe intervalo_media para ver el resultado. 
+  CorrectAnswer: intervalo_media
+  AnswerTests: omnitest(correctExpr = 'intervalo_media')
+  Hint: Escribe intervalo_media.
+  
+- Class: mult_question
+  Output: El intervalo es (2.07, 2.39) segundos. ¿Cuál es la interpretación más adecuada? 
+  AnswerChoices: El 95% de las peticiones tarda entre 2.07 y 2.39 segundos;Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos;Todas las peticiones tardan entre 2.07 y 2.39 segundos;El tiempo medio de respuesta es exactamente 2.23 segundos
+  CorrectAnswer: Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, el tiempo medio de respuesta de la aplicación está entre 2.07 y 2.39 segundos')
+  Hint: El intervalo estima el parámetro, la media poblacional. No describe a cada petición individual. 
+  
+#===============================================================
+# Intervalo de confianza para una proporción
+#===============================================================
+
+- Class: text
+  Output: Veamos ahora el intervalo de confianza para una proporción. Funciona con la misma idea que el de la media, pero estima la proporción de la población que cumple una característica, a partir de la proporción de la muestra. 
+  
+- Class: text
+  Output: Una forma de calcularlo es con la fórmula aproximada, proporción +- Z * sqrt(proporcion * (1 - proporción) / n). Para 95% de confianza usamos Z = 1.96. Esta fórmula funciona bien cuando la muestra es grande, y una regla práctica común es tener al menos 5 éxitos y 5 fracasos en la muestra (Walpole et al., 2012).
+  
+- Class: text
+  Output: Por ejemplo, se encuestó a 400 personas y 240 prefieren el producto A. La proporción muestral es 240 / 400  = 0.6. El margen de error es 1.96 * sqrt(0.6 * 0.4 / 400), que es aproximadamente 0.048.
+  
+- Class: cmd_question
+  Output: Calcula los dos límites del intervalo con la fórmula, proporción + c(-1, 1) * 1.96 * sqrt(proporción * (1 - proporción) / n), usando proporción = 0.6 y n = 400. Guarda el resultado en la variable intervalo_producto. 
+  CorrectAnswer: intervalo_producto <- 0.6 + c(-1,1) * 1.96 * sqrt(0.6 * 0.4 / 400)
+  AnswerTests: test_variable_numerica('intervalo_producto', c(0.55199, 0.64801))
+  Hint: Sustituye en la fórmula, usando 1 - 0.6 = 0.4 dentro de la raíz. c(-1, 1) calcula el límite inferior y el superior a la vez. Guarda el resultado con <-.
+  
+- Class: mult_question 
+  Output: En esa encuesta de 400 personas, el 60% prefiere el producto A y el intervalo de confianza al 95% para la proporción poblacional es (0.552, 0.648). ¿Se puede afirmar con 95% de confianza que más de la mitad de la población prefiere el producto A?
+  AnswerChoices: Sí, porque todo el intervalo queda por encima de 0.50;No, porque el intervalo llega hasta 0.648 y no hasta 1;No se puede decir nada porque solo se encuestó a una muestra;Sí, pero solo si el intervalo incluye al 0.50
+  CorrectAnswer: Sí, porque todo el intervalo queda por encima de 0.50
+  AnswerTests: omnitest(correctVal = 'Sí, porque todo el intervalo queda por encima de 0.50')
+  Hint: Compara el límite inferior del intervarlo con 0.50.
+  
+- Class: text
+  Output: Cuando tenemos los datos de la muestra, R puede calcular el intervalo con prop.test(x, n), donde x es el número de éxitos y n es el tamaño de la muestra. Esta función usa un método distinto al de la fórmula, así que sus resultados pueden diferir un poco. Igual que con t.test(), solo necesitamos el intervalo, que se obtiene con $conf.int.
+  
+- Class: cmd_question 
+  Output: En el vector tipo_desarrollador están los roles de 10 desarrolladores. Calcula el intervalo de confianza del 95% para la proporción de desarrolladores Backend con prop.test(). Usa sum(tipo_desarrollador == "Backend") como número de éxitos y length(tipo_desarrollador) como total, y guarda solo el intervalo en la variable intervalo_backend. 
+  CorrectAnswer: intervalo_backend <- prop.test(sum(tipo_desarrollador == "Backend"), length(tipo_desarrollador), conf.level = 0.95)$conf.int
+  AnswerTests: test_variable_numerica('intervalo_backend', c(0.2736697, 0.8630694))
+  Hint: Usa prop.test() con el número de Backend y el total, agrega conf.level = 0.95 y $conf.int al final, y guarda el resultado con <-. 
+  
+- Class: text
+  Output: Como la muestra de este ejemplo es pequeña, R puede mostrar un aviso que dice que la aproximación puede no se adecuada. No es un error. Es una advertencia de que prop.test() usa un método aproximado, y más adelante veremos una alternativa exacta. 
+  
+- Class: cmd_question 
+  Output: Escribe intervalo_backend para ver el resultado. 
+  CorrectAnswer: intervalo_backend
+  AnswerTests: omnitest(correctExpr = 'intervalo_backend')
+  Hint: Escribe intervalo_backend.
+  
+- Class: mult_question
+  Output: El intervalo va aproximadamente de 0.27 a 0.86, un rango muy amplio. ¿Cuál es la razón principal?
+  AnswerChoices: La muestra es pequeña, solo 10 desarrolladores;El nivel de confianza es demasiado bajo;La proporción de Backend es 0.6;R calculó mal el intervalo
+  CorrectAnswer: La muestra es pequeña, solo 10 desarrolladores
+  AnswerTests: omnitest(correctVal = 'La muestra es pequeña, solo 10 desarrolladores')
+  Hint: Piensa en cuánta información tenemos. Con pocos datos, la estimación tiene más incertidumbre. 
+  
+- Class: text
+  Output: Con más datos, el intervalo sería más angosto y la estimación más precisa. Veremos cómo se relacionan el tamaño de la muestra y la precisión en la siguiente lección. 
+  
+- Class: mult_question
+  Output: Un equipo de software calcula un intervalo de confianza del 95% para la proporción de usuarios que prefieren el modo oscuro y obtiene (0.62, 0.74). ¿Cuál es la interpretación correcta?
+  AnswerChoices: Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%;El 62% de los usuarios usa siempre el modo oscuro;El 74% de los usuarios usa siempre el modo oscuro;El 95% de los usuarios prefiere el modo oscuro
+  CorrectAnswer: Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, la proporción de usuarios que prefieren el modo oscuro está entre 62% y 74%')
+  Hint: El intervalo estima la proporción de toda la población de usuarios. No describe el comportamiento de cada usuario. 
+  
+#===============================================================
+# Método exacto para una proporción
+#===============================================================
+
+- Class: text
+  Output: La fórmula aproximada de proporciones necesita una muestra grande. Cuando la muestra es pequeña o hay muy poco éxitos, se usa el método exacto, basado en la distribución binomial, también llamado método de Clopper-Pearson (R Core Team, s. f.).
+  
+- Class: text
+  Output: Por ejemplo, un equipo revisó 10 módulos de un sistema y encontró errores críticos en 2 de ellos. La proporción muestral es 0.20, pero con solo 2 éxitos la fórmula aproximada no es confiable. En R usamos binom.test(x, n), donde x es el número de éxitos y n el total de la muestra. 
+  
+- Class: cmd_question
+  Output: Obtén el intervalo de confianza exacto para 2 módulos con errores críticos de 10 revisados. Usa binom.test() y agrega $conf.int al final para ver solo el intervalo. 
+  CorrectAnswer: binom.test(2, 10)$conf.int
+  AnswerTests: test_ic_binom()
+  Hint: La estructura es binom.test(éxitos, total)$conf.int.
+  
+- Class: text
+  Output: El intervalo es aproximadamente (0.03, 0.56). Por defecto, binom.test() usa 95% de confianza. Fíjate en lo amplio que es, porque con una muestra de 10 hay mucha incetidumbre sobre la proporción real. 
+  
+#===============================================================
+# Actividad integradora
+#===============================================================
+
+- Class: text
+  Output: Pongamos todo junto. Una empresa de software quiere analizar la experiencia de sus usarios. Seleccionó una muestra de 15 usuarios y registró su calificación de la aplicación en el vector calificaciones. También registró si cada usuarios utiliza el modo oscuro en el vector modo_oscuro. 
+  
+- Class: cmd_question
+  Output: Primero, calcula la media de las calificaciones y guárdala en la variable media_calificaciones. 
+  CorrectAnswer: media_calificaciones <- mean(calificaciones)
+  AnswerTests: test_variable_numerica('media_calificaciones', 4.193333)
+  Hint: Usa mean() sobre el vector calificaciones y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Ahora calcula la proporción de usuarios que utilizan el modo oscuro y guárdala en la variable proporcion_oscuro. Recuerda que en modo_oscuro los valores son "Si" o "No".
+  CorrectAnswer: proporcion_oscuro <- mean(modo_oscuro == "Si")
+  AnswerTests: test_variable_numerica('proporcion_oscuro', 0.6)
+  Hint: Compara modo_oscuro con "Si" y usa mean() para obtener la proporción. Guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Calcula un intervalo de confianza del 95% para la media de las calificaciones con t.test(). Agrega $conf.int y guarda el intervalo en la variable intervalo_calificaciones. 
+  CorrectAnswer: intervalo_calificaciones <- t.test(calificaciones, conf.level = 0.95)$conf.int
+  AnswerTests: test_ic_calificaciones()
+  Hint: Usa t.test() con calificaciones y conf.level = 0.95, agrega $conf.int al final y guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Escribe intervalo_calificaciones para ver el resultado. 
+  CorrectAnswer: intervalo_calificaciones
+  AnswerTests: omnitest(correctExpr = 'intervalo_calificaciones')
+  Hint: Escribe intervalo_calificaciones. 
+  
+- Class: text
+  Output: El intervalo se construye alrededor de la estimación puntual. La distancia entre la media y cualquiera de los límites es el margen de error. 
+  
+- Class: cmd_question 
+  Output: Calcula el margen de error restando la media al límite superior del intervalo. Usa media_calificaciones e intervalo_calificaciones[2] y guarda el resultado en la variable margen_error.
+  CorrectAnswer: margen_error <- intervalo_calificaciones[2] - media_calificaciones
+  AnswerTests: test_variable_numerica('margen_error', 0.168059, 1e-3)
+  Hint: El límite superior es el segundo elemento del intervalo, y se obtiene con intervalo_calificaciones[2]. Réstale la media y guarda el resultado con <-. 
+  
+- Class: mult_question
+  Output: El intervalo es aproximadamente (4.03, 4.36). ¿Qué significa este resultado?
+  AnswerChoices: Todos los usuarios calificaron la aplicación entre 4.03 y 4.36;Con 95% de confianza, la calificacion media de todos los usuarios está entre 4.03 y 4.36;El 95% de los usuarios calificó con 4.03;La muestra contiene 4.36 usuarios
+  CorrectAnswer: Con 95% de confianza, la calificacion media de todos los usuarios está entre 4.03 y 4.36
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, la calificacion media de todos los usuarios está entre 4.03 y 4.36')
+  Hint: El intervalo estima el parámetro poblacional, la media de todos los usuarios. No describe a cada usuario. 
+  
+- Class: text
+  Output: Ahora veamos el modo oscuro. La proporción de la muestra es una estimación puntual. Antes de calcular el intervalo, comprobemos qué indica por sí sola. 
+
+- Class: text
+  Output: Comprueba si la proporción muestral es mayor que 0.5 Escribe una comparación con proporcion_oscuro.
+  CorrectAnswer: proporcion_oscuro > 0.5
+  AnswerTests: omnitest(correctval = TRUE)
+  Hint: Usa el operador > para comparar proporcion_oscuro con 0.5.
+  
+- Class: cmd_question
+  Output: La muestra sugiere que más de la mitad usa el modo oscuro. Veamos si el intervalo lo confirma. Usa prop.test() con sum(modo_oscuro == "Si") como número de éxitos y length(modo_oscuro) como total. Agrega conf.level = 0.95 y $conf.int, y guarda el intervalo en la variable intervalo_oscuro. 
+  CorrectAnswer: intervalo_oscuro <- prop.test(sum(modo_oscuro == "Si"), length(modo_oscuro), conf.level = 0.95)$conf.int
+  AnswerTests: test_ic_oscuro()
+  Hint: Usa prop.test() con el número de usuarios que dicen "Si" y el total, agrega conf.level = 95 y $conf.int al final, y guarda el resultado con <-. 
+  
+- Class: cmd_question
+  Output: Escribe intervalo_oscuro para ver el resultado.
+  CorrectAnswer: intervalo_oscuro
+  AnswerTests: omnitest(correctExpr = 'intervalo_oscuro')
+  Hint: Escribe intervalo_oscuro.
+  
+- Class: mult_question
+  Output: Observa el intervalo que obtuviste. ¿Se puede afirmar con 95% de confianza que más de la mitad de los usuarios utiliza el modo oscuro?
+  AnswerChoices: Si, porque la proporción muestral es 0.6;No, porque el intervalo incluye valores menores que 0.50;Si, porque el nivel de confianza es 95%;No, porque la muestra no tiene usuarios que usen el modo oscuro
+  CorrectAnswer: No, porque el intervalo incluye valores menores que 0.50
+  AnswerTests: omnitest(correctVal = 'No, porque el intervalo incluye valores menores que 0.50')
+  Hint: Compara el límite inferior del intervalo con 0.50, como hiciste con la encuesta del producto A. 
+  
+- Class: text
+  Output: Aunque la proporción muestral es 0.6, la muestra tiene solo 15 usuarios y el intervalo es muy amplio. Con una muestra más grande, el intervalo sería más angosto y podríamos concluir con más certeza. 
+  
+#===============================================================
+# Cierre
+#===============================================================
+
+- Class: text
+  Output: Antes de terminar, repasemos las ideas principales. La población es el conjunto total que queremos estudiar y la muestra es un subconjunto de ella. Un parámetro describe a la población, y un estadístico se calcula con una muestra. Un estimador es un estadístico que usamos para aproximar un parámetro desconocido. 
+  
+- Class: text
+  Output: La estimación puntual usa un único valor para aproximar el parámetro, y un intervalo de confianza da un rango de valores con un nivel de confianza. Usamos R para calcular medias, proporciones e intervalos con t.test(), prop.test() y binom.test(), y practicamos cómo interpretarlos
+  
+- Class: text
+  Output: Estos procedimientos sirven en situaciones reales de ingeniría de software, como analizar tiempos de respuesta, preferencias de usuarios o resultados de pruebas. En la siguiente lección veremos cómo se relacionan el nivel de confianza, la presición y el tamaño de la muestra. 
+  
+- Class: text
+  Output: Referencias de esta lección. Walpole, Myers, Myers y Ye (2012), Probabilidad y estadística para ingeniería y ciencias. Toledo Díaz de León (s. f.), Población y muestra. Universitat de València (s. f.), Características de los estimadores. R Core Team (s. f.), documentación del paquete stats.
+
+#===============================================================
+# REFERENCIAS
+#===============================================================
+# Walpole, R. E., Myers, R. H., Myers, S. L., & Ye, K. (2012). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). Pearson.
+# Toledo Díaz de León, N. (s. f.). Población y muestra. Universidad Autónoma del Estado de México. https://ri.uaemex.mx/bitstream/handle/20.500.11799/63099/secme26877.pdf?sequence=1
+# Universitat de València. (s. f.). 4.2 Características estimadores. En Estadística Inferencial, Tema 8: Estimación. https://www.uv.es/webgid/Inferencial/42_caractersticas_estimadores.html
+# R Core Team. (s. f.). Documentación de prop.test (paquete stats). https://search.r-project.org/CRAN/refmans/stats/html/prop.test.html
+

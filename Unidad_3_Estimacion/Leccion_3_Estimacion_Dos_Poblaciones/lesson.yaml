@@ -1,0 +1,308 @@
+- Class: meta
+  Course: Unidad_3_Estimacion
+  Lesson: Leccion_3_Estimacion_Dos_Poblaciones
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autonoma de Ciudad Juarez
+  Version: 2.4.5
+
+#===============================================================
+# Introducción
+#===============================================================
+
+- Class: text
+  Output: En esta lección aprenderás a construir e interpretar intervalos de confianza para comparar dos poblaciones mediante la diferencia de 
+    sus medias, la diferencia de sus proporciones y la razón de sus varianzas.
+
+- Class: text
+  Output: Asumiremos que tenemos dos poblaciones, A y B, de las cuales se obtienen muestras aleatorias independientes. El objetivo principal es 
+    comparar los parámetros de ambas poblaciones utilizando la información obtenida de las muestras.
+
+- Class: text
+  Output: Para trabajar utilizaremos dos versiones de una aplicación de software, A y B. Registraremos los tiempos de respuesta y los resultados 
+    de éxito de cada versión para analizar sus diferencias. También utilizaremos las funciones de R que permiten calcular intervalos de confianza 
+    para comparar dos poblaciones.
+
+- Class: text
+  Output: Cuando comparamos dos poblaciones, el resultado no tiene que ser un único valor exacto. Podemos construir un intervalo de confianza que 
+    nos proporcione un rango de valores plausibles para la diferencia o razón entre los parámetros poblacionales. La amplitud del intervalo indica 
+    la precisión de la estimación, entre más angosto sea, mayor será la precisión.
+
+#===============================================================
+# Tema 1. Diferencia de dos medias
+#===============================================================
+
+- Class: text
+  Output: Cuando queremos comparar el promedio de dos poblaciones, construimos un intervalo de confianza para la diferencia de medias (μ_A - μ_B). 
+    Este intervalo nos da un rango de valores plausibles para la diferencia entre los promedios de ambas poblaciones.
+
+- Class: text
+  Output: Antes de construir el intervalo, conviene identificar el tipo de muestras con el que trabajamos. Dos muestras son independientes cuando 
+    la selección y el valor de las observaciones de un grupo no dependen de las observaciones del otro; es decir, no existe una correspondencia 
+    natural uno a uno entre un dato de un grupo y uno específico del otro.
+
+- Class: text
+  Output: Por ejemplo, comparar el tiempo de respuesta de dos versiones de una aplicación utilizando usuarios distintos en cada grupo corresponde 
+    a muestras independientes. En cambio, si midiéramos el tiempo de respuesta de los mismos usuarios con ambas versiones, las observaciones estarían 
+    relacionadas y se trataría de muestras pareadas.
+
+- Class: mult_question
+  Output: Un intervalo de confianza del 95% para la diferencia de medias (μ_A - μ_B) resultó ser (1.2, 6.8). ¿Cuál de las siguientes afirmaciones 
+    describe mejor este resultado?
+  AnswerChoices: Estimamos que la media de A supera a la de B en un valor entre 1.2 y 6.8;Esto demuestra que las dos poblaciones son iguales;El valor 6.8 es el valor exacto de la diferencia entre las medias;El intervalo demuestra que todos los datos de A son mayores que los de B
+  CorrectAnswer: Estimamos que la media de A supera a la de B en un valor entre 1.2 y 6.8
+  AnswerTests: omnitest(correctVal='Estimamos que la media de A supera a la de B en un valor entre 1.2 y 6.8')
+  Hint: Interpreta el intervalo como un rango de valores plausibles para la diferencia entre las medias.
+
+- Class: text
+  Output: En R, la función t.test() permite construir un intervalo de confianza para la diferencia entre dos medias. El elemento $conf.int del 
+    resultado contiene los límites inferior y superior del intervalo.
+
+- Class: cmd_question
+  Output: Calcula el intervalo de confianza para la diferencia de medias entre tiempos_A y tiempos_B utilizando t.test().
+  CorrectAnswer: t.test(tiempos_A, tiempos_B)$conf.int
+  AnswerTests: omnitest(correctExpr='t.test(tiempos_A, tiempos_B)$conf.int')
+  Hint: Utiliza t.test() con los dos vectores separados por una coma y agrega $conf.int al final.
+
+- Class: text
+  Output: El resultado contiene dos valores, el límite inferior y el límite superior del intervalo de confianza para μ_A - μ_B. Si todo el intervalo 
+    queda por encima de cero, esto sugiere que la media de A es mayor que la de B. Si queda por debajo de cero, sugiere lo contrario. Si el intervalo 
+    incluye al cero, los datos son compatibles con que ambas medias sean iguales.
+
+- Class: mult_question
+  Output: Imagina que el intervalo de confianza para (μ_A - μ_B) es (-3.5, 4.1). ¿Cuál es la interpretación correcta?
+  AnswerChoices: Los datos son compatibles con que las dos medias sean iguales, además de con diferencias pequeñas en cualquier dirección;Se demuestra que las dos medias son distintas;La diferencia de medias es exactamente -3.5;La media de A siempre es mayor que la de B
+  CorrectAnswer: Los datos son compatibles con que las dos medias sean iguales, además de con diferencias pequeñas en cualquier dirección
+  AnswerTests: omnitest(correctVal='Los datos son compatibles con que las dos medias sean iguales, además de con diferencias pequeñas en cualquier dirección')
+  Hint: Observa si el cero se encuentra dentro del intervalo.
+
+- Class: text
+  Output: Dentro de las muestras independientes, t.test() permite un ajuste adicional. Por defecto, var.equal = FALSE utiliza el método de Welch, 
+    que no supone que ambas poblaciones tengan la misma varianza. Si se considera que las varianzas son iguales, se puede utilizar var.equal = TRUE.
+
+- Class: mult_question
+  Output: Si no sabemos si tiempos_A y tiempos_B tienen la misma varianza, ¿cuál es la opción más prudente al utilizar t.test() para muestras independientes?
+  AnswerChoices: Dejar var.equal = FALSE, que utiliza el método de Welch y no asume varianzas iguales;Forzar var.equal = TRUE en todos los casos;El resultado siempre será idéntico;Utilizar paired = TRUE para evitar el problema
+  CorrectAnswer: Dejar var.equal = FALSE, que utiliza el método de Welch y no asume varianzas iguales
+  AnswerTests: omnitest(correctVal='Dejar var.equal = FALSE, que utiliza el método de Welch y no asume varianzas iguales')
+  Hint: Piensa en la opción que requiere menos supuestos sobre las varianzas.
+
+- Class: cmd_question
+  Output: Construye el intervalo de confianza para la diferencia de medias suponiendo que las varianzas de tiempos_A y tiempos_B son iguales.
+  CorrectAnswer: t.test(tiempos_A, tiempos_B, var.equal = TRUE)$conf.int
+  AnswerTests: omnitest(correctExpr='t.test(tiempos_A, tiempos_B, var.equal = TRUE)$conf.int')
+  Hint: Agrega var.equal = TRUE dentro de t.test() y conserva $conf.int al final.
+
+- Class: text
+  Output: También existen muestras dependientes o pareadas. Por ejemplo, si medimos el tiempo de respuesta de los mismos usuarios antes y después de 
+    una actualización, cada observación de antes tiene su pareja después. En ese caso se trabaja con las diferencias de cada usuario y se estima la 
+    media de esas diferencias.
+
+- Class: mult_question
+  Output: ¿Cuál es la principal razón por la que las mediciones antes y después deben tratarse como muestras pareadas?
+  AnswerChoices: Porque cada valor de después corresponde al mismo sujeto que un valor específico de antes;Porque ambos vectores tienen el mismo número de observaciones;Porque el promedio de después siempre es menor que el de antes
+  CorrectAnswer: Porque cada valor de después corresponde al mismo sujeto que un valor específico de antes
+  AnswerTests: omnitest(correctVal='Porque cada valor de después corresponde al mismo sujeto que un valor específico de antes')
+  Hint: Lo importante es que existe una correspondencia entre las dos mediciones de cada sujeto.
+
+#===============================================================
+# Tema 2. Diferencia de dos proporciones
+#===============================================================
+
+- Class: text
+  Output: El mismo razonamiento aplica cuando comparamos proporciones. En lugar de comparar promedios, estimamos un intervalo de confianza para la 
+    diferencia de proporciones (p_A - p_B). La estimación puntual se obtiene restando las proporciones muestrales de ambos grupos.
+
+- Class: text
+  Output: Por ejemplo, podemos comparar la proporción de operaciones exitosas de dos versiones de una aplicación. Si en cada versión registramos el 
+    número de operaciones exitosas y el total de operaciones realizadas, podemos calcular la proporción de éxito de cada versión.
+
+- Class: text
+  Output: La proporción muestral se calcula dividiendo el número de éxitos entre el total de observaciones. Después calculamos la diferencia entre 
+    las proporciones y construimos un intervalo de confianza para estimar la diferencia entre las proporciones poblacionales.
+
+- Class: text
+  Output: El margen de error refleja la incertidumbre de la estimación. Entre más pequeño sea el margen de error, más angosto y preciso será el 
+    intervalo. El nivel de confianza, como 90%, 95% o 99%, se elige antes de analizar los datos. Un nivel de confianza mayor suele producir un 
+    intervalo más amplio.
+
+- Class: cmd_question
+  Output: Calcula la proporción muestral de éxitos en la versión A utilizando las variables exito_A y total_A.
+  CorrectAnswer: exito_A/total_A
+  AnswerTests: omnitest(correctExpr='exito_A/total_A')
+  Hint: Divide el número de éxitos entre el total de observaciones del grupo A.
+
+- Class: cmd_question
+  Output: Calcula la proporción muestral de éxitos en la versión B utilizando las variables exito_B y total_B.
+  CorrectAnswer: exito_B/total_B
+  AnswerTests: omnitest(correctExpr='exito_B/total_B')
+  Hint: Divide el número de éxitos entre el total de observaciones del grupo B.
+
+- Class: cmd_question
+  Output: Calcula la diferencia entre las proporciones muestrales de A y B y almacénala en la variable diferencia_prop.
+  CorrectAnswer: diferencia_prop <- exito_A/total_A - exito_B/total_B
+  AnswerTests: omnitest(correctExpr='diferencia_prop <- exito_A/total_A - exito_B/total_B')
+  Hint: Resta la proporción de B a la proporción de A.
+
+- Class: mult_question
+  Output: Al construir un intervalo de confianza para (p_A - p_B), ¿qué representa el margen de error?
+  AnswerChoices: La precisión de la estimación;La probabilidad de que la hipótesis nula sea verdadera;El valor exacto de p_A menos p_B;La cantidad total de éxitos de ambos grupos
+  CorrectAnswer: La precisión de la estimación
+  AnswerTests: omnitest(correctVal='La precisión de la estimación')
+  Hint: El margen de error se suma y se resta al estimador puntual para formar los límites del intervalo.
+
+- Class: cmd_question
+  Output: En R, prop.test() permite construir un intervalo de confianza para la diferencia entre dos proporciones. Ejecuta la función utilizando los éxitos y los totales de A y B, respectivamente.
+  CorrectAnswer: intervalo_prop <- prop.test(c(exito_A, exito_B), c(total_A, total_B))$conf.int
+  AnswerTests: omnitest(correctExpr='intervalo_prop <- prop.test(c(exito_A, exito_B), c(total_A, total_B))$conf.int')
+  Hint: Los éxitos van juntos en un vector con c(), y los totales en otro vector con c(). Agrega $conf.int al final.
+
+- Class: cmd_question
+  Output: Escribe la variable intervalo_prop para ver el resultado
+  CorrectAnswer: intervalo_prop
+  AnswerTests: omnitest(correctExpr='intervalo_prop')
+  Hint: Escribe la variable intervalo_prop en la linea de comandos
+
+- Class: text
+  Output: El resultado es el intervalo de confianza para (p_A - p_B). Si el intervalo incluye al cero, los datos son compatibles con que ambas proporciones sean iguales. Si todo el intervalo queda por encima de cero, la proporción de A es mayor que la de B; si queda por debajo, la proporción de A es menor que la de B.
+
+- Class: text
+  Output: Por ejemplo, si el intervalo de confianza para la diferencia de proporciones es (-0.3215, -0.0785), todo el intervalo queda por debajo de cero. Esto indica que la proporción de A es menor que la de B dentro del rango estimado.
+
+#===============================================================
+# Tema 3. Razón de varianzas
+#===============================================================
+
+- Class: text
+  Output: También podemos comparar la variabilidad de dos poblaciones mediante un intervalo de confianza para la razón 
+    de varianzas (σ²_A / σ²_B). La estimación puntual es el cociente de las varianzas muestrales, s²_A / s²_B.
+
+- Class: text
+  Output: Un valor de 1 significa variabilidad igual. Un valor mayor que 1 indica que A es más variable que B, mientras que un valor menor que 1 indica lo contrario. Si el intervalo incluye al valor 1, la 
+    variabilidad de ambas poblaciones es compatible con ser similar. Si todo el intervalo queda por encima de 1, A presenta mayor variabilidad; si queda por debajo de 1, B presenta mayor variabilidad.
+
+- Class: text
+  Output: Por ejemplo, este método puede aplicarse al evaluar la consistencia del tiempo de respuesta de dos versiones de una aplicación. No 
+    se está comparando cuál versión responde más rápido en promedio, sino cuál presenta mayor variabilidad en sus tiempos de respuesta.
+
+- Class: text
+  Output: Imagina dos versiones con un promedio de tiempo de respuesta similar. En la versión A, casi todas las respuestas tardan un tiempo 
+    parecido, mientras que en la versión B algunas son muy rápidas y otras muy lentas. Una comparación de medias podría no distinguir entre ambas, 
+    pero una comparación de varianzas permitiría estudiar la diferencia en su variabilidad.
+
+- Class: mult_question
+  Output: ¿Qué interpretación es correcta si el intervalo de confianza para (σ²_A / σ²_B) es (0.4, 0.9)?
+  AnswerChoices: La varianza de A es menor que la de B, ya que el intervalo completo queda por debajo de 1;Las varianzas de A y B son idénticas;La varianza de A es exactamente 0.4;No se puede interpretar un intervalo de confianza sin realizar una prueba de hipótesis
+  CorrectAnswer: La varianza de A es menor que la de B, ya que el intervalo completo queda por debajo de 1
+  AnswerTests: omnitest(correctVal='La varianza de A es menor que la de B, ya que el intervalo completo queda por debajo de 1')
+  Hint: Compara los límites del intervalo con el valor 1.
+
+- Class: cmd_question
+  Output: En R, var.test() calcula el intervalo de confianza para la razón de varianzas de dos muestras. Ejecuta la función utilizando tiempos_A y tiempos_B.
+  CorrectAnswer: var.test(tiempos_A, tiempos_B)$conf.int
+  AnswerTests: omnitest(correctExpr = 'var.test(tiempos_A, tiempos_B)$conf.int')
+  Hint: Utiliza var.test() con los dos vectores separados por una coma y agrega $conf.int al final.
+
+- Class: text
+  Output: Supongamos que el intervalo para la razón de varianzas fuera (0.6, 1.8). Al contener al valor 1, este resultado es compatible con que ambas poblaciones tengan una variabilidad parecida.
+
+- Class: mult_question
+  Output: Con el intervalo (0.6, 1.8) para la razón de varianzas, ¿qué interpretación corresponde?
+  AnswerChoices: La variabilidad es compatible con ser similar entre las dos poblaciones;La varianza de A es necesariamente mayor que la de B;La varianza de B es necesariamente mayor que la de A
+  CorrectAnswer: La variabilidad es compatible con ser similar entre las dos poblaciones
+  AnswerTests: omnitest(correctVal='La variabilidad es compatible con ser similar entre las dos poblaciones')
+  Hint: Recuerda que el intervalo incluye al valor 1.
+
+#===============================================================
+# Tema 4. Error estándar de la diferencia de medias
+#===============================================================
+
+- Class: text
+  Output: Para cerrar los temas de estimación, vamos a construir de forma manual una de las piezas centrales de los intervalos, el error estándar de 
+    la diferencia de medias. Esta cantidad representa cuánto varía típicamente la diferencia entre dos medias muestrales de una muestra a otra.
+
+- Class: text
+  Output: La fórmula es SE = √[(s²_A/n_A) + (s²_B/n_B)]. El error estándar es una medida de incertidumbre que se utiliza para construir el intervalo 
+    de confianza de la diferencia de medias. Al multiplicarlo por un valor crítico se obtiene el margen de error, que se suma y se resta al estimador puntual.
+
+- Class: cmd_question
+  Output: Calcula el error estándar de la diferencia de medias y guárdalo en la variable se_manual, utilizando tiempos_A y tiempos_B.
+  CorrectAnswer: se_manual <- sqrt(var(tiempos_A)/length(tiempos_A) + var(tiempos_B)/length(tiempos_B))
+  AnswerTests: omnitest(correctExpr = 'se_manual <- sqrt(var(tiempos_A)/length(tiempos_A) + var(tiempos_B)/length(tiempos_B))')
+  Hint: Utiliza var() para calcular las varianzas, length() para obtener los tamaños de muestra y sqrt() para aplicar la raíz cuadrada a toda la suma.
+  
+- Class: cmd_question 
+  Output: Ejecuta el se_manual para ver el resultado.
+  CorrectAnswer: se_manual
+  AnswerTests: omnitest(correctExpr = 'se_manual')
+  Hint: Escribe se_manual.
+
+#===============================================================
+# Actividad integradora
+#===============================================================
+
+- Class: text
+  Output: Una empresa de software desea comparar dos versiones de una aplicación. Para ello, registró los tiempos de respuesta en los vectores tiempos_A 
+    y tiempos_B, así como el número de operaciones exitosas y el total de operaciones de cada versión en las variables exito_A, total_A, exito_B y total_B.
+
+- Class: cmd_question
+  Output: Calcula un intervalo de confianza del 90% para la diferencia de medias entre tiempos_A y tiempos_B. Guarda el resultado en intervalo_90.
+  CorrectAnswer: intervalo_90 <- t.test(tiempos_A, tiempos_B, conf.level = 0.90)$conf.int
+  AnswerTests: omnitest(correctExpr = 'intervalo_90 <- t.test(tiempos_A, tiempos_B, conf.level = 0.90)$conf.int')
+  Hint: Utiliza t.test() con ambos vectores, indica conf.level = 0.90 y extrae el intervalo con $conf.int.
+  
+- Class: cmd_question 
+  Output: Ejecuta el intervalo_90 para ver el resultado.
+  CorrectAnswer: intervalo_90
+  AnswerTests: omnitest(correctExpr = 'intervalo_90')
+  Hint: Escribe intervalo_90.
+
+- Class: text
+  Output: Interpreta el intervalo obtenido. Recuerda que se trata de una estimación de la diferencia entre los tiempos promedio de las dos versiones. 
+    El signo de los límites permite identificar cuál de las medias es mayor, de acuerdo con el orden en que se restan las muestras.
+
+- Class: cmd_question
+  Output: Calcula la diferencia entre las proporciones de operaciones exitosas de las versiones A y B.
+  CorrectAnswer: diferencia_prop <- exito_A/total_A - exito_B/total_B
+  AnswerTests: omnitest(correctExpr='diferencia_prop <- exito_A/total_A - exito_B/total_B')
+  Hint: Calcula cada proporción dividiendo los éxitos entre el total de operaciones y después resta la proporción de B a la de A.
+
+- Class: cmd_question 
+  Output: Calcula el intervalo de confianza del 95% para el cociente de varianzas de tiempos_A y tiempos_B con var.test() y guarda solamente el intervalo en la variable intervalo_var. 
+  CorrectAnswer: intervalo_var <- var.test(tiempos_A, tiempos_B, conf.level = 0.95)$conf.int
+  AnswerTests: omnitest(correctExpr = 'intervalo_var <- var.test(tiempos_A, tiempos_B, conf.level = 0.95)$conf.int')
+  Hint: Utiliza var.test() con los dos vectores y conf.level = 0.95, agrega $conf.int al final y guarda el resultado con <-. 
+  
+- Class: cmd_question 
+  Output: Ejecuta intervalo_var para ver el resultado. 
+  CorrectAnswer: intervalo_var
+  AnswerTests: omnitest(correctExpr = 'intervalo_var')
+  Hint: Escribe intervalo_var.
+
+- Class: mult_question
+  Output: Si el intervalo de confianza para la diferencia de medias incluye al cero, ¿qué significa?
+  AnswerChoices: Los datos son compatibles con que ambas medias sean iguales;La diferencia de medias es exactamente cero;Todos los tiempos de respuesta son iguales;La versión A es necesariamente más rápida que la versión B
+  CorrectAnswer: Los datos son compatibles con que ambas medias sean iguales
+  AnswerTests: omnitest(correctVal='Los datos son compatibles con que ambas medias sean iguales')
+  Hint: Observa qué representa el cero en un intervalo para la diferencia entre dos medias.
+
+#===============================================================
+# Retroalimentación y cierre
+#===============================================================
+
+- Class: text
+  Output: Antes de terminar, recuerda las siguientes ideas principales. La diferencia de medias permite comparar los promedios de dos poblaciones, la diferencia 
+    de proporciones permite comparar la frecuencia relativa de un resultado; y la razón de varianzas permite comparar la variabilidad de dos poblaciones.
+
+- Class: text
+  Output: También aprendiste que un intervalo de confianza proporciona un rango de valores plausibles para estimar una diferencia o razón poblacional. Para 
+    interpretar la diferencia de medias y la diferencia de proporciones, se compara el intervalo con el valor cero. Para interpretar la razón de varianzas, 
+    se compara con el valor uno.
+
+- Class: text
+  Output: Finalmente, utilizamos R para construir intervalos de confianza mediante t.test(), prop.test() y var.test(). Estas herramientas permiten comparar 
+    poblaciones y analizar situaciones relacionadas con tiempos de respuesta, resultados de operaciones y variabilidad del desempeño de distintas versiones 
+    de una aplicación.
+
+- Class: text
+  Output: ¡Felicidades! Has completado la lección de estimación para dos poblaciones.
