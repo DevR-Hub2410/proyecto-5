@@ -19,3 +19,57 @@
 - Class: text
   Output: Para practicar, ya están cargados en R los tiempos de respuesta, en milisegundos, de una muestra de 40 mediciones de un servidor. Están en el vector tiempos_servidor. También tienes sus datos resumidos, media_muestral, sd_muestral y n_muestra, y los valores z que usaremos más adelante, z_90, z_95, z_99.
   
+#===============================================================
+# Nivel de confianza
+#===============================================================
+
+- Class: text
+  Output: En la lección anterior vimos que todo intervalo de confianza tiene un nivel de confianza, casi siempre del 95%. Ahora veremos qué significa exactamente y por qué se usa tanto. 
+  
+- Class: text
+  Output: El nivel de confianza indica qué proporción de los intervalos construidos con un mismo procedimiento contendría el parámetro poblacional si el muestreo se repitiera muchas veces. Con un nivel de 95%, aproximadamente 95 de cada 100 intervalos construidos así contendrían el parámetro (Lane et al., s. f.).
+  
+- Class: text
+  Output: Un intervalo concreto, ya calculado, contiene el parámetro o no lo contiene. Por eso la confianza se refiere al procedimiento y no a un intervalo en particular. 
+  
+- Class: text
+  Output: Por ejemplo, imagina una caja con muchos chocolates y quieres estimar qué proporción tiene caramelo. No puedes abrirlos todos, así que tomas 10 y 7 contienen caramelo. La estimación puntual es 70%, pero otra muestra de 10 daría otro valor. Con prop.test(7, 10) se obtiene un intervalo de confianza del 95%, aproximadamente de 35% a 92%. Es un rango de valores razonables para la proporción real, construido con un procedimiento que acierta el 95% de las veces. 
+  
+- Class: mult_question
+  Output: ¿Cuál de las siguientes afirmaciones describe correctamente el nivel de confianza del 95%?
+  AnswerChoices: Hay un 95% de probabilidad de que la media poblacional esté dentro de este intervalo específico;Si repitiéramos el muestreo muchas vecesm, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional;El 95% de los datos de la muestra caen dentro del intervalo;La media muestral es igual a la media poblacional el 95% de las veces
+  CorrectAnswer: Si repitiéramos el muestreo muchas veces, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional
+  AnswerTests: omnitest(correctVal = 'Si repitiéramos el muestreo muchas vecesm, aproximadamente el 95% de los intervalos construidos contendrían la media poblacional')
+  Hint: Piensa a qué se refiere el 95%, si un intervalo que ya calculaste o a lo que pasaría al repetir el procedimiento muchas veces. 
+  
+- Class: text
+  Output: El 95% es el nivel más usado, pero no el único. También se usan el 90% y el 99%. El 95% es una convención y no una regla, y la elección depende de qué tan costoso sea equivocarse y de qué tan precisa se necesite la estimación (Dunn, s. f.).
+  
+- Class: text
+  Output: Al auementar el nivel de confianza, el procedimiento acierta más veces, pero el intervalo se hace más ancho y la estimación es menos precisa. Con 90% el intervalo es más estrecho, pero el procedimiento acierta menos veces. Con 99% acierta casi siempre, pero el intervalo es más ancho. El 95% suele considerarse un equilibrio entre ambas cosas. 
+  
+- Class: text
+  Output: Para construir un intervalo se necesita un valor z, que depende del nivel de confianza. Con 95% de confianza queda 2.5% en cada cola de la distribución normal, así que buscamos el valor z que deja 0.975 de área acumulada. En R se obtiene con qnorm(0.975).
+  
+- Class: cmd_question
+  Output: Calcula el valor z para 95% de confianza con qnorm() y guárdalo en la variable z_check.
+  CorrectAnswer: z_check <- qnorm(0.975)
+  AnswerTests: test_z_check()
+  Hint: El 95% de confianza deja 0.025 en cada cola, así que el área acumulada que debes usar en qnorm() es 0.975. Guarda el resultado con <-.
+  
+- Class: text
+  Output: Obtuviste aproximadamente 1.96, el mismo valor que usamos en la lección anterior. Los valores para 90% y 99% ya estan cargados, junto con el de 95%, z_90, z_95, z_99.
+  
+- Class: cmd_question
+  Output: Escribe c(z_90, z_95, z_99) para ver los tres valores juntos. 
+  CorrectAnswer: c(z_90, z_95, z_99)
+  AnswerTests: omnitest(correctExpr = 'c(z_90, z_95, z_99)')
+  Hint: Escribe c(z_90, z_95, z_99).
+  
+- Class: mult_question
+  Output: Si aumentas el nivel de confianza de 95% a 99% sin cambiar nada más, ¿qué le pasa al intervalo de confianza?
+  AnswerChoices: Se hace más angosto;Se hace más ancho;No cambia;Se convierte en un solo punto
+  CorrectAnswer: Se hace más ancho 
+  AnswerTests: omnitest(correctVal = 'Se hace más ancho')
+  Hint: Compara los tres valores z que acabas de ver. Mientras mayor sea z, más lejos de la media llegan los límites del intervalo. 
+  
