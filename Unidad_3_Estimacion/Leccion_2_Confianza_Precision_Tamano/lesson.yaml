@@ -274,4 +274,74 @@
   AnswerTests: omnitest(correctVal = 'Con 30 mediciones el margen de error es mayor que 10 ms, así que la estimación es menos precisa de lo deseado')
   Hint: Compara el valor de margen_30 con 10.
   
+#===============================================================
+# Actividad integradora
+#===============================================================
+
+- Class: text
+  Output: Pongamos todo junto. Un equipo de desarrollo mide los tiempos de respuesta de un servidor. Primero construirás un intervalo de confianza, luego lo interpretarás y finalmente analizarás cuántas mediciones se necesitan si se exige más confianza. 
   
+- Class: cmd_question 
+  Output: Contruye el intervalo de confianza del 95% para el tiempo medio de respuesta, sumando y restando el margen de error a la media muestral. Usa media_muestral, z_95, sd_muestral y n_muestra, y guarda los dos límites en la variable intervalo_servidor. 
+  CorrectAnswer: intervalo_servidor <- media_muestral + c(-1, 1) * z_95 * sd_muestral / sqrt(n_muestra)
+  AnswerTests: test_intervalo_servidor()
+  Hint: El intervalo es la media más y menos el margen de error, z_95 * sd_muestral / sqrt(n_muestra). usa c(-1, 1) para obtener el límite inferior y el superior a la vez. 
+  
+- Class: cmd_question 
+  Output: Escribe intervalo_servidor para ver el resultado.
+  CorrectAnswer: intervalo_servidor
+  AnswerTests: omnitest(correctExpr = 'intervalo_servidor')
+  Hint: Escribe intervalo_servidor. 
+  
+- Class: mult_question 
+  Output: El intervalo va aproximadamente de 241 a 263 ms. ¿Cuál es la interpretación correcta?
+  AnswerChoices: El 95% de las mediciones de la muestra está entre 241 y 263 ms;Con 95% de confianza, el tiempo medio de respuesta del servidor está aproximadamente entre 241 y 263 ms;Todas las respuestas del servidor tardan entre 241 y 263 ms;El tiempo medio de respuesta es exactamente 251.8 ms
+  CorrectAnswer: Con 95% de confianza, el tiempo medio de respuesta del servidor está aproximadamente entre 241 y 263 ms
+  AnswerTests: omnitest(correctVal = 'Con 95% de confianza, el tiempo medio de respuesta del servidor está aproximadamente entre 241 y 263 ms')
+  Hint: El intervalo estima el parámetro, la media poblacional. No describe a cada medición individual. 
+  
+- Class: text
+  Output: Ahora el equipo quiere mantener el margen de error de 10 ms, pero con 99% de confianza en lugar de 95%. 
+  
+- Class: cmd_question 
+  Output: Calcula cuántas mediciones se necesitan con 99% de confianza y un margen de error de como máximo 10 ms. Usa z_99 y sd_muestral, redondea hacia arriba con ceiling() y guarda el resultado en n_requerido_99. 
+  CorrectAnswer: n_requerido_99 <- ceiling((z_99 * sd_muestral / 10)^2)
+  AnswerTests: test_n_requerido_99()
+  Hint: Usa la misma fórmula n = (z * sd / E)^2, pero con z_99 en lugar de z_95. Redondea hacia arriba con ceiling().
+  
+- Class: cmd_question 
+  Output: Escribe n_requerido_99 para ver el resultado y compáralo con n_requerido_media. 
+  CorrectAnswer: n_requerido_99
+  AnswerTests: omnitest(correctExpr = 'n_requerido_99')
+  Hint: Escribe n_requerido_99.
+  
+- Class: mult_question
+  Output: Comparado con n_requerido_media, que usaba 95% de confianza, ¿cómo es el tamaño de muestra necesario con 99% de confianza?
+  AnswerChoices: Mayor, porque más confianza con el mismo margen de error exige más observaciones;Menor, porque 99% es un nivel más seguro;Igual, porque el margen de error no cambió;No se pueden comparar
+  CorrectAnswer: Mayor, porque más confianza con el mismo margen de error exige más observaciones
+  AnswerTests: omnitest(correctVal = 'Mayor, porque más confianza con el mismo margen de error exige más observaciones')
+  Hint: Compara z_99 con z_95. Un valor z más grande hace crecer el resultado de la fórmula. 
+  
+#===============================================================
+# Cierre
+#===============================================================
+
+- Class: text
+  Output: Antes de terminar, repasemos las ideas principales. El nivel de confianza indica qué proporción de los intervalos construidos con el mismo procedimiento contendría al parámetro si el muestreo se repitiera muchas veces. El margen de error indica cuánto puede alejarse la estimación del parámetro, y la precisión depende del ancho del intervalo. 
+  
+- Class: text
+  Output: Mayor confianza implica un intervalo más ancho y, por lo tanto, menos precisión. Aumentar el tamaño de la muestra reduce el margen de error, pero con rendimientos decrecientes, porque n está dentro de una raíz cuadrada. Para reducir el margen a la mitad hay que cuadruplicar la muestra. 
+  
+- Class: text
+  Output: También aprendiste a calcular el tamaño de muestra necesario para estimar una media o una proporción. Se redondea siempre hacia arriba, y si no se conoce la proporción se usa p = 0.5. En la siguiente lección aplicarás estas ideas para comparar dos poblaciones. 
+  
+- Class: text
+  Output: Referencias de esta lección. Lane et al. (s. f.), Online Statistics Education. Dunn (s. f.), Scientific Research and Methodology. Walpole, Myers, Myers y Ye (2012), Probabilidad y estadística para ingeniería y ciencias.
+  
+#===============================================================
+# REFERENCIAS
+#===============================================================
+# Lane, D. M., et al. (s. f.). Online Statistics Education. Introducción a los intervalos de confianza. https://onlinestatbook.com/2/estimation/confidence.html
+# Dunn, P. K. (s. f.). Scientific Research and Methodology, sección 20.5. https://bookdown.org/pkaldunn/Book/CIInterpretationP.html
+# Walpole, R. E., Myers, R. H., Myers, S. L., & Ye, K. (2012). Probabilidad y estadística para ingeniería y ciencias (9.ª ed.). Pearson.
+

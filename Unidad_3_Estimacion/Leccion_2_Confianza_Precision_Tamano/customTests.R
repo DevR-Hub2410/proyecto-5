@@ -181,3 +181,31 @@ test_margen_30 <- function() {
   .verifica(e, "margen_30", z_95 * sd_muestral / sqrt(30), 1e-4,
             "Usa la misma fórmula del margen de error, sustituyendo n por 30.")
 }
+
+#===============================================================================
+#       Intervalo de confianza construido con el margen de error
+#===============================================================================
+
+test_intervalo_servidor <- function() {
+  e <- get("e", parent.frame())
+  
+  # Error específico: obtuvo un solo límite (sin c(-1, 1))
+  if (is.numeric(e$val) && length(e$val) == 1) {
+    message("Casi... Solo obtuviste un límite. Usa c(-1, 1) para calcular el inferior y el superior a la vez.")
+  return(FALSE)
+  }
+
+  .verifica(e, "intervalo_servidor",
+            media_muestral + c(-1, 1) * z_95 * sd_muestral / sqrt(n_muestra), 1e-4,
+            "Revisa que sumes y restes el margen de error, z_95 * sd_muestral / sqrt(n_muestra), a media_muestral.")
+}
+
+#===============================================================================
+#     Tamaño de muestra para 99% de confianza y margen de error de 10 ms
+#===============================================================================
+test_n_requerido_99 <- function() {
+  e <- get("e", parent.frame())
+  .verifica(e, "n_requerido_99", ceiling((z_99 * sd_muestral / 10)^2), 1e-6,
+            "Usa n = (z * sd / E)^2 con z_99 y E = 10, y no olvides ceiling().")
+}
+
