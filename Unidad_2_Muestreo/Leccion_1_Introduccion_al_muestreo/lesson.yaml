@@ -1,9 +1,9 @@
 - Class: meta
-  Course: Estadistica
-  Lesson: Introduccion_al_muestreo
+  Course: Curso_Estadistica
+  Lesson: Leccion_1_Introduccion_al_muestreo
   Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
-  Organization: UACJ
+  Organization: Universidad Autonoma de Ciudad Juarez
   Version: 2.4.5
 
 - Class: text

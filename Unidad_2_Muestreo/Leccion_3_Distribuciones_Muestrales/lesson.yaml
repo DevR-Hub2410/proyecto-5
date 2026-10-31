@@ -1,9 +1,9 @@
 - Class: meta
-  Course: Estadistica
-  Lesson: Distribuciones_muestraes
+  Course: Curso_Estadistica
+  Lesson: Leccion_3_Distribuciones_muestraes
   Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: Universidad Autonoma de Ciudad Juarez
   Version: 2.4.5
 
 - Class: text
