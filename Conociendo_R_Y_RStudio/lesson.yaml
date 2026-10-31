@@ -11,6 +11,43 @@
     lo ayudaran a programar facilmente en R. Esta leccion tambien ayudara a aprender a los comandos basicos de R, de manera que el alumno pueda utilizarlos 
     en el analisis estadistico.
     
+#===============================================================
+# Cómo funciona swirl
+#===============================================================
+- Class: text
+  Output: Antes de empezar, veamos cómo funciona swirl, el programa con el que estás tomando este curso. swirl funciona dentro de la consola de RStudio, que es el lugar donde estás leyendo estos mensajes. Más adelante la veremos con detalle. Cuando swirl termine de explicarte algo, presiona Enter para continuar.
+
+- Class: text
+  Output: Hay dos tipos de preguntas. En las de opción múltiple, swirl muestra una lista numerada, tú escribes el número de tu respuesta y presionas Enter. En las de código, swirl te pide ejecutar una instrucción de R, tú la escribes en la consola y presionas Enter.
+
+- Class: cmd_question
+  Output: Practiquemos una pregunta de código. Escribe 2 + 2 en la consola y presiona Enter.
+  CorrectAnswer: 2 + 2
+  AnswerTests: omnitest(correctExpr = '2 + 2')
+  Hint: Escribe exactamente 2 + 2 y presiona Enter.
+
+- Class: text
+  Output: Si tu respuesta no es correcta, swirl te lo avisa y te muestra una pista, llamada hint, que te orienta sin darte la respuesta. Después puedes intentarlo otra vez, las veces que necesites. Algunos mensajes de swirl aparecen en inglés. Por ejemplo, Try again significa inténtalo otra vez.
+
+- Class: cmd_question
+  Output: Veamos una pista. Escribe a propósito 3 + 5 y presiona Enter. Lee la pista que aparece y después escribe 3 + 4 para continuar.
+  CorrectAnswer: 3 + 4
+  AnswerTests: omnitest(correctExpr = '3 + 4')
+  Hint: Esta es una pista. Para continuar, escribe la suma de 3 más 4.
+
+- Class: text
+  Output: Un consejo para escribir código. En un teclado en español latinoamericano, el paréntesis ( se escribe con Shift y 8, el paréntesis ) con Shift y 9, el signo igual con Shift y 0, y los signos menor que y mayor que están en la tecla junto a la Z. Para escribir la flecha de asignación, en RStudio puedes presionar Alt y el signo menos al mismo tiempo.
+
+- Class: text
+  Output: Estos comandos de swirl te pueden servir en cualquier momento. Escribe bye() para salir y guardar tu avance, skip() para saltar la pregunta actual, info() para ver más opciones y main() para volver al menú principal. Cuando escribas swirl() otra vez, podrás continuar donde te quedaste.
+
+- Class: mult_question
+  Output: Quieres terminar tu sesión y guardar tu avance. ¿Qué escribes en la consola?
+  AnswerChoices: bye();skip();main();info()
+  CorrectAnswer: bye()
+  AnswerTests: omnitest(correctVal = 'bye()')
+  Hint: Es la palabra en inglés para decir adiós, y es el comando que sale de swirl y guarda tu avance.
+    
 - Class: text
   Output: R es un lenguaje de programacion interpretado, lo que significa que los usuarios pueden acceder a las funciones de R atraves de un 
     interprete de linea de comandos, a diferencia de otros lenguajes de programacion como python, java o c, R es mas especializado en el calculo 
