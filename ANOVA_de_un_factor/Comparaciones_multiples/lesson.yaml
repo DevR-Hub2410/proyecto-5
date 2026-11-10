@@ -5,3 +5,134 @@
   Type: Standard
   Organization: your organization's name goes here
   Version: 2.4.5
+
+# https://es.statisticseasily.com/glosario/%C2%BFQu%C3%A9-son-las-comparaciones-m%C3%BAltiples%3F/
+# https://www.lifeder.com/prueba-de-tukey/
+# https://search.r-project.org/R/refmans/stats/html/TukeyHSD.html
+- Class: text
+  Output: En la lección anterior aprendimos a interpretar la tabla ANOVA y a determinar si existen diferencias estadísticamente significativas 
+    entre las medias de varios grupos. Sin embargo, cuando el resultado del ANOVA es significativo, todavía queda una pregunta importante, 
+    ¿entre cuáles grupos existen esas diferencias? En esta lección aprenderemos qué son las comparaciones múltiples, por qué son necesarias y cómo 
+    utilizar la prueba HSD de Tukey en R para identificar las diferencias entre los grupos.
+
+- Class: text
+  Output: ¿Qué son las comparaciones múltiples?
+    Las comparaciones múltiples son procedimientos estadísticos que permiten comparar las medias de diferentes grupos o tratamientos para identificar 
+    cuáles presentan diferencias estadísticamente significativas. En un ANOVA de un factor podemos comparar tres o más grupos, pero la tabla ANOVA 
+    solamente nos indica si existe evidencia de que al menos una de las medias es diferente. Para conocer exactamente entre cuáles grupos se encuentran 
+    esas diferencias, necesitamos realizar comparaciones por pares. Por ejemplo, si tenemos tres grupos A, B y C, podemos realizar las siguientes 
+    comparaciones, A contra B. A contra C. B contra C.
+
+- Class: text
+  Output: Imaginemos que queremos comparar las medias de cinco grupos y decidimos realizar pruebas t independientes para cada pareja. Al aumentar 
+    el número de comparaciones, también aumenta la probabilidad de cometer al menos un error de tipo I. El error de tipo I ocurre cuando rechazamos 
+    una hipótesis nula verdadera, es decir, concluimos que existe una diferencia significativa cuando realmente no existe. Por ejemplo, si realizamos 
+    20 pruebas independientes con un nivel de significancia de 0.05, la probabilidad de obtener al menos un falso positivo es aproximadamente del 64%. 
+    Por esta razón, es necesario utilizar métodos de comparación múltiple que permitan controlar el riesgo de falsos positivos en el conjunto de 
+    comparaciones.
+
+- Class: text
+  Output: Existen diferentes métodos para realizar comparaciones múltiples. Algunos de los más conocidos son,
+    1. Bonferroni, ajusta el nivel de significancia de acuerdo con el número de comparaciones.
+    2. Holm, realiza un ajuste progresivo de los valores p.
+    3. Tukey, permite comparar todas las parejas de medias y controlar el error de tipo I asociado al conjunto de comparaciones.
+    En este curso nos concentraremos en la prueba HSD de Tukey, debido a que es uno de los procedimientos más utilizados después de un ANOVA de un 
+    factor.
+
+- Class: text
+  Output: La prueba HSD de Tukey (Honestly Significant Difference), también conocida como diferencia honestamente significativa de Tukey, es un 
+    procedimiento estadístico utilizado para comparar todas las posibles parejas de medias de los grupos. Fue propuesta por John W. Tukey y se 
+    basa en la distribución del rango estudentizado. Su objetivo es identificar qué parejas de grupos presentan diferencias estadísticamente 
+    significativas, controlando la probabilidad de cometer errores de tipo I en el conjunto de comparaciones. A diferencia de realizar varias 
+    pruebas t sin ajuste, Tukey considera el conjunto de comparaciones para realizar inferencias más confiables.
+
+- Class: text
+  Output: Generalmente se utiliza como procedimiento posterior a un ANOVA de un factor cuando el análisis inicial muestra evidencia de diferencias 
+    entre las medias. El ANOVA permite detectar si existen diferencias generales, mientras que Tukey permite identificar entre qué parejas de 
+    grupos se encuentran. Por ejemplo, si comparamos tres métodos de enseñanza y el ANOVA resulta significativo, la prueba de Tukey nos permitirá 
+    determinar si las diferencias se encuentran entre los métodos A y B, A y C, o B y C. Es importante recordar que la prueba de Tukey no reemplaza 
+    al ANOVA, sino que complementa su interpretación.
+
+- Class: text
+  Output: Para comprender mejor las comparaciones múltiples, también debemos conocer dos conceptos relacionados con el tamaño de las muestras. Un 
+    experimento balanceado ocurre cuando todos los grupos tienen el mismo número de observaciones. Por ejemplo, si comparamos tres tratamientos y 
+    cada uno contiene diez observaciones, tenemos un diseño balanceado. Por otro lado, un experimento no balanceado ocurre cuando los grupos 
+    tienen diferentes cantidades de observaciones. Por ejemplo, si el primer grupo tiene diez observaciones, el segundo ocho y el tercero doce, 
+    tenemos un diseño no balanceado. La versión de Tukey implementada en R incorpora un ajuste para los tamaños de muestra diferentes y produce 
+    intervalos adecuados para diseños moderadamente no balanceados.
+
+- Class: text
+  Output: La prueba de Tukey genera una tabla con información para cada pareja de grupos. Sus columnas principales son, diff representa la diferencia 
+    entre las medias de los dos grupos comparados. lwr representa el límite inferior del intervalo de confianza. upr representa el límite superior 
+    del intervalo de confianza. p adj representa el valor p ajustado por las comparaciones múltiples. Para interpretar los resultados podemos 
+    utilizar dos criterios si el valor p ajustado es menor que 0.05, existe evidencia de una diferencia estadísticamente significativa entre los 
+    grupos comparados. Si el intervalo de confianza no contiene el valor cero, también existe evidencia de una diferencia estadísticamente 
+    significativa. Si el valor p ajustado es mayor o igual que 0.05, no tenemos evidencia suficiente para afirmar que las medias de esos dos grupos 
+    sean diferentes.
+
+- Class: text
+  Output: Ahora realizaremos un ejercicio utilizando el conjunto de datos PlantGrowth, que viene incluido en R. Este conjunto contiene información 
+    sobre el peso de plantas sometidas a tres condiciones un grupo de control (ctrl) y dos tratamientos (trt1 y trt2). En la lección anterior 
+    utilizamos estos datos para construir un modelo ANOVA y observamos que el valor p era menor que 0.05. Esto significa que existe evidencia 
+    estadística de que al menos una de las medias es diferente. Ahora utilizaremos la prueba de Tukey para identificar cuáles grupos presentan 
+    esas diferencias.
+
+- Class: cmd_question
+  Output: Carga el conjunto de datos PlantGrowth en un objeto llamado datos.
+  CorrectAnswer: datos <- PlantGrowth
+  AnswerTests: omnitest(correctExpr='datos <- PlantGrowth')
+  Hint: Utiliza el operador de asignación y escribe PlantGrowth en el lado derecho.
+
+- Class: cmd_question
+  Output: Construye un modelo ANOVA llamado modelo utilizando weight como variable de respuesta y group como factor.
+  CorrectAnswer: modelo <- aov(weight ~ group, data = datos)
+  AnswerTests: omnitest(correctExpr='modelo <- aov(weight ~ group, data = datos)')
+  Hint: Utiliza aov() y escribe la fórmula weight ~ group.
+
+- Class: text
+  Output: Antes de realizar las comparaciones múltiples, recordemos que el modelo ANOVA debe estar construido.
+    Ahora utilizaremos la función TukeyHSD(), que permite realizar la prueba de Tukey a partir de un modelo ANOVA.
+    Guardaremos los resultados en un objeto llamado resultado_tukey.
+
+- Class: cmd_question
+  Output: Escribe el comando para aplicar la prueba de Tukey al objeto modelo y almacenar los resultados en resultado_tukey.
+  CorrectAnswer: resultado_tukey <- TukeyHSD(modelo)
+  AnswerTests: omnitest(correctExpr='resultado_tukey <- TukeyHSD(modelo)')
+  Hint: Utiliza TukeyHSD() e introduce el objeto modelo como argumento.
+
+- Class: text
+  Output: Una vez ejecutada la prueba, podemos visualizar los resultados utilizando la función print() o escribiendo directamente el nombre del 
+    objeto. La tabla mostrará las comparaciones entre ctrl, trt1 y trt2. Cada fila representa una pareja de grupos y contiene la diferencia entre 
+    sus medias, los límites del intervalo de confianza y el valor p ajustado.
+
+- Class: cmd_question
+  Output: Escribe el comando para mostrar los resultados almacenados en resultado_tukey.
+  CorrectAnswer: resultado_tukey
+  AnswerTests: omnitest(correctExpr='resultado_tukey')
+  Hint: Escribe directamente el nombre del objeto que contiene los resultados.
+
+- Class: text
+  Output: En este ejemplo, la comparación trt1-ctrl presenta un valor p ajustado aproximado de 0.391. Como es mayor que 0.05, no existe evidencia 
+    suficiente para afirmar que las medias de esos grupos sean diferentes. La comparación trt2-ctrl presenta un valor p ajustado aproximado de 0.198. 
+    De igual manera, no encontramos evidencia suficiente de una diferencia estadísticamente significativa. Finalmente, la comparación trt2-trt1 presenta 
+    un valor p ajustado aproximado de 0.012. Como es menor que 0.05, existe evidencia estadística de una diferencia entre las medias de estos dos grupos. 
+    Por lo tanto, en este ejemplo, la diferencia estadísticamente significativa se encuentra entre los tratamientos trt2 y trt1.
+
+- Class: text
+  Output: También podemos representar gráficamente los resultados de la prueba de Tukey.
+    Para ello utilizaremos la función plot(), que permite visualizar los intervalos de confianza de las diferencias entre las medias.
+    Si un intervalo contiene el valor cero, no se identifica una diferencia estadísticamente significativa entre esa pareja de grupos.
+    Si el intervalo no contiene el cero, existe evidencia de una diferencia estadísticamente significativa.
+
+- Class: cmd_question
+  Output: Escribe el comando para generar el gráfico de los resultados de la prueba de Tukey.
+  CorrectAnswer: plot(resultado_tukey)
+  AnswerTests: omnitest(correctExpr='plot(resultado_tukey)')
+  Hint: Utiliza plot() e introduce el objeto resultado_tukey.
+
+- Class: text
+  Output: ¡Excelente trabajo! Has terminado la cuarta y última lección del curso de ANOVA de un factor.
+    Ahora conoces la importancia de las comparaciones múltiples y sabes cómo aplicar la prueba HSD de Tukey utilizando R.
+    Recuerda que el ANOVA permite determinar si existen diferencias entre las medias de los grupos, mientras que la prueba de Tukey permite 
+    identificar entre cuáles parejas se encuentran esas diferencias. Con esto has completado el proceso de introducción al ANOVA de un factor desde 
+    sus conceptos básicos y supuestos, hasta la interpretación de la tabla ANOVA y las comparaciones múltiples.

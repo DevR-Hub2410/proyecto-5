@@ -6,6 +6,7 @@
   Organization: your organization's name goes here
   Version: 2.4.5
 
+# https://fastercapital.com/es/contenido/Supuestos-de-ANOVA--Supuestos-de-ANOVA--construccion-de-una-base-solida-para-el-analisis-de-tres-vias.html
 - Class: text
   Output: En la lección anterior aprendimos qué es el análisis de varianza, cuál es su objetivo y cómo se utiliza para comparar las medias de diferentes grupos. Sin 
     embargo, antes de aplicar un análisis ANOVA, es importante conocer y revisar ciertos supuestos estadísticos. En esta lección estudiaremos los tres supuestos 
