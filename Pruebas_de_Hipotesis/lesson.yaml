@@ -1,0 +1,193 @@
+- Class: meta
+  Course: Estadistica
+  Lesson: Pruebas_de_Hipotesis
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: UACJ
+  Version: 2.4.5
+  
+- Class: text
+  Output: Bienvenido a la lección de Pruebas de hipótesis. Hasta ahora has estimado parámetros a partir de una muestra, en esta lección vas a aprender a usar una muestra para poner a prueba una afirmación sobre la población.
+
+- Class: text
+  Output: El equipo de TI de una plataforma afirma que el tiempo promedio de respuesta de su servidor es de 2 segundos o menos. En vez de revisar las miles de solicitudes del día, vas a usar una muestra para decidir si esa afirmación es creíble.
+
+- Class: text
+  Output: Una prueba de hipótesis es una proposición que puede o no ser  verdadera pero que se adopta provisionalmente hasta recabar información que sugiera lo contrario. Si hay inconsistencia, se rechaza la hipótesis. Las pruebas de hipótesis se usan precisamente para evaluar el grado de esa inconsistencia.
+
+#Dagnino, J. (2014). Inferencia estadística: Pruebas de hipótesis. Revista chilena de anestesia.
+
+- Class: text
+  Output: Toda prueba de hipótesis parte de dos afirmaciones contrarias. La hipótesis nula (H0) es la afirmación que se asume cierta hasta que la evidencia indique lo contrario, generalmente representa "lo establecido" o "ningún cambio". La hipótesis alternativa (H1) es la afirmación que se desea ser capaz de concluir que es verdadera basándose en la evidencia proporcionada por los datos de la muestra, es decir, lo que se quiere demostrar, y es contraria a H0.
+
+#Antonio, J. (2019, 1 febrero). ¿Qué es una prueba de hipótesis? Addlink Software Científico. https://www.addlink.es/noticias/minitab/2852-que-es-una-prueba-de-hipotesis
+
+- Class: text
+  Output: En nuestro ejemplo, H0 sería que el tiempo promedio de respuesta es de 2 segundos o menos (mu <= 2), y H1 sería que el tiempo promedio es mayor a 2 segundos (mu > 2), es decir, que la afirmación de la empresa no se sostiene.
+
+- Class: mult_question
+  Output: Una fábrica asegura que sus focos duran en promedio 1000 horas. Un cliente sospecha que duran menos. ¿Cuál sería H0 en este caso?
+  AnswerChoices: La duración promedio es de 1000 horas;La duración promedio es menor a 1000 horas;La duración promedio es mayor a 1000 horas;No se puede saber sin una muestra
+  CorrectAnswer: La duración promedio es de 1000 horas
+  AnswerTests: omnitest(correctVal='La duración promedio es de 1000 horas')
+  Hint: H0 siempre representa la afirmación original, la que se asume cierta hasta que se demuestre lo contrario.
+
+- Class: text
+  Output: Excelente! H0 siempre lleva la afirmación establecida (mu = 1000), y H1 lleva la sospecha del cliente (mu < 1000), que es lo que realmente se quiere comprobar con la muestra.
+
+- Class: text
+  Output: Como trabajamos con una muestra y no con toda la población, siempre existe el riesgo de equivocarnos en la decisión. Hay dos tipos de error posibles. El error tipo I ocurre cuando rechazamos una hipótesis siendo que en realidad era verdadera. El error tipo II ocurre cuando no rechazamos una hipótesis siendo que en realidad era falsa.
+
+#Pimienta Lastra, R. (s. f.). Prueba estadística de hipótesis. Universidad Autónoma Metropolitana, Unidad Xochimilco. https://tigger.celaya.tecnm.mx/conacad/cargas/GUVF681004UW4/60/comprobacion%20de%20hipotesis%202.pdf
+
+- Class: mult_question
+  Output: Un juicio declara culpable a una persona que en realidad era inocente. Usando H0 = "la persona es inocente", ¿qué tipo de error se cometió?
+  AnswerChoices: Error tipo I, se rechazó H0 siendo verdadera;Error tipo II, no se rechazó H0 siendo falsa;Ningún error, la decisión fue correcta
+  CorrectAnswer: Error tipo I, se rechazó H0 siendo verdadera
+  AnswerTests: omnitest(correctVal='Error tipo I, se rechazó H0 siendo verdadera')
+  Hint: Declarar culpable equivale a rechazar la hipótesis de inocencia. Si la persona en realidad era inocente, esa hipótesis nula era verdadera.
+
+- Class: text
+  Output: Correcto. Rechazar una H0 que en realidad era verdadera es justo el error tipo I, el más grave en muchos contextos porque implica actuar contra algo que sí era cierto.
+
+- Class: text
+  Output: Para controlar el riesgo de cometer un error tipo I, se fija de antemano un nivel de significancia, llamado alpha, que representa la probabilidad máxima que estamos dispuestos a aceptar de rechazar H0 por error. Los valores más comunes son 0.05 y 0.01.
+
+- Class: text
+  Output: El valor p, implica determinar si algo es "probable" o "improbable" calculando la probabilidad —suponiendo que la hipótesis nula fuera verdadera— de observar un estadístico de prueba más extremo en la dirección de la hipótesis alternativa que el observado. Si el valor p es pequeño, digamos menor que (o igual a), entonces es "improbable". Y, si el valor p es grande, digamos más de, entonces es "probable".
+
+# S.3.2 Hypothesis Testing (P-Value Approach) | STAT ONLINE. (s. f.). PennState: Statistics Online Courses. https://online-stat-psu-edu.translate.goog/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
+
+- Class: text
+  Output: En pocas palabras, es la probabilidad de obtener un resultado tan extremo que el de tu muestra, asumiendo que H0 es verdadera. Entre más pequeño es el valor p, menos compatible es tu muestra con H0.
+
+- Class: mult_question
+  Output: ¿Qué representa el valor p de una prueba de hipótesis?
+  AnswerChoices: La probabilidad de que H0 sea verdadera;La probabilidad de obtener un resultado tan extremo como el de tu muestra, si H0 fuera verdadera;La probabilidad de que tu muestra esté mal tomada
+  CorrectAnswer: La probabilidad de obtener un resultado tan extremo como el de tu muestra, si H0 fuera verdadera
+  AnswerTests: omnitest(correctVal='La probabilidad de obtener un resultado tan extremo como el de tu muestra, si H0 fuera verdadera')
+  Hint: El valor p no dice si H0 es verdadera o falsa, dice qué tan rara sería tu muestra si H0 lo fuera.
+
+- Class: text
+  Output: La regla de decisión se basa en la comparación del valor alpha previamente establecido y un valor determinado con base en los datos del experimento. Es sencilla una vez que tienes alpha y el valor p. Si este valor es menor que alpha, rechaza H0 y acepta H1. Si el valor p es mayor o igual que alpha, no rechazas H0, es decir, no tienes evidencia suficiente para descartarla.
+ 
+#Pimienta Lastra, R. (s. f.). Prueba estadística de hipótesis. Universidad Autónoma Metropolitana, Unidad Xochimilco. https://tigger.celaya.tecnm.mx/conacad/cargas/GUVF681004UW4/60/comprobacion%20de%20hipotesis%202.pdf
+
+- Class: mult_question
+  Output: Tu valor p resultó 0.001 y usaste alpha = 0.05. ¿Qué decides?
+  AnswerChoices: Rechazar H0;No rechazar H0;No se puede decidir sin más información
+  CorrectAnswer: Rechazar H0
+  AnswerTests: omnitest(correctVal='Rechazar H0')
+  Hint: Compara el valor p contra alpha, ¿es menor o mayor?
+
+- Class: text
+  Output: Muy bien, con esto ya tienes las bases teóricas. Ahora vamos a aplicar todo esto con datos reales, empezando por una prueba de hipótesis sobre una media.
+
+- Class: text
+  Output: Ya tienes disponible el vector 'tiempos_respuesta', con 3000 tiempos de respuesta simulados del servidor, y 'muestra_tiempos', una muestra de n = 40 solicitudes ya tomada para ti. También tienes 'mu0' (el valor que afirma la empresa, 2 segundos) y 'n' (el tamaño de tu muestra).
+
+- Class: cmd_question
+  Output: Calcula la media de 'muestra_tiempos' usando mean(), y guárdala como 'media_muestral'.
+  CorrectAnswer: media_muestral <- mean(muestra_tiempos)
+  AnswerTests: omnitest(correctExpr='media_muestral <- mean(muestra_tiempos)')
+  Hint: Usa mean() sobre el vector muestra_tiempos.
+
+- Class: cmd_question
+  Output: Calcula la desviación estándar de 'muestra_tiempos' usando sd(), y guárdala como 'sd_muestral'.
+  CorrectAnswer: sd_muestral <- sd(muestra_tiempos)
+  AnswerTests: omnitest(correctExpr='sd_muestral <- sd(muestra_tiempos)')
+  Hint: Usa sd() sobre el vector muestra_tiempos.
+
+- Class: text
+  Output: El estadístico de prueba t mide qué tan lejos está tu media muestral del valor hipotético (mu0), en unidades de error estándar. Se calcula como t = (media_muestral - mu0) / (sd_muestral / sqrt(n)).
+
+- Class: cmd_question
+  Output: Calcula el estadístico t a mano usando la fórmula (media_muestral - mu0) / (sd_muestral / sqrt(n)). Guárdalo como 't_calculado'.
+  CorrectAnswer: t_calculado <- (media_muestral - mu0) / (sd_muestral / sqrt(n))
+  AnswerTests: test_t_formula_hints()
+  Hint: La fórmula es (media_muestral - mu0) dividido entre (sd_muestral entre la raíz cuadrada de n). ||| Revisa que no se te haya olvidado aplicar sqrt() a n antes de dividir. ||| Verifica el orden de la resta en el numerador, es media_muestral menos mu0, no al revés.
+
+- Class: text
+  Output: Entre más grande sea t (en valor absoluto), más lejos está tu muestra del valor hipotético, y más evidencia tienes en contra de H0. Pero para tomar una decisión formal, es más práctico dejar que R calcule todo junto, incluyendo el valor p.
+
+- Class: cmd_question
+  Output: Confirma tu cálculo usando t.test(). Como H1 es que el tiempo promedio es mayor a 2, usa alternative = "greater". Escribe t.test(muestra_tiempos, mu = mu0, alternative = "greater"), y guarda el resultado como 'prueba_media'.
+  CorrectAnswer: prueba_media <- t.test(muestra_tiempos, mu = mu0, alternative = "greater")
+  AnswerTests: omnitest(correctExpr='prueba_media <- t.test(muestra_tiempos, mu = mu0, alternative = "greater")')
+  Hint: Dentro de t.test() escribe primero el vector, después mu = mu0, y después alternative = "greater".
+
+- Class: cmd_question
+  Output: Escribe prueba_media$p.value para ver el valor p obtenido.
+  CorrectAnswer: prueba_media$p.value
+  AnswerTests: omnitest(correctExpr='prueba_media$p.value')
+  Hint: Usa el símbolo $ para acceder al campo p.value dentro de la lista prueba_media.
+
+- Class: mult_question
+  Output: Con ese valor p y usando alpha = 0.05, ¿qué decides sobre la afirmación de la empresa?
+  AnswerChoices: Se rechaza H0, hay evidencia de que el tiempo promedio es mayor a 2 segundos;No se rechaza H0, la afirmación de la empresa es creíble;No se puede decidir con esta información
+  CorrectAnswer: Se rechaza H0, hay evidencia de que el tiempo promedio es mayor a 2 segundos
+  AnswerTests: omnitest(correctVal='Se rechaza H0, hay evidencia de que el tiempo promedio es mayor a 2 segundos')
+  Hint: Compara el valor p que acabas de ver contra 0.05.
+
+- Class: text
+  Output: Actividad de interpretación. A pesar de que la afirmación de la empresa fue rechazada, recuerda que esta decisión se basó en una sola muestra de 40 solicitudes. Piensa qué papel juega aquí todo lo que aprendiste sobre distribuciones muestrales, para no confiar ciegamente en un solo resultado.
+
+- Class: text
+  Output: Ahora vamos a aplicar lo mismo a una prueba de hipótesis sobre una proporción. La empresa afirma que el 72% de sus usuarios tienen el plan Gratuito. Vamos a comprobarlo con una muestra de usuarios_app.
+
+- Class: text
+  Output: Ya tienes disponible el data frame 'usuarios_app' y el valor 'p0' (0.72, la proporción que afirma la empresa).
+
+- Class: cmd_question
+  Output: Fija la semilla con set.seed(90), para que tu muestra sea reproducible.
+  CorrectAnswer: set.seed(90)
+  AnswerTests: omnitest(correctExpr='set.seed(90)')
+  Hint: Haz uso de la semilla, escribe tal cual la función.
+
+- Class: cmd_question
+  Output: Toma una muestra de 100 valores de la columna plan de usuarios_app usando sample(), y guárdala como 'muestra_plan'.
+  CorrectAnswer: muestra_plan <- sample(usuarios_app$plan, 100)
+  AnswerTests: omnitest(correctExpr='muestra_plan <- sample(usuarios_app$plan, 100)')
+  Hint: Usa sample() sobre usuarios_app$plan, con 100 como tamaño de muestra.
+
+- Class: cmd_question
+  Output: Cuenta cuántos usuarios de 'muestra_plan' tienen el plan Gratuito, usando sum() y una comparación lógica. Guárdalo como 'exitos'.
+  CorrectAnswer: exitos <- sum(muestra_plan == "Gratuito")
+  AnswerTests: omnitest(correctExpr='exitos <- sum(muestra_plan == "Gratuito")')
+  Hint: muestra_plan == "Gratuito" te da TRUE/FALSE por cada elemento, y sum() cuenta cuántos TRUE hay.
+
+- Class: cmd_question
+  Output: Realiza la prueba de hipótesis para una proporción usando prop.test(). Escribe prop.test(x = exitos, n = 100, p = p0), y guarda el resultado como 'prueba_proporcion'.
+  CorrectAnswer: prueba_proporcion <- prop.test(x = exitos, n = 100, p = p0)
+  AnswerTests: omnitest(correctExpr='prueba_proporcion <- prop.test(x = exitos, n = 100, p = p0)')
+  Hint: prop.test() necesita x (los éxitos), n (el tamaño de muestra) y p (la proporción hipotética).
+
+- Class: cmd_question
+  Output: Escribe prueba_proporcion$p.value para ver el valor p de esta prueba.
+  CorrectAnswer: prueba_proporcion$p.value
+  AnswerTests: omnitest(correctExpr='prueba_proporcion$p.value')
+  Hint: Usa el símbolo $ para acceder al campo p.value.
+
+- Class: mult_question
+  Output: Si el valor p de esta prueba resultó mayor a 0.05, ¿qué decides sobre la afirmación de que el 72% de los usuarios tiene plan Gratuito?
+  AnswerChoices: No se rechaza H0, la afirmación del 72% es creíble con esta muestra;Se rechaza H0, la afirmación del 72% es falsa;La prueba no es válida para proporciones
+  CorrectAnswer: No se rechaza H0, la afirmación del 72% es creíble con esta muestra
+  AnswerTests: omnitest(correctVal='No se rechaza H0, la afirmación del 72% es creíble con esta muestra')
+  Hint: Recuerda la regla de decisión, valor p contra alpha.
+
+- Class: text
+  Output: Con una diferencia tan pequeña entre el 72% afirmado y lo que suele verse en la muestra, lo más común es no rechazar H0 en este caso. Recuerda que no rechazar H0 no significa que el 72% sea el valor exacto, significa que, con la evidencia de tu muestra, no es razonable descartar esa afirmación.
+
+- Class: text
+  Output: Con esto completas la lección de Pruebas de hipótesis. Aprendiste a plantear H0 y H1, a diferenciar los errores tipo I y II, a usar alpha y el valor p para tomar una decisión, y a aplicar pruebas de hipótesis tanto para una media como para una proporción usando t.test() y prop.test().
+
+- Class: text
+  Output: Las siguientes lecciones, Bondad de ajuste e independencia, y ANOVA de un factor, son en realidad casos particulares de esto mismo que acabas de aprender, pruebas de hipótesis aplicadas a preguntas más específicas. Sigamos aprendiendo!
+
+#-------------------------
+#REFERENCIAS
+#Antonio, J. (2019, 1 febrero). ¿Qué es una prueba de hipótesis? Addlink Software Científico. https://www.addlink.es/noticias/minitab/2852-que-es-una-prueba-de-hipotesis
+#Dagnino, J. (2014). Inferencia estadística: Pruebas de hipótesis. Revista chilena de anestesia.
+#Pimienta Lastra, R. (s. f.). Prueba estadística de hipótesis. Universidad Autónoma Metropolitana, Unidad Xochimilco. https://tigger.celaya.tecnm.mx/conacad/cargas/GUVF681004UW4/60/comprobacion%20de%20hipotesis%202.pdf
+# S.3.2 Hypothesis Testing (P-Value Approach) | STAT ONLINE. (s. f.). PennState: Statistics Online Courses. https://online-stat-psu-edu.translate.goog/statprogram/reviews/statistical-concepts/hypothesis-testing/p-value-approach?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc
+
