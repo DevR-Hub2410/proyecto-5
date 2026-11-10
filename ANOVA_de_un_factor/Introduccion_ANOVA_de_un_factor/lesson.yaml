@@ -1,0 +1,83 @@
+- Class: meta
+  Course: ANOVA_de_un_factor
+  Lesson: Introduccion_ANOVA_de_un_factor
+  Author: your name goes here
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.4.5
+  
+# https://www.probabilidadyestadistica.net/analisis-de-la-varianza-anova/
+- Class: text
+  Output: En esta lección aprenderemos qué es el análisis de varianza (ANOVA), para qué sirve y en qué situaciones podemos utilizarlo. También conoceremos conceptos fundamentales 
+    como las medias, los factores, los grupos y las hipótesis estadísticas. Finalmente, realizaremos un pequeño ejercicio utilizando R para observar cómo se construye y 
+    ejecuta un análisis de varianza.
+  
+- Class: text
+  Output: En estadística, el análisis de varianza, conocido como ANOVA (Analysis of Variance), es una técnica estadística que permite determinar si existen diferencias estadísticamente 
+    significativas entre las medias de tres o más grupos. Su principal objetivo es comparar las medias de diferentes grupos para identificar si las diferencias observadas pueden considerarse 
+    significativas o si podrían deberse a la variabilidad natural de los datos.
+
+- Class: text
+  Output: Para comprenderlo mejor, imaginemos que una universidad desea comparar las calificaciones de estudiantes que utilizan tres métodos de enseñanza diferentes libros, videos y clases 
+    interactivas. Cada método representa un grupo y las calificaciones representan la variable que queremos estudiar. Mediante ANOVA podemos analizar los tres grupos simultáneamente y 
+    determinar si existe evidencia estadística de que sus calificaciones promedio son diferentes.
+    
+- Class: text
+  Output: Antes de continuar, es importante comprender la diferencia entre comparar dos medias y comparar tres o más medias. Cuando queremos comparar únicamente dos grupos, podemos utilizar 
+    una prueba t de Student para determinar si existe una diferencia estadísticamente significativa entre sus medias. Sin embargo, cuando tenemos tres o más grupos, realizar varias pruebas 
+    t por parejas aumenta la probabilidad de cometer un error tipo I, es decir, encontrar una diferencia significativa cuando realmente no existe. Por esta razón, ANOVA permite comparar las 
+    medias de todos los grupos en un mismo análisis, controlando el nivel de significancia global del procedimiento bajo sus supuestos.
+    
+Class: text
+  Output: Para comprender qué significa ANOVA de un factor, primero debemos conocer dos conceptos importantes: factor y grupo.
+    Un factor es una variable categórica que utilizamos para clasificar las observaciones en diferentes categorías.
+    Los grupos son precisamente las categorías o niveles que pertenecen a ese factor.
+    Por ejemplo, si queremos comparar las calificaciones según tres métodos de enseñanza, el método de enseñanza es nuestro factor y sus niveles son libros, videos y clases interactivas. Cada uno de estos niveles representa un grupo.
+    La variable que medimos, en este caso las calificaciones, se conoce como variable de respuesta.
+
+- Class: text
+  Output: Para realizar un ANOVA se plantean dos hipótesis estadísticas
+    Hipótesis nula (H0): establece que todas las medias poblacionales de los grupos son iguales. Es decir, no existen diferencias estadísticamente significativas entre ellas.
+    Hipótesis alternativa (H1): establece que al menos una de las medias poblacionales es diferente de las demás.
+    Es importante destacar que la hipótesis alternativa no significa que todas las medias sean diferentes, sino que al menos una presenta una diferencia.
+
+- Class: text
+  Output: El ANOVA de un factor se utiliza cuando queremos comparar las medias de varios grupos a partir de una sola variable categórica, conocida como factor.
+    Por ejemplo, si queremos comparar las calificaciones según tres métodos de enseñanza, el método de enseñanza es nuestro factor y sus tres categorías son los grupos que vamos a estudiar.
+    Una de sus principales ventajas es que permite comparar todos los grupos en un mismo análisis, evitando realizar múltiples pruebas individuales entre parejas de grupos.
+
+- Class: text
+Output: En resumen, el ANOVA de un factor nos ayuda a responder una pregunta fundamental: ¿existen diferencias estadísticamente significativas entre las medias de los grupos que estamos comparando?
+  En las siguientes lecciones aprenderemos a identificar sus supuestos, realizar el análisis en R, interpretar la tabla ANOVA y aplicar pruebas de comparaciones múltiples, como la prueba de Tukey.
+  
+- Class: text
+  Output: A continuación realizaremos un ejercicio práctico para aplicar el análisis de varianza de un factor. Se estudiarán las calificaciones obtenidas por cuatro alumnos en tres asignaturas diferentes (A, B y C), cuyas puntuaciones tienen un máximo de 20 puntos.
+    Nuestro objetivo será determinar si existen diferencias estadísticamente significativas entre las calificaciones promedio de las tres asignaturas.
+
+- Class: cmd_question
+  Output: Primero, creemos un vector llamado calificacion que contenga las puntuaciones de los cuatro alumnos en las tres asignaturas, respetando el orden de los datos de la tabla.
+  CorrectAnswer: calificacion <- c(14, 13, 19, 12, 14, 17, 14, 10, 16, 10, 14, 19)
+  AnswerTests: omnitest(correctExpr='calificacion <- c(14, 13, 19, 12, 14, 17, 14, 10, 16, 10, 14, 19)')
+  Hint: Utiliza c() para crear el vector e introduce las doce calificaciones en orden.
+
+- Class: cmd_question
+  Output: Ahora creemos un factor llamado asignatura que identifique a qué asignatura pertenece cada calificación. Recuerda que existen tres asignaturas y cuatro alumnos.
+  CorrectAnswer: asignatura <- factor(rep(c("A", "B", "C"), times = 4))
+  AnswerTests: omnitest(correctExpr='asignatura <- factor(rep(c("A", "B", "C"), times = 4))')
+  Hint: Utiliza factor() y rep() para repetir las categorías A, B y C cuatro veces.
+
+- Class: cmd_question
+  Output: Construye un modelo de análisis de varianza utilizando aov(). La variable de respuesta es calificacion y el factor que queremos estudiar es asignatura.
+  CorrectAnswer: modelo <- aov(calificacion ~ asignatura)
+  AnswerTests: omnitest(correctExpr='modelo <- aov(calificacion ~ asignatura)')
+  Hint: Utiliza la estructura aov(variable_respuesta ~ factor).
+
+- Class: cmd_question
+  Output: Finalmente, utiliza summary() para mostrar la tabla del análisis de varianza.
+  CorrectAnswer: summary(modelo)
+  AnswerTests: omnitest(correctExpr='summary(modelo)')
+  Hint: Utiliza summary() pasando como argumento el modelo que acabas de crear.
+
+- Class: text
+  Output: ¡Excelente! Has realizado tu primer análisis de varianza de un factor. Recuerda que el valor p permite determinar si existe evidencia estadística de diferencias entre 
+    las medias de las asignaturas. Si el valor p es menor que el nivel de significancia establecido (por ejemplo, 0.05), rechazamos la hipótesis nula.

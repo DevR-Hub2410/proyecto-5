@@ -1,0 +1,126 @@
+- Class: meta
+  Course: ANOVA_de_un_factor
+  Lesson: Tabla_ANOVA
+  Author: your name goes here
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.4.5
+
+# https://www.probabilidadyestadistica.net/tabla-anova/
+- Class: text
+  Output: En las lecciones anteriores aprendimos qué es el ANOVA y cuáles son los supuestos necesarios para aplicarlo.
+    En esta lección estudiaremos la tabla ANOVA, una herramienta que resume los resultados del análisis de varianza.
+    Aprenderemos qué información contiene, cómo se organiza y qué significa cada uno de sus elementos. Finalmente, utilizaremos R para generar e interpretar una tabla ANOVA.
+
+- Class: text
+  Output: La tabla ANOVA es una representación organizada de los cálculos realizados durante un análisis de varianza.
+    Su objetivo es resumir la variabilidad de los datos y mostrar los resultados necesarios para determinar si existen diferencias estadísticamente significativas entre las medias de los grupos.
+    Mediante esta tabla podemos observar las sumas de cuadrados, los grados de libertad, los cuadrados medios, el estadístico F y el valor p.
+
+- Class: text
+  Output: En un ANOVA de un factor, la tabla se divide conceptualmente en tres fuentes de variación,
+    1. Factor representa la variabilidad explicada por las diferencias entre las medias de los grupos.
+    2. Error representa la variabilidad que existe dentro de los grupos y que no es explicada por el factor.
+    3. Total representa la variabilidad total de las observaciones respecto a la media general.
+    Es importante mencionar que R normalmente muestra las filas del factor y del error en el resumen de aov(). La fila total puede calcularse, pero no aparece en la salida habitual de summary().
+
+- Class: text
+  Output: 1. Suma de cuadrados (Sum Sq). La suma de cuadrados mide la cantidad de variabilidad presente en 
+    los datos. En el ANOVA de un factor se distinguen tres sumas de cuadrados, suma de cuadrados del factor, 
+    mide la variabilidad explicada por las diferencias entre las medias de los grupos. Suma de cuadrados del 
+    error, mide la variabilidad que existe dentro de los grupos. Suma de cuadrados total, representa la variabilidad 
+    total de los datos. La suma de cuadrados total es igual a la suma de cuadrados del factor más la suma de 
+    cuadrados del error. En general, una mayor suma de cuadrados del factor indica que existe más variabilidad 
+    asociada a las diferencias entre los grupos.
+
+- Class: text
+  Output: 2. Grados de libertad (Df). Los grados de libertad representan la cantidad de información independiente disponible para 
+    estimar la variabilidad. En un ANOVA de un factor se calculan de la siguiente manera, Grados de libertad del factor k - 1.
+    Grados de libertad del error N - k. Grados de libertad totales N - 1. Donde k representa el número de grupos y N representa el número 
+    total de observaciones. Por ejemplo, si tenemos tres grupos y un total de treinta observaciones, los grados de libertad del factor serán 2, 
+    los del error serán 27 y los totales serán 29.
+
+- Class: text
+  Output: 3. Cuadrados medios (Mean Sq). Los cuadrados medios se obtienen dividiendo la suma de cuadrados entre sus respectivos grados de 
+    libertad. En otras palabras, representan una estimación de la variabilidad correspondiente a cada fuente. En la tabla ANOVA se calculan 
+    principalmente dos cuadrados medios. Cuadrado medio del factor, se obtiene dividiendo la suma de cuadrados del factor entre sus grados de 
+    libertad. Cuadrado medio del error, se obtiene dividiendo la suma de cuadrados del error entre sus grados de libertad.
+    Estos valores son necesarios para calcular el estadístico F.
+
+- Class: text
+  Output: 4. Estadístico F (F value).
+    El estadístico F es el resultado de dividir el cuadrado medio del factor entre el cuadrado medio del error.
+    Este valor permite comparar la variabilidad explicada por las diferencias entre los grupos con la variabilidad que existe dentro de ellos.
+    Cuando el estadístico F es cercano a 1, la variabilidad entre los grupos es similar a la variabilidad dentro de los grupos.
+    Cuando F es considerablemente mayor que 1, existe mayor evidencia de que las medias de los grupos no son todas iguales.
+    Sin embargo, el valor F por sí solo no determina la conclusión. También debemos considerar el valor p.
+
+- Class: text
+  Output: 5. Valor p (Pr(>F)).
+    El valor p representa la probabilidad, suponiendo que la hipótesis nula es verdadera, de obtener un estadístico F igual o más extremo que el observado.
+    Recordemos que la hipótesis nula establece que todas las medias poblacionales son iguales.
+    Para interpretar el resultado, comparamos el valor p con el nivel de significancia, que comúnmente es 0.05.
+    Si el valor p es menor que 0.05, rechazamos la hipótesis nula y concluimos que existe evidencia estadística de que al menos una media es diferente.
+    Si el valor p es mayor o igual que 0.05, no rechazamos la hipótesis nula porque no existe evidencia estadística suficiente para afirmar que las medias son diferentes.
+    Es importante recordar que un resultado significativo no indica exactamente cuáles grupos presentan diferencias. Ese análisis se realizará en la siguiente lección.
+
+- Class: text
+  Output: Ejemplo de una tabla ANOVA.
+    Imaginemos que una investigación compara el peso de plantas sometidas a tres condiciones diferentes, un grupo de control y dos tratamientos.
+    Después de realizar el análisis ANOVA, obtenemos una tabla con los siguientes resultados.
+    Fuente de variación | Df | Sum Sq | Mean Sq | F value | Pr(>F)
+    Grupo | 2 | 3.766 | 1.883 | 4.846 | 0.0159
+    Residuals | 27 | 10.492 | 0.389 | | 
+    Esta tabla resume la variabilidad explicada por los grupos y la variabilidad residual.
+    Observamos que el valor p es 0.0159, que es menor que el nivel de significancia de 0.05.
+    Por lo tanto, rechazamos la hipótesis nula y concluimos que existe evidencia estadística de que al menos una de las medias de los grupos es 
+    diferente. No podemos afirmar a partir de esta tabla cuáles grupos son diferentes entre sí.
+
+- Class: text
+  Output: Ahora realizaremos el análisis utilizando R.
+    En la lección anterior trabajamos con el conjunto de datos PlantGrowth, que contiene información sobre el peso de plantas en tres grupos.
+    Para esta práctica utilizaremos el objeto datos, que contiene ese conjunto de datos, y construiremos un modelo ANOVA llamado modelo.
+    Primero, recordaremos la estructura del análisis. La variable weight representa la variable de respuesta y group representa el factor que 
+    identifica los grupos.
+
+- Class: cmd_question
+  Output: Escribe el comando para construir el modelo ANOVA utilizando weight como variable de respuesta y group como factor.
+  CorrectAnswer: modelo <- aov(weight ~ group, data = datos)
+  AnswerTests: omnitest(correctExpr='modelo <- aov(weight ~ group, data = datos)')
+  Hint: Utiliza aov() y escribe la fórmula weight ~ group.
+
+- Class: text
+  Output: Una vez construido el modelo, podemos obtener la tabla ANOVA mediante la función summary().
+    Esta función muestra las principales columnas de la tabla: grados de libertad, suma de cuadrados, cuadrados medios, estadístico F y valor p.
+    Cada columna contiene información importante para interpretar los resultados del análisis.
+
+- Class: cmd_question
+  Output: Escribe el comando para mostrar el resumen del modelo ANOVA.
+  CorrectAnswer: summary(modelo)
+  AnswerTests: omnitest(correctExpr='summary(modelo)')
+  Hint: Utiliza la función summary() con el objeto modelo.
+
+- Class: text
+  Output: Al ejecutar el comando, obtendrás una tabla con los resultados del análisis.
+    En la fila group se muestra la variabilidad asociada al factor.
+    En la fila Residuals se muestra la variabilidad que no es explicada por el factor.
+    La columna Df representa los grados de libertad.
+    La columna Sum Sq representa las sumas de cuadrados.
+    La columna Mean Sq representa los cuadrados medios.
+    La columna F value representa el estadístico F.
+    Finalmente, Pr(>F) muestra el valor p utilizado para tomar una decisión sobre la hipótesis nula.
+
+- Class: text
+  Output: Interpretación de los resultados.
+    En el conjunto de datos PlantGrowth, el resultado del análisis presenta aproximadamente un estadístico F de 4.846 y un valor p de 0.0159.
+    Como el valor p es menor que 0.05, rechazamos la hipótesis nula.
+    Esto significa que existe evidencia estadística suficiente para concluir que no todas las medias poblacionales de los grupos son iguales.
+    Sin embargo, la tabla ANOVA no nos indica qué grupos presentan diferencias. Para conocer esa información necesitaremos realizar comparaciones 
+    múltiples.
+
+- Class: text
+  Output: ¡Excelente trabajo! Has terminado la tercera lección del curso.
+    Ahora conoces la estructura de una tabla ANOVA y sabes interpretar sus principales elementos: sumas de cuadrados, grados de libertad, cuadrados 
+    medios, estadístico F y valor p. Recuerda que la tabla ANOVA permite determinar si existe evidencia de diferencias entre las medias, pero no 
+    identifica cuáles grupos son diferentes. En la siguiente lección estudiaremos las comparaciones múltiples y aprenderemos a utilizar la prueba de 
+    Tukey para identificar entre qué grupos existen diferencias estadísticamente significativas.

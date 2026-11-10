@@ -1,9 +1,9 @@
 - Class: meta
-  Course: Estadistica
-  Lesson: Aplicacion_integral
+  Course: Curso_Estadistica
+  Lesson: Leccion_4_Aplicacion_integral
   Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofia Lopez Escarcega
   Type: Standard
-  Organization: UACJ
+  Organization: Universidad Autonoma de Ciudad Juarez
   Version: 2.4.5
 
 - Class: text

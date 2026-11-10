@@ -1,0 +1,137 @@
+- Class: meta
+  Course: ANOVA_de_un_factor
+  Lesson: Supuestos_del_ANOVA
+  Author: your name goes here
+  Type: Standard
+  Organization: your organization's name goes here
+  Version: 2.4.5
+
+# https://fastercapital.com/es/contenido/Supuestos-de-ANOVA--Supuestos-de-ANOVA--construccion-de-una-base-solida-para-el-analisis-de-tres-vias.html
+- Class: text
+  Output: En la lección anterior aprendimos qué es el análisis de varianza, cuál es su objetivo y cómo se utiliza para comparar las medias de diferentes grupos. Sin 
+    embargo, antes de aplicar un análisis ANOVA, es importante conocer y revisar ciertos supuestos estadísticos. En esta lección estudiaremos los tres supuestos 
+    principales del ANOVA de un factor: independencia de las observaciones, normalidad de los residuos y homogeneidad de las varianzas. También aprenderemos algunas 
+    herramientas de R que nos ayudarán a evaluarlos.
+
+- Class: text
+  Output: El ANOVA utiliza determinados procedimientos matemáticos para comparar las medias de varios grupos. Estos procedimientos parten de ciertas condiciones sobre 
+    los datos y el modelo estadístico. Cuando dichas condiciones se cumplen razonablemente, los resultados de la prueba F y sus valores p suelen ser confiables. Si uno 
+    o varios supuestos se incumplen de manera importante, las conclusiones del análisis podrían verse afectadas. Por esta razón, es importante revisar los supuestos 
+    antes de interpretar los resultados de un ANOVA.
+
+- Class: text
+  Output: El supuesto de independencia establece que las observaciones deben ser independientes entre sí. Esto significa que el valor registrado para una observación 
+    no debe depender del valor de otra. Por ejemplo, imaginemos que una universidad desea comparar las calificaciones de tres grupos de estudiantes que utilizan diferentes 
+    métodos de enseñanza. Para aplicar un ANOVA de un factor convencional, las calificaciones deben provenir de observaciones independientes. Si se mide a los mismos 
+    estudiantes utilizando los tres métodos, las observaciones estarán relacionadas. En ese caso, un ANOVA de un factor convencional no sería el modelo adecuado, podría 
+    ser necesario utilizar un ANOVA de medidas repetidas.
+
+- Class: text
+  Output: A diferencia de los otros supuestos, la independencia no se comprueba generalmente mediante una prueba estadística aplicada a los residuos. Su evaluación 
+    depende principalmente del diseño del estudio y de la forma en que se recopilaron los datos. Debemos preguntarnos, ¿Las observaciones provienen de individuos 
+    diferentes? ¿Se realizaron mediciones repetidas sobre los mismos individuos? ¿Existe alguna relación entre las observaciones, como pertenecer a una misma familia, 
+    grupo o periodo de tiempo? Es importante identificar estas situaciones antes de realizar el análisis.
+
+- Class: text
+  Output: El supuesto de normalidad establece que los residuos del modelo ANOVA deben seguir aproximadamente una distribución normal dentro de los grupos. Los residuos 
+    representan la diferencia entre cada valor observado y el valor que predice el modelo. En un ANOVA de un factor, los residuos permiten observar qué tan alejadas 
+    están las observaciones de la media estimada para su grupo. Es importante recordar que este supuesto se refiere a los residuos y no significa que todos los datos 
+    originales deban tener una distribución perfectamente normal.
+
+- Class: text
+  Output: El ANOVA utiliza la distribución F para evaluar si existen diferencias estadísticamente significativas entre las medias. La normalidad de los residuos es una 
+    de las condiciones que respaldan la validez de esta inferencia. Cuando los residuos presentan una desviación importante de la normalidad, especialmente en muestras 
+    pequeñas, los resultados de la prueba pueden verse afectados. Sin embargo, el ANOVA suele ser relativamente robusto ante desviaciones moderadas de la normalidad, 
+    especialmente cuando los tamaños de los grupos son similares y no existen valores atípicos extremos.
+
+- Class: text
+  Output: Podemos utilizar una representación gráfica llamada gráfico Q-Q (cuantil-cuantil), que permite comparar los cuantiles de los residuos con los cuantiles esperados 
+    de una distribución normal. Si los puntos siguen aproximadamente la línea de referencia, existe evidencia visual compatible con una distribución normal. También 
+    podemos utilizar la prueba de Shapiro-Wilk, que contrasta la hipótesis de que los datos provienen de una distribución normal. En esta prueba, un valor p mayor o igual 
+    que 0.05 indica que no tenemos evidencia suficiente para rechazar la normalidad. Esto no demuestra que los residuos sean perfectamente normales.
+
+- Class: text
+  Output: La homogeneidad de las varianzas, también conocida como homocedasticidad, establece que la variabilidad de los datos debe ser aproximadamente igual entre los 
+    diferentes grupos. Esto significa que, aunque las medias de los grupos puedan ser distintas, sus varianzas deben ser similares. Por ejemplo, si comparamos las 
+    calificaciones de estudiantes que utilizan tres métodos de enseñanza, no sería conveniente que un grupo tuviera calificaciones muy dispersas mientras que los otros 
+    dos presentaran valores muy concentrados, especialmente si esta diferencia es considerable.
+
+- Class: text
+  Output: El ANOVA convencional utiliza una estimación de la variabilidad dentro de los grupos para comparar las medias. Cuando las varianzas son muy diferentes, los 
+    resultados de la prueba F pueden perder confiabilidad y aumentar el riesgo de obtener conclusiones incorrectas. Por ello, es importante revisar si la dispersión de 
+    los datos es aproximadamente similar entre los grupos. Si este supuesto se incumple de manera importante, podemos considerar alternativas como el ANOVA de Welch, 
+    que no requiere asumir varianzas iguales.
+
+- Class: text
+  Output: Podemos utilizar gráficos de residuos contra valores ajustados para identificar patrones en la dispersión de los residuos. También existen pruebas estadísticas 
+    como la prueba de Levene y la prueba de Fligner-Killeen. En esta lección utilizaremos Fligner-Killeen, disponible en R sin instalar paquetes adicionales. En esta 
+    prueba, la hipótesis nula establece que las varianzas de los grupos son iguales. Un valor p mayor o igual que 0.05 indica que no existe evidencia suficiente para 
+    rechazar esa hipótesis. Esto no demuestra que las varianzas sean idénticas, sino que no se encontró evidencia estadística suficiente de una diferencia.
+
+- Class: text
+  Output: Ahora realizaremos un ejercicio utilizando el conjunto de datos PlantGrowth, que viene incluido en R. Este conjunto contiene información sobre el peso de 
+    plantas sometidas a tres condiciones diferentes: un grupo de control (ctrl) y dos tratamientos (trt1 y trt2). Utilizaremos estos datos para construir un modelo 
+    ANOVA y revisar la normalidad de sus residuos y la homogeneidad de las varianzas. Para comenzar, cargaremos los datos en un objeto llamado datos.
+
+- Class: cmd_question
+  Output: Escribe el comando necesario para cargar el conjunto de datos PlantGrowth en un objeto llamado datos.
+  CorrectAnswer: datos <- PlantGrowth
+  AnswerTests: omnitest(correctExpr='datos <- PlantGrowth')
+  Hint: Utiliza el operador de asignación y escribe PlantGrowth en el lado derecho.
+
+- Class: text
+  Output: Ahora construiremos un modelo ANOVA de un factor. En este ejemplo, la variable weight representa el peso de las plantas y la variable group identifica el 
+    grupo al que pertenece cada observación. Utilizaremos la función aov() para ajustar el modelo.
+
+- Class: cmd_question
+  Output: Escribe el comando para crear un modelo ANOVA llamado modelo, utilizando weight como variable de respuesta y group como factor.
+  CorrectAnswer: modelo <- aov(weight ~ group, data = datos)
+  AnswerTests: omnitest(correctExpr='modelo <- aov(weight ~ group, data = datos)')
+  Hint: Utiliza aov() y escribe la fórmula weight ~ group.
+
+- Class: text
+  Output: Para revisar la normalidad, primero necesitamos obtener los residuos del modelo.
+    Podemos utilizar la función residuals(), que extrae los residuos del modelo ANOVA.
+    Guardaremos estos valores en un objeto llamado residuos.
+
+- Class: cmd_question
+  Output: Escribe el comando para obtener los residuos del objeto modelo y almacenarlos en residuos.
+  CorrectAnswer: residuos <- residuals(modelo)
+  AnswerTests: omnitest(correctExpr='residuos <- residuals(modelo)')
+  Hint: Utiliza la función residuals() con el objeto modelo.
+
+- Class: text
+  Output: Una vez obtenidos los residuos, podemos aplicar la prueba de Shapiro-Wilk utilizando la función shapiro.test(). Recuerda que la hipótesis nula de esta prueba 
+    establece que los residuos siguen una distribución normal. Si el valor p es mayor o igual que 0.05, no tenemos evidencia suficiente para rechazar la hipótesis nula.
+
+- Class: cmd_question
+  Output: Escribe el comando para aplicar la prueba de Shapiro-Wilk al objeto residuos.
+  CorrectAnswer: shapiro.test(residuos)
+  AnswerTests: omnitest(correctExpr='shapiro.test(residuos)')
+  Hint: Utiliza shapiro.test() e introduce residuos como argumento.
+
+- Class: text
+  Output: También podemos observar gráficamente la normalidad mediante un gráfico Q-Q. La función plot() permite generar diferentes gráficos de diagnóstico para un 
+    modelo ANOVA. Al utilizar el argumento which = 2, R genera el gráfico Q-Q de los residuos. Observa si los puntos siguen aproximadamente la línea de referencia.
+
+- Class: cmd_question
+  Output: Escribe el comando para generar el gráfico Q-Q del modelo.
+  CorrectAnswer: plot(modelo, which = 2)
+  AnswerTests: omnitest(correctExpr='plot(modelo, which = 2)')
+  Hint: Utiliza plot() con el modelo y el argumento which = 2.
+
+- Class: text
+  Output: Finalmente, revisaremos la homogeneidad de las varianzas mediante la prueba de Fligner-Killeen. Esta prueba compara la variabilidad entre los grupos. Su 
+    hipótesis nula establece que las varianzas de los grupos son iguales. Si el valor p es mayor o igual que 0.05, no tenemos evidencia suficiente para rechazar la 
+    hipótesis de igualdad de varianzas.
+
+- Class: cmd_question
+  Output: Escribe el comando para aplicar la prueba de Fligner-Killeen, utilizando weight como variable de respuesta y group como factor en el conjunto de datos datos.
+  CorrectAnswer: fligner.test(weight ~ group, data = datos)
+  AnswerTests: omnitest(correctExpr='fligner.test(weight ~ group, data = datos)')
+  Hint: Utiliza fligner.test() y escribe la fórmula weight ~ group.
+
+- Class: text
+  Output: ¡Excelente trabajo! Has terminado la revisión de los tres supuestos principales del ANOVA de un factor. Recuerda que la independencia depende del diseño del 
+    estudio, la normalidad se revisa mediante los residuos y la homogeneidad se refiere a que las varianzas de los grupos sean aproximadamente iguales. Si los supuestos 
+    se cumplen razonablemente, podemos continuar con la interpretación del análisis ANOVA. En la siguiente lección aprenderemos a ejecutar el análisis y a interpretar su tabla ANOVA.
