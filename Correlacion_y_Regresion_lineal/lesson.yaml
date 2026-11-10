@@ -1,7 +1,222 @@
 - Class: meta
   Course: Estadística Inferencial
   Lesson: Correlacion_y_Regresion_lineal
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
   Type: Standard
   Organization: UACJ
   Version: 2.4.5
+
+- Class: text
+  Output: ¡Bienvenido a la lección de Correlación y regresión lineal! Aprenderás a medir qué tan relacionadas están dos variables, a encontrar la recta que mejor describe esa relación y a usarla para hacer predicciones.
+
+- Class: text
+  Output: Cuándo se requiere analizar información, con frecuencia se reúnen datos con el propósito de determinar la naturaleza de la relación entre dos cantidades. 
+
+- Class: text
+  Output: Por ejemplo, un ingeniero químico puede realizar varias veces un proceso químico para estudiar la relación entre la concentración de cierto catalizador y la producción del proceso. Cada vez que lo realiza, registra la concentración x y la producción y, por consiguiente, el experimento genera datos bivariados; un conjunto de pares ordenados (x1, y1), ... , (xn, yn). 
+
+- Class: text
+  Output: En estos casos, al graficar los pares ordenados que se generan en un experimento se encontrarán próximos a lo largo de una línea recta. En el caso del ejemplo, el catalizador contra la producción del experimento podría ser útil para pronosticar la producción que se obtendrá la próxima vez que se opere el proceso con una concentración específica de un catalizador x.
+
+- Class: text
+  Output: Hasta ahora analizamos una variable a la vez. La correlación estudia dos variables cuantitativas al mismo tiempo, para saber si cuando una cambia la otra también tiende a cambiar. 
+
+- Class: text
+  Output: Un grupo de 5 alumnos registró sus horas de estudio por semana y la calificación que obtuvieron en un examen de 0 a 10. Las horas fueron 1, 2, 3, 4 y 5. Las calificaciones fueron 3, 5, 4, 7 y 6.
+
+- Class: cmd_question
+  Output: Crea un vector llamado horas con las horas de estudio de los 5 alumnos.
+  CorrectAnswer: horas <- c(1, 2, 3, 4, 5)
+  AnswerTests: omnitest(correctExpr='horas <- c(1, 2, 3, 4, 5)')
+  Hint: Utiliza el operador de asignación y la función c().
+
+- Class: cmd_question
+  Output: Ahora crea un vector llamado calif con las calificaciones, en el mismo orden de los alumnos.
+  CorrectAnswer: calif <- c(3, 5, 4, 7, 6)
+  AnswerTests: omnitest(correctExpr='calif <- c(3, 5, 4, 7, 6)')
+  Hint: Igual que con las horas, usa el operador de asignación y la función c().
+
+- Class: text
+  Output: La mejor forma de empezar es con un diagrama de dispersión. Cada punto representa a un alumno, con las horas en el eje horizontal y la calificación en el vertical. En R se dibuja con plot(x, y).
+
+- Class: cmd_question
+  Output: Dibuja el diagrama de dispersión de horas (eje x) contra calif (eje y).
+  CorrectAnswer: plot(horas, calif)
+  AnswerTests: any_of_exprs('plot(horas, calif)', 'plot(calif ~ horas)')
+  Hint: La función plot() recibe primero el vector del eje x y después el del eje y.
+
+- Class: mult_question
+  Output: Observa los puntos. ¿Qué tendencia general muestran?
+  AnswerChoices: Al subir las horas, tienden a subir las calificaciones; Al subir las horas, tienden a bajar las calificaciones; No siguen ninguna tendencia
+  CorrectAnswer: Al subir las horas, tienden a subir las calificaciones
+  AnswerTests: omnitest(correctVal='Al subir las horas, tienden a subir las calificaciones')
+  Hint: Fíjate hacia dónde van los puntos de izquierda a derecha.
+
+- Class: text
+  Output: El coeficiente de correlación de Pearson, representado por r, resume esa tendencia en un solo número entre -1 y 1. Si es cercano a 1, la relación lineal es positiva y fuerte. Si es cercano a -1, es negativa y fuerte. Si es cercano a 0, casi no hay relación lineal. El coeficiente de correlación en R se calcula con la función cor().
+
+- Class: cmd_question
+  Output: Calcula el coeficiente de correlación entre horas y calif con la función cor().
+  CorrectAnswer: cor(horas, calif)
+  AnswerTests: any_of_exprs('cor(horas, calif)', 'cor(calif, horas)')
+  Hint: La función cor() recibe las dos variables separadas por coma.
+
+- Class: mult_question
+  Output: ¿Cómo se interpreta una correlación de 0.8?
+  AnswerChoices: Relación lineal positiva fuerte; Relación lineal negativa fuerte; Casi no hay relación lineal
+  CorrectAnswer: Relación lineal positiva fuerte
+  AnswerTests: omnitest(correctVal='Relación lineal positiva fuerte')
+  Hint: El signo indica la dirección de la relación, y qué tan cerca está de 1 o -1 indica su fuerza.
+
+- Class: text
+  Output: Veamos una relación en sentido contrario. Los mismos 5 alumnos tuvieron 8, 6, 5, 3 y 2 faltas durante el semestre.
+
+- Class: cmd_question
+  Output: Crea un vector llamado faltas con el número de faltas de los 5 alumnos, en el mismo orden.
+  CorrectAnswer: faltas <- c(8, 6, 5, 3, 2)
+  AnswerTests: omnitest(correctExpr='faltas <- c(8, 6, 5, 3, 2)')
+  Hint: Utiliza el operador de asignación y la función c().
+
+- Class: cmd_question
+  Output: Calcula el coeficiente de correlación entre horas y faltas.
+  CorrectAnswer: cor(horas, faltas)
+  AnswerTests: any_of_exprs('cor(horas, faltas)', 'cor(faltas, horas)')
+  Hint: La función cor() recibe las dos variables separadas por coma.
+
+- Class: mult_question
+  Output: El resultado es un número negativo cercano a -1. ¿Qué significa?
+  AnswerChoices: Al estudiar más horas, las faltas tienden a disminuir; Al estudiar más horas, las faltas tienden a aumentar; Estudiar más horas causa que se falte menos
+  CorrectAnswer: Al estudiar más horas, las faltas tienden a disminuir
+  AnswerTests: omnitest(correctVal='Al estudiar más horas, las faltas tienden a disminuir')
+  Hint: El signo negativo indica que las variables se mueven en direcciones opuestas.
+
+- Class: mult_question
+  Output: Si dos variables tienen una correlación muy alta, ¿podemos afirmar que una causa a la otra?
+  AnswerChoices: No, la correlación sólo indica asociación; Sí, siempre que r sea mayor a 0.5; Sí, si la correlación es negativa
+  CorrectAnswer: No, la correlación sólo indica asociación
+  AnswerTests: omnitest(correctVal='No, la correlación sólo indica asociación')
+  Hint: Dos variables pueden moverse juntas sin que una sea la causa de la otra.
+  
+- Class: text
+  Output: Ahora buscaremos la recta que mejor describa la relación. El método de mínimos cuadrados elige la recta que hace mínima la suma de los cuadrados de los residuos, es decir, cuál es la recta que causa menos errores con respecto a los puntos originales. 
+
+- Class: text
+  Output:  Un residuo es la diferencia entre el valor real y el valor que predice la recta. Esta línea será la que tenga más representación hacia los datos que pretenden ajustarse como una línea recta.
+
+- Class: text
+  Output: La ecuación de la recta es y = a + b * x. El valor a es el intercepto, donde la recta cruza el eje vertical, y b es la pendiente, que indica cuánto cambia y por cada unidad que aumenta x.
+
+- Class: text
+  Output: Para calcular la recta de ajuste lineal de los datos en R utilizamos la función lm(). Esta recta la pintaremos sobre la nube de puntos.  Se escribe lm(y ~ x), donde el símbolo ~ se lee como "en función de" y la variable que queremos predecir va primero.
+
+- Class: cmd_question
+  Output: Calcula la recta de regresión que predice calif a partir de horas y guárdala en una variable llamada modelo.
+  CorrectAnswer: modelo <- lm(calif ~ horas)
+  AnswerTests: omnitest(correctExpr='modelo <- lm(calif ~ horas)')
+  Hint: Usa el operador de asignación y la función lm(), con la variable a predecir a la izquierda de ~.
+
+- Class: cmd_question
+  Output: La función coef() extrae los coeficientes del modelo. Úsala para ver el intercepto y la pendiente del modelo.
+  CorrectAnswer: coef(modelo)
+  AnswerTests: omnitest(correctExpr='coef(modelo)')
+  Hint: Pasa el modelo como argumento de la función coef().
+
+- Class: exact_question
+  Output: ¿Cuál es el valor de la pendiente de la recta?
+  CorrectAnswer: 0.8
+  AnswerTests: omnitest(correctVal=0.8)
+  Hint: En el resultado de coef(), la pendiente aparece debajo del nombre de la variable horas.
+
+- Class: exact_question
+  Output: ¿Cuál es el valor del intercepto de la recta?
+  CorrectAnswer: 2.6
+  AnswerTests: omnitest(correctVal=2.6)
+  Hint: En el resultado de coef(), el intercepto aparece debajo de (Intercept).
+
+- Class: mult_question
+  Output: ¿Cómo se interpreta una pendiente de 0.8 en este caso?
+  AnswerChoices: Por cada hora más de estudio, la calificación aumenta 0.8 puntos en promedio; Todos los alumnos sacaron 0.8 de calificación; La calificación aumenta 0.8 horas por cada punto
+  CorrectAnswer: Por cada hora más de estudio, la calificación aumenta 0.8 puntos en promedio
+  AnswerTests: omnitest(correctVal='Por cada hora más de estudio, la calificación aumenta 0.8 puntos en promedio')
+  Hint: La pendiente indica cuánto cambia la variable y por cada unidad que aumenta la variable x.
+
+- Class: text
+  Output: Dibujemos la recta sobre los puntos. La función abline() agrega una recta a la gráfica que ya está abierta, y acepta directamente un modelo creado con lm(). Si cerraste la gráfica, vuelve a ejecutar plot(horas, calif) antes de continuar.
+
+- Class: cmd_question
+  Output: Agrega la recta de regresión al diagrama de dispersión usando abline().
+  CorrectAnswer: abline(modelo)
+  AnswerTests: omnitest(correctExpr='abline(modelo)')
+  Hint: Pasa el modelo como argumento de la función abline().
+
+- Class: text
+  Output: Observa que la recta no pasa por todos los puntos, pero se queda lo más cerca posible de ellos. La distancia vertical entre cada punto y la recta es el residuo, y la función residuals() los calcula.
+
+- Class: cmd_question
+  Output: Obtén los residuos del modelo con la función residuals().
+  CorrectAnswer: residuals(modelo)
+  AnswerTests: omnitest(correctExpr='residuals(modelo)')
+  Hint: Pasa el modelo como argumento de la función residuals().
+
+- Class: exact_question
+  Output: Mínimos cuadrados busca que la suma de los cuadrados de los residuos sea la menor posible. Calcula esa suma para modelo usando las funciones residuals() y sum(), y el operador ^2 para elevar al cuadrado. ¿Cuál es el resultado?
+  CorrectAnswer: 3.6
+  AnswerTests: omnitest(correctVal=3.6)
+  Hint: Primero obtén los residuos del modelo, elévalos al cuadrado y por último súmalos. Revisa que el resultado tenga una sola cifra después del punto.
+
+- Class: text
+  Output: Otra medida útil es el coeficiente de determinación, R². Se obtiene elevando r al cuadrado e indica qué proporción de la variación de y se explica por x.
+
+- Class: exact_question
+  Output: Calcula el coeficiente de determinación entre horas y calif. ¿Cuál es el resultado?
+  CorrectAnswer: 0.64
+  AnswerTests: omnitest(correctVal=0.64)
+  Hint: Eleva al cuadrado, con ^2, el resultado de cor(horas, calif).
+
+- Class: mult_question
+  Output: ¿Qué significa un R² de 0.64 en este caso?
+  AnswerChoices: Las horas de estudio explican el 64% de la variación de las calificaciones; El 64% de los alumnos aprobó el examen; Los alumnos estudiaron 0.64 horas en promedio
+  CorrectAnswer: Las horas de estudio explican el 64% de la variación de las calificaciones
+  AnswerTests: omnitest(correctVal='Las horas de estudio explican el 64% de la variación de las calificaciones')
+  Hint: R² se expresa como proporción, y 0.64 equivale al 64%.
+
+- Class: text
+  Output: Con la recta podemos hacer estimaciones y predicciones. La función predict() recibe el modelo y un data.frame con el nuevo valor de x. El nombre de la columna debe ser igual al de la variable que usaste en lm(), por ejemplo predict(modelo, data.frame(horas = 2)).
+
+- Class: cmd_question
+  Output: Estima la calificación de un alumno que estudia 3.5 horas por semana.
+  CorrectAnswer: predict(modelo, data.frame(horas = 3.5))
+  AnswerTests: any_of_exprs('predict(modelo, data.frame(horas = 3.5))', 'predict(modelo, newdata = data.frame(horas = 3.5))')
+  Hint: Usa predict() con modelo y un data.frame que tenga la columna horas con el valor 3.5.
+
+- Class: exact_question
+  Output: ¿Qué calificación estima la recta para 3.5 horas de estudio?
+  CorrectAnswer: 5.4
+  AnswerTests: omnitest(correctVal=5.4)
+  Hint: Copia el resultado de predict(). También puedes comprobarlo con la ecuación y = a + b * x.
+
+- Class: text
+  Output: Cómo 3.5 horas está dentro del rango de los datos observados, de 1 a 5 horas, esta estimación es una interpolación y suele ser confiable. Veamos qué pasa si salimos de ese rango.
+
+- Class: cmd_question
+  Output: Predice la calificación de un alumno que estudia 20 horas por semana.
+  CorrectAnswer: predict(modelo, data.frame(horas = 20))
+  AnswerTests: any_of_exprs('predict(modelo, data.frame(horas = 20))', 'predict(modelo, newdata = data.frame(horas = 20))')
+  Hint: Igual que en la predicción anterior, pero con el valor 20.
+
+- Class: mult_question
+  Output: La predicción supera el máximo del examen, que es 10. ¿Por qué ocurre esto?
+  AnswerChoices: Porque 20 horas está fuera del rango de datos con el que se creó la recta; Porque la función predict() falla con números grandes; Porque la correlación es negativa
+  CorrectAnswer: Porque 20 horas está fuera del rango de datos con el que se creó la recta
+  AnswerTests: omnitest(correctVal='Porque 20 horas está fuera del rango de datos con el que se creó la recta')
+  Hint: Los datos de este modelo solo cubren de 1 a 5 horas de estudio.
+
+- Class: text
+  Output: A esto se le llama extrapolación. La recta solo describe bien la relación dentro del rango de los datos observados, y fuera de él las predicciones pueden ser poco realistas.
+
+- Class: text
+  Output: Repasemos las funciones que usaste. plot() dibuja el diagrama de dispersión y cor() calcula el coeficiente de correlación. lm() obtiene la recta de mínimos cuadrados y coef() muestra su intercepto y pendiente. abline() la dibuja sobre la gráfica, residuals() calcula los residuos y predict() hace las estimaciones.
+
+- Class: text
+  Output: ¡Felicidades! Has concluido la lección de Correlación y Regresión lineal. Ahora sabes medir la relación entre dos variables, ajustar una recta y usarla para predecir con cuidado.
+
