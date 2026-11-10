@@ -1,0 +1,30 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Leccion_1_Introduccion_Bondad_Ajuste
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autonoma de Ciudad Juarez
+  Version: 2.4.5
+  
+#===============================================================
+# Objetivo
+#===============================================================
+
+- Class: text
+  Output: Al finalizar esta leccion, serás capaz de explicar qué es una prueba de bondad de ajuste, diferenciar frecuencias observadas y esperadas, formular las hipótesis nula y alternativa, reconocer el estadístico chi-cuadrada, realizar una primera prueba de bondad de ajuste en R e interpretar los resultados y formular una conclusión estadística. 
+  
+#===============================================================
+# Introduccion
+#===============================================================
+- Class: text
+  Output: En estadística, frecuentemente trabajamos con situaciones en las que tenemos una idea previa de cómo deberían comportarse ciertos datos. Por ejemplo, un dado justo debería presentar la misma probabilidad de obtener cualquiera de sus seir caras, una moneda equilibrada debería presentar la misma probabilidad de obtener cara o cruz, y la cantidad de llamadas recibidas por una central telefónica durante un intervalo podría seguir una distribución de Poisson. 
+  
+- Class: text
+  Output: Sin embargo, que existe un comportamiento esperado no significa que los resultados observados coincidan exactamente con él. Esto suecede porque los resultados de una muestra pueden presentar variaciones aleatorias. 
+  
+- Class: text
+  Output: Una prueba de bondad de ajuste permite evaluar si las diferencias entre los resultados observados y los que esperaríamos bajo una distribución teórica son suficientemente grandes como para cuestionar dicho modelo. 
+  
+#===============================================================
+# Frecuencias observadas y frecuencias esperadas
+#===============================================================
