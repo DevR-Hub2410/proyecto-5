@@ -1,21 +1,32 @@
 - Class: meta
   Course: ANOVA_de_un_factor
   Lesson: Tabla_ANOVA
-  Author: your name goes here
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carillo Navarrete | Yamileth Jalil Calderon | Amanda Sofia Lopez Escarcega
   Type: Standard
-  Organization: your organization's name goes here
+  Organization: Universidad Autonoma de Ciudad Juarez
   Version: 2.4.5
 
-# https://www.probabilidadyestadistica.net/tabla-anova/
+# ============================================================
+# INTRODUCCION A LA TABLA ANOVA
+# ============================================================
+
 - Class: text
   Output: En las lecciones anteriores aprendimos qué es el ANOVA y cuáles son los supuestos necesarios para aplicarlo.
     En esta lección estudiaremos la tabla ANOVA, una herramienta que resume los resultados del análisis de varianza.
     Aprenderemos qué información contiene, cómo se organiza y qué significa cada uno de sus elementos. Finalmente, utilizaremos R para generar e interpretar una tabla ANOVA.
 
+# ============================================================
+# ¿QUE ES LA TABLA ANOVA?
+# ============================================================
+
 - Class: text
   Output: La tabla ANOVA es una representación organizada de los cálculos realizados durante un análisis de varianza.
     Su objetivo es resumir la variabilidad de los datos y mostrar los resultados necesarios para determinar si existen diferencias estadísticamente significativas entre las medias de los grupos.
     Mediante esta tabla podemos observar las sumas de cuadrados, los grados de libertad, los cuadrados medios, el estadístico F y el valor p.
+
+# ============================================================
+# FUENTES DE VARIACION
+# ============================================================
 
 - Class: text
   Output: En un ANOVA de un factor, la tabla se divide conceptualmente en tres fuentes de variación,
@@ -23,6 +34,14 @@
     2. Error representa la variabilidad que existe dentro de los grupos y que no es explicada por el factor.
     3. Total representa la variabilidad total de las observaciones respecto a la media general.
     Es importante mencionar que R normalmente muestra las filas del factor y del error en el resumen de aov(). La fila total puede calcularse, pero no aparece en la salida habitual de summary().
+
+# ============================================================
+# ELEMENTOS DE LA TABLA ANOVA
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. SUMA DE CUADRADOS (SUM SQ)
+# ------------------------------------------------------------
 
 - Class: text
   Output: 1. Suma de cuadrados (Sum Sq). La suma de cuadrados mide la cantidad de variabilidad presente en 
@@ -33,6 +52,10 @@
     cuadrados del error. En general, una mayor suma de cuadrados del factor indica que existe más variabilidad 
     asociada a las diferencias entre los grupos.
 
+# ------------------------------------------------------------
+# 2. GRADOS DE LIBERTAD (DF)
+# ------------------------------------------------------------
+
 - Class: text
   Output: 2. Grados de libertad (Df). Los grados de libertad representan la cantidad de información independiente disponible para 
     estimar la variabilidad. En un ANOVA de un factor se calculan de la siguiente manera, Grados de libertad del factor k - 1.
@@ -40,12 +63,20 @@
     total de observaciones. Por ejemplo, si tenemos tres grupos y un total de treinta observaciones, los grados de libertad del factor serán 2, 
     los del error serán 27 y los totales serán 29.
 
+# ------------------------------------------------------------
+# 3. CUADRADOS MEDIOS (MEAN SQ)
+# ------------------------------------------------------------
+
 - Class: text
   Output: 3. Cuadrados medios (Mean Sq). Los cuadrados medios se obtienen dividiendo la suma de cuadrados entre sus respectivos grados de 
     libertad. En otras palabras, representan una estimación de la variabilidad correspondiente a cada fuente. En la tabla ANOVA se calculan 
     principalmente dos cuadrados medios. Cuadrado medio del factor, se obtiene dividiendo la suma de cuadrados del factor entre sus grados de 
     libertad. Cuadrado medio del error, se obtiene dividiendo la suma de cuadrados del error entre sus grados de libertad.
     Estos valores son necesarios para calcular el estadístico F.
+
+# ------------------------------------------------------------
+# 4. ESTADISTICO F (F VALUE)
+# ------------------------------------------------------------
 
 - Class: text
   Output: 4. Estadístico F (F value).
@@ -55,6 +86,10 @@
     Cuando F es considerablemente mayor que 1, existe mayor evidencia de que las medias de los grupos no son todas iguales.
     Sin embargo, el valor F por sí solo no determina la conclusión. También debemos considerar el valor p.
 
+# ------------------------------------------------------------
+# 5. VALOR P (PR(>F))
+# ------------------------------------------------------------
+
 - Class: text
   Output: 5. Valor p (Pr(>F)).
     El valor p representa la probabilidad, suponiendo que la hipótesis nula es verdadera, de obtener un estadístico F igual o más extremo que el observado.
@@ -63,6 +98,10 @@
     Si el valor p es menor que 0.05, rechazamos la hipótesis nula y concluimos que existe evidencia estadística de que al menos una media es diferente.
     Si el valor p es mayor o igual que 0.05, no rechazamos la hipótesis nula porque no existe evidencia estadística suficiente para afirmar que las medias son diferentes.
     Es importante recordar que un resultado significativo no indica exactamente cuáles grupos presentan diferencias. Ese análisis se realizará en la siguiente lección.
+
+# ============================================================
+# EJEMPLO DE UNA TABLA ANOVA
+# ============================================================
 
 - Class: text
   Output: Ejemplo de una tabla ANOVA.
@@ -76,6 +115,10 @@
     Por lo tanto, rechazamos la hipótesis nula y concluimos que existe evidencia estadística de que al menos una de las medias de los grupos es 
     diferente. No podemos afirmar a partir de esta tabla cuáles grupos son diferentes entre sí.
 
+# ============================================================
+# PRACTICA: GENERACION DE UNA TABLA ANOVA EN R
+# ============================================================
+
 - Class: text
   Output: Ahora realizaremos el análisis utilizando R.
     En la lección anterior trabajamos con el conjunto de datos PlantGrowth, que contiene información sobre el peso de plantas en tres grupos.
@@ -83,15 +126,23 @@
     Primero, recordaremos la estructura del análisis. La variable weight representa la variable de respuesta y group representa el factor que 
     identifica los grupos.
 
+# ------------------------------------------------------------
+# ACTIVIDAD 1: CONSTRUIR EL MODELO ANOVA
+# ------------------------------------------------------------
+
 - Class: cmd_question
   Output: Escribe el comando para construir el modelo ANOVA utilizando weight como variable de respuesta y group como factor.
   CorrectAnswer: modelo <- aov(weight ~ group, data = datos)
   AnswerTests: omnitest(correctExpr='modelo <- aov(weight ~ group, data = datos)')
   Hint: Utiliza aov() y escribe la fórmula weight ~ group.
 
+# ------------------------------------------------------------
+# ACTIVIDAD 2: MOSTRAR LA TABLA ANOVA
+# ------------------------------------------------------------
+
 - Class: text
   Output: Una vez construido el modelo, podemos obtener la tabla ANOVA mediante la función summary().
-    Esta función muestra las principales columnas de la tabla: grados de libertad, suma de cuadrados, cuadrados medios, estadístico F y valor p.
+    Esta función muestra las principales columnas de la tabla grados de libertad, suma de cuadrados, cuadrados medios, estadístico F y valor p.
     Cada columna contiene información importante para interpretar los resultados del análisis.
 
 - Class: cmd_question
@@ -99,6 +150,10 @@
   CorrectAnswer: summary(modelo)
   AnswerTests: omnitest(correctExpr='summary(modelo)')
   Hint: Utiliza la función summary() con el objeto modelo.
+
+# ------------------------------------------------------------
+# INTERPRETACION DE LA TABLA ANOVA
+# ------------------------------------------------------------
 
 - Class: text
   Output: Al ejecutar el comando, obtendrás una tabla con los resultados del análisis.
@@ -110,6 +165,25 @@
     La columna F value representa el estadístico F.
     Finalmente, Pr(>F) muestra el valor p utilizado para tomar una decisión sobre la hipótesis nula.
 
+# ------------------------------------------------------------
+# ACTIVIDAD 3: INTERPRETAR LOS GRADOS DE LIBERTAD DEL ERROR
+# ------------------------------------------------------------
+
+- Class: text
+  Output: Además de consultar la tabla ANOVA, R permite obtener directamente los grados de libertad del error del modelo mediante la función df.residual().
+    Esta función utiliza el modelo ANOVA que construimos anteriormente.
+    En nuestro conjunto de datos PlantGrowth, el resultado debe ser 27, que corresponde a los grados de libertad del error.
+
+- Class: cmd_question
+  Output: Escribe el comando para obtener los grados de libertad del error del modelo ANOVA.
+  CorrectAnswer: df.residual(modelo)
+  AnswerTests: omnitest(correctExpr='df.residual(modelo)')
+  Hint: Utiliza df.residual() e introduce el objeto modelo como argumento.
+
+# ============================================================
+# INTERPRETACION DE LOS RESULTADOS
+# ============================================================
+
 - Class: text
   Output: Interpretación de los resultados.
     En el conjunto de datos PlantGrowth, el resultado del análisis presenta aproximadamente un estadístico F de 4.846 y un valor p de 0.0159.
@@ -118,9 +192,19 @@
     Sin embargo, la tabla ANOVA no nos indica qué grupos presentan diferencias. Para conocer esa información necesitaremos realizar comparaciones 
     múltiples.
 
+# ============================================================
+# CIERRE DE LA LECCION
+# ============================================================
+
 - Class: text
   Output: ¡Excelente trabajo! Has terminado la tercera lección del curso.
-    Ahora conoces la estructura de una tabla ANOVA y sabes interpretar sus principales elementos: sumas de cuadrados, grados de libertad, cuadrados 
+    Ahora conoces la estructura de una tabla ANOVA y sabes interpretar sus principales elementos, sumas de cuadrados, grados de libertad, cuadrados 
     medios, estadístico F y valor p. Recuerda que la tabla ANOVA permite determinar si existe evidencia de diferencias entre las medias, pero no 
     identifica cuáles grupos son diferentes. En la siguiente lección estudiaremos las comparaciones múltiples y aprenderemos a utilizar la prueba de 
     Tukey para identificar entre qué grupos existen diferencias estadísticamente significativas.
+    
+# ============================================================
+# REFERENCIA BIBLIOGRAFICA
+# ============================================================
+
+# https://www.probabilidadyestadistica.net/tabla-anova/
