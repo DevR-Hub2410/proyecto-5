@@ -17,14 +17,273 @@
 # Introduccion
 #===============================================================
 - Class: text
-  Output: En estadística, frecuentemente trabajamos con situaciones en las que tenemos una idea previa de cómo deberían comportarse ciertos datos. Por ejemplo, un dado justo debería presentar la misma probabilidad de obtener cualquiera de sus seir caras, una moneda equilibrada debería presentar la misma probabilidad de obtener cara o cruz, y la cantidad de llamadas recibidas por una central telefónica durante un intervalo podría seguir una distribución de Poisson. 
+  Output: En estadística, frecuentemente trabajamos con situaciones en las que tenemos una idea previa de cómo deberían comportarse ciertos datos. Por ejemplo, un dado justo debería presentar la misma probabilidad de obtener cualquiera de sus seis caras; una moneda equilibrada debería presentar la misma probabilidad de obtener cara o cruz; y la cantidad de llamadas recibidas por una central telefónica durante un intervalo podría seguir una distribución de Poisson. 
   
 - Class: text
-  Output: Sin embargo, que existe un comportamiento esperado no significa que los resultados observados coincidan exactamente con él. Esto suecede porque los resultados de una muestra pueden presentar variaciones aleatorias. 
+  Output: Sin embargo, que exista un comportamiento esperado no significa que los resultados observados coincidan exactamente con él. Esto suecede porque los resultados de una muestra pueden presentar variaciones aleatorias. 
   
 - Class: text
-  Output: Una prueba de bondad de ajuste permite evaluar si las diferencias entre los resultados observados y los que esperaríamos bajo una distribución teórica son suficientemente grandes como para cuestionar dicho modelo. 
+  Output: Una prueba de bondad de ajuste permite evaluar si las diferencias entre los resultados observados y los que esperaríamos bajo una distribución teórica son suficientemente grandes como para cuestionar dicho modelo. En esta primera lección estudiaremos la idea general mediante un dado. En las siguientes lecciones aplicaremos el procedimiento a las distribuciones normal, binomial y Poisson.
   
 #===============================================================
 # Frecuencias observadas y frecuencias esperadas
 #===============================================================
+- Class: text
+  Output: Para comprender cómo funciona una prueba de bondad de ajuste, primero debemos distinguir dos conceptos. La frecuencia observada es la cantidad de veces que ocurre un resultado en una muestra. Se obtiene a partir de los datos recopilados. 
+  
+- Class: text
+  Output: La frecuencia esperada es la cantidad de veces que esperaríamos observar un resultado si la hipótesis nula fuera verdadera. No es un dato que hayamos contado, se calcula a partir del modelo o de las probabilidades teóricas que estamos evaluando.
+  
+- Class: text
+  Output: Consideremos el siguiente ejemplo. Una persona sospecha que un dado podría no ser justo. Para investigar esta situación, realiza 60 lanzamientos y registra cuántas veces aparece cada cara.
+  
+- Class: figure
+  Output: En la pestaña Plots se muestra la tabla con las frecuencias observadas en los 60 lanzamientos.
+  Figure: tabla_observadas.R
+  FigureType: new
+
+- Class: text
+  Output: Si el dado fuera justo, cada una de sus seis caras tendría una probabilida de 1/6. Para calcular la frecuencia esperada utilizamos E = n * p, donde n representa el número total de observaciones y p representa la probabilidad teórica de obtener una categoría.
+  
+- Class: text
+  Output: En nuestro ejemplo, E = 60 * (1/6) = 10. Por lo tanto, esperaríamos obtener cada cara aproximadamente 10 veces. La tabla de comparación queda así.
+  
+- Class: figure
+  Output: En la pestaña Plots se muestra la comparación entre las frecuencias observadas y las esperadas.
+  Figure: tabla_comparacion.R
+  FigureType: new
+
+- Class: mult_question
+  Output: ¿Por qué las frecuencias observadas no tienen que ser exactamente iguales a las frecuencias esperadas? 
+  AnswerChoices: Porque las muestras pueden presentar variaciones aleatorias;Porque las probabilidades teóricas siempre son incorrectas;Porque la frecuencia esperada cambia después de cada lancamiento
+  CorrectAnswer: Porque las muestras pueden presentar variaciones aleatorias
+  AnswerTests: omnitest(correctVal = 'Porque las muestras pueden presentar variaciones aleatorias')
+  Hint: Piensa en lo que ocure al repetir un experimento aleatorio, los resultados de una muestra pueden variar aunque el modelo teórico siga siendo el mismo. La frecuencia esperada es un valor de referencia, no una cantidad que deba observarse exactamente. 
+  
+#===============================================================
+# Hipótesis estadísticas
+#===============================================================
+- Class: text
+  Output: Antes de realizar una prueba estadística, debemos establecer qué queremos investigar. En este ejemplo queremos determinar si los resultados del dado son compatibles con una distribución uniforme, es decir, si todas sus caras tienen la misma probabilidad de aparecer. 
+  
+- Class: text
+  Output: La hipótesis nula, H0, establece que el dado sigue una distribución uniforme, cada cara tiene una probabilidad de 1/6. La hipótesis alternativa, H1,establece que el dado no sigue esa distribución; es decir, al menos una de las probabilidades es diferente de 1/6.
+  
+- Class: text
+  Output: La prueba no busca demostrar que el dado sea justo. Busca determinar si los datos proporcionan evidencia suficiente para rechazar la distribución uniforme propuesta. Si no encontramos evidencia suficiente, no rechazaremos H0, pero no eso desmuestra que H0 sea verdadera.
+  
+#===============================================================
+# Estadístico chi-cuadrada
+#===============================================================
+- Class: text
+  Output: La prueba de bondad de ajuste de Pearson utiliza el estadístico chi-cuadrada para medir las diferencias entre las frecuencias observadas y las esperadas. Su fórmula es, chi-cuadrada = suma de (O - E)^2 / E, para todas las categorías
+
+- Class: text
+  Output: Para cada categoría, restamos la frecuencia esperada a la observada, elevamos la diferencia al cuadrado y dividimos entre la frecuencia esperada. Después sumamos los resultados de todas las categorias. Cuanto mayores sean las diferencias entre las frecuencias observadas y esperadas, mayor será el estadístico chi-cuadrada.
+  
+- Class: text
+  Output: En este ejemplo, las diferencias son -2, 2, -1, 1, 0 y 0. Al aplicar la fórmula obtenermos chi-cuadrada = 1. No es necesario memorizar el cálculo para utilizar R, pero sí comprende qué está comparando el estadístico. 
+  
+- Class: text
+  Output: Los grados de libertad se calculan como gl = k - 1, donde k es el número de categorías. En este ejemplo, gl = 6 - 1 = 5. Utilizamos esta expresión porque hay seis categorías y las probabilidades teóricas están completamente especificadas; no estimamos parámetros de la distribución a partir de la muestra.
+    
+- Class: text
+  Output: La distribución chi-cuadrada nos permitirá evaluar qué tan inusual sería obtener un estadístico igual o mayor que el calculado, suponiendo que la hipótesis nula fuera verdadera. Esa probabilidad de cola derecha es el valor p. 
+  
+#===============================================================
+# Práctica en R
+#===============================================================
+- Class: text
+  Output: Ahora resolveremos el problema con R. Primero construiremos los datos, después calcularemos las frecuencias esperadas y, finalmente, ejecutaremos e interpretaremos la prueba. Avanzaremos paso a paso para comprobar cada resultado antes de continuar.  
+  
+- Class: text
+  Output: Paso 1. Crear el vector de frecuencias observadas. El vector contendrá las seis frecuencias que registramos durante los lanzamientos.
+  
+- Class: cmd_question
+  Output: Construye un vector llamado observados que contenga las frecuencias 8, 12, 9, 11, 10 y 10.
+  CorrectAnswer: observados <- c(8, 12, 9, 11, 10, 10)
+  AnswerTests: test_observados()
+  Hint: Utiliza c() para reunir los seis valores y el operador <- para guardar el vector en observados.
+  
+- Class: cmd_question
+  Output: Paso 2. Comprobar el contenido del vector. Después de crear una variable, es conveniente verificar que contiene los datos correctos. Para visualizar su contenido, podemos escribir el nombre del objeto en la consola. Escribe observados para ver el resultado.
+  CorrectAnswer: observados
+  AnswerTests: omnitest(correctExpr = 'observados')
+  Hint: Escribe observados.
+  
+- Class: text
+  Output: Paso 3. Comprobar el número total de lanzamientos. La suma de las frecuencias observadas debe coincidir con el número de lanzamienos realizados. Utilizaremos sum().
+  
+- Class: cmd_question
+  Output: Utiliza sum() para sumar las frecuencias observadas y guarda el resultado en una variable llamada total.
+  CorrectAnswer: total <- sum(observados)
+  AnswerTests: test_total()
+  Hint: La función sum() recibe el vector observados. Utiliza <- para almacenar el resultado en total.
+  
+- Class: cmd_question
+  Output: Escribe total para ver el resultado.
+  CorrectAnswer: total
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe total.
+  
+- Class: text
+  Output: Paso 4. Identificar las probabilidades teóricas. Bajo la hipótesis de que el dado es justo, las seis caras tienen la misma probabilidad. Como la suma de las probabilidades debe ser 1, cada cara tiene probabilidad 1/6. Utilizaremos rep() para repetir ese valor seis veces. 
+  
+- Class: cmd_question
+  Output: Utiliza rep() para crear un vector de seis probabilidades iguales a 1/6 y guárdalo en probabilidades.
+  CorrectAnswer: probabilidades <- rep(1/6, 6)
+  AnswerTests: test_probabilidades()
+  Hint: rep() permite repetir un valor. Necesitamos repetir 1/6 un total de seis veces.
+  
+- Class: text
+  Output: Paso 5. Comprobar que las probabilidades suman 1. Una distribución de probabilidad completa debe asignar una probabilidad total de 1 a todos los resultados posibles. Utilizaremos sum() para verificarlo.
+  
+- Class: cmd_question
+  Output: Calcula la suma de probabilidades utilizando sum() para tu vector probabilidades.
+  CorrectAnswer: sum(probabilidades)
+  AnswerTests: test_suma_prob()
+  Hint: Utiliza sum() sobre el vector probabilidades.
+  
+- Class: text
+  Output: El resultado debe ser 1. Esto confirma que las seis probabilidades incluyen todos los resultados posibles del dado y forman una distribución de probabilidad.
+  
+- Class: text
+  Output: Paso 6. Calcular las frecuencias esperadas. Recordemos que E = n * p. Ya tenemos el total de observaciones en total y las probabilidades teóricas en probabilidades. R puede multiplicar el total por cada elemento del vector de probabilidades. 
+  
+- Class: cmd_question
+  Output: Multiplica total por probabilidades y almacena el resultado en una variable llamada esperados.
+  CorrectAnswer: esperados <- total * probabilidades
+  AnswerTests: test_esperados()
+  Hint: Utiliza el operador * para multiplicar total por cada elemento de probabilidades.
+  
+- Class: cmd_question
+  Output: Escribe esperados para visualizar las frecuencias esperadas.
+  CorrectAnswer: esperados
+  AnswerTests: omnitest(correctExpr = 'esperados')
+  Hint: Escribe únicamente esperados. Debes obtener seis valores iguales a 10, porque 60 multiplicado por 1/6 es 10. 
+  
+- Class: text
+  Output: Cada valor del vector esperados es 10. Esto significa que, si el dado sigue una distribución uniforme, esperamos obtener cada cara 10 veces en 60 lanzamientos. 
+  
+- Class: text
+  Output: Antes de aplicar la prueba, debemos revisar sus condiciones. Las observaciones deben ser independientes y las categorías deben ser excluyentes y cubrir todos los resultados posibles. Además, como regla práctica para la aproximación chi-cuadrada de Pearson, las frecuencias esperadas deben ser suficientemente grandes; en este curso procuraremos que todas sean al menos 5. En nuestro ejemplo, todas las frecuencias esperadas son 10, por lo que cumplen esta regla práctica. La independencia depende de cómo se realizó el experimento y no se demuestra únicamente con el resultado de R.
+  
+- Class: text
+  Output: Paso 7. Ejecutar la prueba chi-cuadrada. Ahora contamos con las frecuencias observadas y las probabilidades teóricas. La función chisq.test() realiza la prueba chi-cuadrada de Pearson. El argumento x recibe las frecuencias observadas y el argumento p recibe las probabilidades teóricas de las categorías.
+  
+- Class: cmd_question
+  Output: Ejecuta chisq.test() utilizando observados y probabilidades. Guarda el resultado en prueba.
+  CorrectAnswer: prueba <- chisq.test(observados, p = probabilidades)
+  AnswerTests: test_prueba()
+  Hint: El primer argumento es observados. Después, escribe p = probabilidades para indicar el modelo teórico.
+  
+- Class: cmd_question
+  Output: Paso 8. Visualizar el resultado. Escribe prueba.
+  CorrectAnswer: prueba
+  AnswerTests: omnitest(correctExpr = 'prueba')
+  Hint: Escribe prueba.
+  
+- Class: text
+  Output: El resultado debe mostrar aproximadamente X-squared = 1, df = 5 y p-value = 0.9626. x-squared es el estadístico chi-cuadrada; df representa los grados de libertad de la prueba; p-value la probabilidad de obtener un estadístico igual o mayor que el observado si H0 fuera verdadera.
+
+- Class: text
+  Output: La función chisq.test() devuelve un objeto que contiene distintos elementos. Podemos acceder a ellos mediante el operador $. Por ejemplo prueba$statistic devuelve el estadistico chi-cuadrada, prueba$parameter devuelve los grados de libertad y prueba$p.value devuelve el valor p. Esto nos permite consultar cada resultado individualmente sin tener que visualizar nuevamente todo el objeto. 
+
+- Class: text
+  Output: Paso 9. Extraer el valor p. El componente p.value contiene la probabilidad que utilizaremos para tomar una decisión estadística. Es importante recordar que el valor p no es la probabilidad de que H0 sea verdadera.
+    
+- Class: cmd_question
+  Output: Accede al componente p.value del objeto prueba y guarda el resultado en valor_p.
+  CorrectAnswer: valor_p <- prueba$p.value
+  AnswerTests: test_valor_p()
+  Hint: Utiliza el operador $ para acceder a p.value dentro del objeto prueba.
+  
+- Class: text
+  Output: Paso 10. Establecer el nivel de significancia. Antes de tomar una decisión debemos el nivel de significancia, representado por alfa. En este ejercicio utilizaremos alfa = 0.05, equivalente al 5%. Si el valor p es menor o igual que alfa, rechazamos H0. Si el valor p es nayor que alfa, no rechazamos H0.
+  
+- Class: cmd_question
+  Output: Establece el nivel de significancia de 0.05 y almacénalo en la variable alfa.
+  CorrectAnswer: alfa <- 0.05
+  AnswerTests: test_alfa()
+  Hint: Utiliza el operador <- para asignar el valor 0.05 a la variable alfa.
+  
+- Class: text
+  Output: Paso 11. Comparar el valor p con el nivel de significancia. La expresión valor_p > alfa compara ambos valores. R devuelve TRUE si el valor p es mayo que alf y FALSE si no lo es. En este ejercicio esperamos obtener TRUE.
+  
+- Class: cmd_question
+  Output: Utiliza el operador > para comprobar si valor_p es mayor que alfa.
+  CorrectAnswer: valor_p > alfa
+  AnswerTests: test_decision()
+  Hint: La comparación valor_p > alfa devuelve TRUE cuando el valor p supera el nivel de significancia.
+  
+# ===============================================================
+# Iinterpretacion y conclusion
+# ===============================================================
+
+- Class: text
+  Output: El resultado de la comparación es TRUE porque 0.9626 es mayor que 0.05. Por lo tanto, no rechazamos H0. Esto significa que, con estos datos y al nivel de significancia del 5%, no encontramos evidencia estadística suficiente para afirmar que las probabilidades de las caras sean diferentes.
+
+- Class: text
+  Output: Observa la diferencia entre no rechazar H0 y demostrar que H0 es verdadera. La prueba no demuestra que el dado sea perfectamente justo; únicamente indica que las diferencias observadas son compatibles con la variabilidad aleatoria bajo el modelo uniforme.
+  
+- Class: mult_question
+  Output: El valor p obtenido fue aproximadamente 0.9626 y el nivel de significancia es 0.05. ¿Cuál es la conclusión correcta?
+  AnswerChoices: Se rechaza H0 porque el valor p es mayor que 0.05;No se rechaza H0 porque el valor p es mayor que 0.05;Se demuestra que el dado es perfectamente justo;No se puede realizar ninguna conclusión.
+  CorrectAnswer: No se rechaza H0 porque el valor p es mayor que 0.05.
+  AnswerTests: omnitest(correctVal = 'No se rechaza H0 porque el valor p es mayor que 0.05.')
+  Hint: Primero compara 0.9626 con 0.05. Después recuerda que un valor p mayor que alfa conduce a no rechazar H0. No rechazar H0 no equivale a demostrar que sea verdadera.
+  
+- Class: mult_question
+  Output: ¿Qué representa el valor p en esta prueba?
+  AnswerChoices: La probabilidad de que el dado sea justo; La probabilidad, suponiendo que H0 es verdadera, de obtener un estadístico chi-cuadrada igual o mayor que el observado; El porcentaje de lanzamientos en los que apareció cada cara; La probabilidad de que la hipótesis alternativa sea verdadera
+  CorrectAnswer: La probabilidad, suponiendo que H0 es verdadera, de obtener un estadístico chi-cuadrada igual o mayor que el observado
+  AnswerTests: omnitest(correctVal = 'La probabilidad, suponiendo que H0 es verdadera, de obtener un estadístico chi-cuadrada igual o mayor que el observado')
+  Hint: El valor p se calcula bajo el supuesto de que H0 es verdadera. No representa la probabilidad de que H0 sea cierta; mide qué tan extremo sería el resultado observado bajo ese supuesto.
+  
+# ===============================================================
+# Cierre
+# ===============================================================
+
+- Class: text
+  Output: En esta lección aprendiste que una prueba de bondad de ajuste compara las frecuencias observadas con las frecuencias esperadas bajo un modelo teórico. También formulaste hipótesis, construiste los vectores en R, calculaste las frecuencias esperadas y ejecutaste chisq.test() para obtener el estadístico chi-cuadrada, los grados de libertad y el valor p.
+
+- Class: text
+  Output: Recuerda la secuencia de trabajo, identificar el modelo que se desea evaluar, formular H0 y H1, obtener las frecuencias observadas, calcular las frecuencias esperadas, verificar las condiciones de aplicación, ejecutar la prueba e interpretar el valor p en relación con el nivel de significancia.
+
+- Class: text
+  Output: En la siguiente lección aplicarás este procedimiento a tres distribuciones de probabilidad, normal, binomial y Poisson. Aprenderás cómo obtener las probabilidades teóricas y convertirlas en frecuencias esperadas para realizar las pruebas de bondad de ajuste.
+    
+#===============================================================
+# Referencias
+#===============================================================
+
+- Class: text
+  Output: >
+    Referencias y recursos de consulta:
+
+    1. R Core Team. (s. f.). chisq.test: Pearson's Chi-squared Test
+    for Count Data. R Documentation.
+    https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html
+
+    2. Penn State Eberly College of Science. (s. f.). STAT 200:
+    Chi-Square Tests.
+    https://online.stat.psu.edu/stat200/Lesson11
+
+    3. swirl. (s. f.). Instructor Guide.
+    https://swirlstats.com/instructors.html
+
+    4. swirl. (s. f.). Answer Tests.
+    https://rdrr.io/cran/swirl/man/AnswerTests.html
+
+    Consulta estos materiales para profundizar en la prueba chi-cuadrada,
+    revisar los argumentos de chisq.test() y conocer cómo se construyen
+    las pruebas automáticas de respuestas en swirl.
+    
+
+# R Core Team. (s. f.). chisq.test: Pearson's Chi-squared Test for Count Data. R Documentation. https://web.mit.edu/r/current/lib/R/library/stats/html/chisq.test.html
+
+# Penn State University. (s. f.). STAT 200: Chi-Square Tests. https://online.stat.psu.edu/stat200/Lesson11
+
+# Swirl. (s. f.). Instructor Guide. https://swirlstats.com/instructors.html
+
+# Swirl. (s. f.). Answer Tests. https://rdrr.io/cran/swirl/man/AnswerTests.html
