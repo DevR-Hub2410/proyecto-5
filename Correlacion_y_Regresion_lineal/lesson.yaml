@@ -220,3 +220,11 @@
 - Class: text
   Output: ¡Felicidades! Has concluido la lección de Correlación y Regresión lineal. Ahora sabes medir la relación entre dos variables, ajustar una recta y usarla para predecir con cuidado.
 
+#Referencias--------------------------------------------------------------------
+
+# Universidad Abierta y a Distancia de México [UnADM]. (2019). Estadística básica: Unidad 3. Correlación y regresión lineal simple. División de Ciencias Exactas, Ingeniería y Tecnología. 
+# https://dmd.unadmexico.mx/contenidos/TRONCO_COMUN/EBA/U3/descargables/EBA_U3_Contenidos.pdf
+
+
+# Estadística climatológica con R: 3. Regresión y correlación. (2023). Programa de Educación y Formación Profesional de la OMM. 
+# https://etrp.wmo.int/pluginfile.php/68806/mod_resource/content/1/3.-%20Correlacion.pdf 
