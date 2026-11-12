@@ -2,7 +2,7 @@
 
 Curso interactivo de Estadistica para R, construido con el paquete **swirl**. Se aprende dentro de la consola de RStudio: cada lección explica un concepto, hace preguntas, pide ejecutar código en R y da retroalimentación y pistas (*hints*).
 
-Proyecto 5 de la materia Estadística (Universidad Autónoma de Ciudad Juárez, Ingeniería de Software).
+Proyecto 6 de la materia Estadística (Universidad Autónoma de Ciudad Juárez, Ingeniería de Software).
 Docente: Dra. Liliana Orizel Martínez Martínez.
 
 ## Integrantes 
@@ -16,7 +16,7 @@ Proyecto realizado por la unión del Equipo K y del Equipo D.
 
 ## Descripción general
 
-El curso integra y mejora los productos de los Proyecto 1, 2 y 3 en un solo recorrido. Está pensado para que lo pueda tomar una persona **sin experiencia previa en R ni RStudio**: la primera lección enseña lo mínimo necesario para poder seguir las demás. 
+El curso integra y mejora los productos de los Proyecto 1, 2 y 3 en un solo recorrido, ademas de agregar conceptos mas avanzados de estadistica como las pruebas de hipotesis, bondad de ajuste e independencia, correlacion y regrecion lineal y ANOVA de un factor. Está pensado para que lo pueda tomar una persona **sin experiencia previa en R ni RStudio**: la primera lección enseña lo mínimo necesario para poder seguir las demás. 
 
 Todas las lecciones siguen la secuencia **explicación, pregunta, práctica en R, interpretación**, y usan ejemplo de ingeniería de software (tiempos de respuesta, usuarios, errores en módulos, etc.).
 
@@ -35,6 +35,17 @@ Todas las lecciones siguen la secuencia **explicación, pregunta, práctica en R
 | 8 | `Unidad_3_Estimacion/Leccion_1_Estimacion_Puntual_Intervalos` | Parámetros y estimadores, estimación puntual, intervalos de confianza para una media y una proporción |
 | 9 | `Unidad_3_Estimacion/Leccion_2_Confianza_Precision_Tamano` | Nivel de confianza, margen de error, precisión y tamaño de muestra |
 | 10 | `Unidad_3_Estimacion/Leccion_3_Estimacion_Dos_Poblaciones` | Intervalos de confianza para la diferencia de medias, la diferencia de proporciones y la razón de varianzas |
+| 11 | `Pruebas_De_Hipotesis` | Pruebas de hipótesis para medias, proporciones y varianzas |
+| 12 | `Bondad_De_Ajuste_E_Independencia/Introduccion_Bondad_Ajuste` | Introducción a las pruebas de bondad de ajuste e independencia |
+| 13 | `Bondad_De_Ajuste_E_Independencia/Bondad_Ajuste_Distribuciones_De_Probabilidad` | Evaluación del ajuste a distribuciones de probabilidad |
+| 14 | `Bondad_De_Ajuste_E_Independencia/Pruebas_De_Independencia` | Análisis de la independencia entre variables |
+| 15 | `Bondad_De_Ajuste_E_Independencia/Pruebas_De_Homogenidad` | Comparación de proporciones entre poblaciones |
+| 16 | `Bondad_De_Ajuste_E_Independencia/Interpretacion_Y_Aplicacion_Practica` | Interpretación y aplicación de pruebas estadísticas |
+| 17 | `Correlacion_Y_Regresion_Lineal` | Análisis de correlación y regresión lineal |
+| 18 | `ANOVA_De_Un_Factor/Introduccion_ANOVA_De_Un_Factor` | Introducción al análisis de varianza de un factor |
+| 19 | `ANOVA_De_Un_Factor/Supuesto_Del_ANOVA` | Supuestos de independencia, normalidad y homogeneidad |
+| 20 | `ANOVA_De_Un_Factor/Tabla_ANOVA` | Componentes e interpretación de la tabla ANOVA |
+| 21 | `ANOVA_De_Un_Factor/Comparaciones_Multiples` | Comparaciones múltiples y prueba de Tukey |
 
 ### Lección inicial: Conociendo R y RStudio
 
@@ -70,9 +81,35 @@ proyecto-5/
 │
 └── Unidad_3_Estimacion/
 │   ├── MANIFEST
-    ├── Leccion_1_Estimacion_Puntual_Intervalos/
-    ├── Leccion_2_Confianza_Precision_Tamano/     (incluye fig_efecto_n.R)
-    └── Leccion_3_Estimacion_Dos_Poblaciones/
+│   ├── Leccion_1_Estimacion_Puntual_Intervalos/
+│   ├── Leccion_2_Confianza_Precision_Tamano/     (incluye fig_efecto_n.R)
+│   └── Leccion_3_Estimacion_Dos_Poblaciones/
+│
+├── Pruebas_De_Hipotesis/  
+│   ├── lesson.yaml
+│   ├── initLesson.R
+│   └── customTests.R
+│
+├── Bondad_De_Ajuste_E_Independencia/  
+│   ├── Introduccion_Bondad_Ajuste/
+│   ├── Bondad_Ajuste_Distribuciones_De_Probabilidad/
+│   ├── Pruebas_De_Independencia/
+│   ├── Pruebas_De_Homogenidad/
+│   └── Interpretacion_Y_Aplicacion_Practica/
+│
+├── Correlacion_Y_Regresion_Lineal/  
+│   ├── lesson.yaml
+│   ├── initLesson.R
+│   ├── customTests.R
+│   └── dependson.txt
+│
+├── ANOVA_De_Un_Factor/  
+│   ├── MANIFEST
+│   ├── Introduccion_ANOVA_De_Un_Factor/
+│   ├── Supuestos_Del_ANOVA/
+│   ├── Tabla_ANOVA/
+│   └── Comparaciones_Multiples/
+│
 ```
 
 Cada lección es autónoma y contiene:
