@@ -587,4 +587,28 @@
 - Class: text
   Output: ¡Felicidades! Has concluido la lección sobre pruebas de bondad de ajuste para distribuciones de probabilidad. Ahora conoces cómo utilizar los modelos normal, binomial y Poisson para calcular probabilidades teóricas, obtener frecuencias esperadas y evaluar si los datos observados son compatibles con una distribución propuesta.
 
+#===============================================================
+# Referencias
+#===============================================================
 
+- Class: text
+  Output: |
+    Referencias didácticas
+
+    R Core Team. (2026). R Documentation. The R Project for Statistical Computing.
+    https://www.r-project.org/
+
+    R Core Team. (2026). The Normal Distribution. R Documentation, paquete stats.
+    https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Normal.html
+
+    R Core Team. (2026). The Binomial Distribution. R Documentation, paquete stats.
+    https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Binomial.html
+
+    R Core Team. (2026). The Poisson Distribution. R Documentation, paquete stats.
+    https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Poisson.html
+
+    R Core Team. (2026). The Chi-Squared Test for Given Probabilities. R Documentation, paquete stats.
+    https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Chisquare.html
+
+    Pennsylvania State University. (s. f.). Goodness of Fit Test. STAT 200.
+    https://online.stat.psu.edu/stat200/lesson/10/10.2

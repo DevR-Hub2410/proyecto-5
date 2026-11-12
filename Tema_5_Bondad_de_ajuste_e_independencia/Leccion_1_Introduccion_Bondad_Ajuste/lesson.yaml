@@ -11,7 +11,7 @@
 #===============================================================
 
 - Class: text
-  Output: Al finalizar esta leccion, serás capaz de explicar qué es una prueba de bondad de ajuste, diferenciar frecuencias observadas y esperadas, formular las hipótesis nula y alternativa, reconocer el estadístico chi-cuadrada, realizar una primera prueba de bondad de ajuste en R e interpretar los resultados y formular una conclusión estadística. 
+  Output: Al finalizar esta lección, serás capaz de explicar qué es una prueba de bondad de ajuste, diferenciar frecuencias observadas y esperadas, formular las hipótesis nula y alternativa, reconocer el estadístico chi-cuadrada, realizar una primera prueba de bondad de ajuste en R e interpretar los resultados y formular una conclusión estadística. 
   
 #===============================================================
 # Introduccion
@@ -20,7 +20,7 @@
   Output: En estadística, frecuentemente trabajamos con situaciones en las que tenemos una idea previa de cómo deberían comportarse ciertos datos. Por ejemplo, un dado justo debería presentar la misma probabilidad de obtener cualquiera de sus seis caras; una moneda equilibrada debería presentar la misma probabilidad de obtener cara o cruz; y la cantidad de llamadas recibidas por una central telefónica durante un intervalo podría seguir una distribución de Poisson. 
   
 - Class: text
-  Output: Sin embargo, que exista un comportamiento esperado no significa que los resultados observados coincidan exactamente con él. Esto suecede porque los resultados de una muestra pueden presentar variaciones aleatorias. 
+  Output: Sin embargo, que exista un comportamiento esperado no significa que los resultados observados coincidan exactamente con él. Esto sucede porque los resultados de una muestra pueden presentar variaciones aleatorias. 
   
 - Class: text
   Output: Una prueba de bondad de ajuste permite evaluar si las diferencias entre los resultados observados y los que esperaríamos bajo una distribución teórica son suficientemente grandes como para cuestionar dicho modelo. En esta primera lección estudiaremos la idea general mediante un dado. En las siguientes lecciones aplicaremos el procedimiento a las distribuciones normal, binomial y Poisson.
@@ -43,7 +43,7 @@
   FigureType: new
 
 - Class: text
-  Output: Si el dado fuera justo, cada una de sus seis caras tendría una probabilida de 1/6. Para calcular la frecuencia esperada utilizamos E = n * p, donde n representa el número total de observaciones y p representa la probabilidad teórica de obtener una categoría.
+  Output: Si el dado fuera justo, cada una de sus seis caras tendría una probabilidad de 1/6. Para calcular la frecuencia esperada utilizamos E = n * p, donde n representa el número total de observaciones y p representa la probabilidad teórica de obtener una categoría.
   
 - Class: text
   Output: En nuestro ejemplo, E = 60 * (1/6) = 10. Por lo tanto, esperaríamos obtener cada cara aproximadamente 10 veces. La tabla de comparación queda así.
@@ -55,10 +55,10 @@
 
 - Class: mult_question
   Output: ¿Por qué las frecuencias observadas no tienen que ser exactamente iguales a las frecuencias esperadas? 
-  AnswerChoices: Porque las muestras pueden presentar variaciones aleatorias;Porque las probabilidades teóricas siempre son incorrectas;Porque la frecuencia esperada cambia después de cada lancamiento
+  AnswerChoices: Porque las muestras pueden presentar variaciones aleatorias;Porque las probabilidades teóricas siempre son incorrectas;Porque la frecuencia esperada cambia después de cada lanzamiento
   CorrectAnswer: Porque las muestras pueden presentar variaciones aleatorias
   AnswerTests: omnitest(correctVal = 'Porque las muestras pueden presentar variaciones aleatorias')
-  Hint: Piensa en lo que ocure al repetir un experimento aleatorio, los resultados de una muestra pueden variar aunque el modelo teórico siga siendo el mismo. La frecuencia esperada es un valor de referencia, no una cantidad que deba observarse exactamente. 
+  Hint: Piensa en lo que ocurre al repetir un experimento aleatorio, los resultados de una muestra pueden variar aunque el modelo teórico siga siendo el mismo. La frecuencia esperada es un valor de referencia, no una cantidad que deba observarse exactamente. 
   
 #===============================================================
 # Hipótesis estadísticas
@@ -70,7 +70,7 @@
   Output: La hipótesis nula, H0, establece que el dado sigue una distribución uniforme, cada cara tiene una probabilidad de 1/6. La hipótesis alternativa, H1,establece que el dado no sigue esa distribución; es decir, al menos una de las probabilidades es diferente de 1/6.
   
 - Class: text
-  Output: La prueba no busca demostrar que el dado sea justo. Busca determinar si los datos proporcionan evidencia suficiente para rechazar la distribución uniforme propuesta. Si no encontramos evidencia suficiente, no rechazaremos H0, pero no eso desmuestra que H0 sea verdadera.
+  Output: La prueba no busca demostrar que el dado sea justo. Busca determinar si los datos proporcionan evidencia suficiente para rechazar la distribución uniforme propuesta. Si no encontramos evidencia suficiente, no rechazaremos H0, pero eso no demuestra que H0 sea verdadera.
   
 #===============================================================
 # Estadístico chi-cuadrada
@@ -79,10 +79,10 @@
   Output: La prueba de bondad de ajuste de Pearson utiliza el estadístico chi-cuadrada para medir las diferencias entre las frecuencias observadas y las esperadas. Su fórmula es, chi-cuadrada = suma de (O - E)^2 / E, para todas las categorías
 
 - Class: text
-  Output: Para cada categoría, restamos la frecuencia esperada a la observada, elevamos la diferencia al cuadrado y dividimos entre la frecuencia esperada. Después sumamos los resultados de todas las categorias. Cuanto mayores sean las diferencias entre las frecuencias observadas y esperadas, mayor será el estadístico chi-cuadrada.
+  Output: Para cada categoría, restamos la frecuencia esperada a la observada, elevamos la diferencia al cuadrado y dividimos entre la frecuencia esperada. Después sumamos los resultados de todas las categorías. Cuanto mayores sean las diferencias entre las frecuencias observadas y esperadas, mayor será el estadístico chi-cuadrada.
   
 - Class: text
-  Output: En este ejemplo, las diferencias son -2, 2, -1, 1, 0 y 0. Al aplicar la fórmula obtenermos chi-cuadrada = 1. No es necesario memorizar el cálculo para utilizar R, pero sí comprende qué está comparando el estadístico. 
+  Output: En este ejemplo, las diferencias son -2, 2, -1, 1, 0 y 0. Al aplicar la fórmula obtenemos chi-cuadrada = 1. No es necesario memorizar el cálculo para utilizar R, pero sí comprender qué está comparando el estadístico. 
   
 - Class: text
   Output: Los grados de libertad se calculan como gl = k - 1, donde k es el número de categorías. En este ejemplo, gl = 6 - 1 = 5. Utilizamos esta expresión porque hay seis categorías y las probabilidades teóricas están completamente especificadas; no estimamos parámetros de la distribución a partir de la muestra.
@@ -112,7 +112,7 @@
   Hint: Escribe observados.
   
 - Class: text
-  Output: Paso 3. Comprobar el número total de lanzamientos. La suma de las frecuencias observadas debe coincidir con el número de lanzamienos realizados. Utilizaremos sum().
+  Output: Paso 3. Comprobar el número total de lanzamientos. La suma de las frecuencias observadas debe coincidir con el número de lanzamientos realizados. Utilizaremos sum().
   
 - Class: cmd_question
   Output: Utiliza sum() para sumar las frecuencias observadas y guarda el resultado en una variable llamada total.
@@ -187,7 +187,7 @@
   Output: El resultado debe mostrar aproximadamente X-squared = 1, df = 5 y p-value = 0.9626. x-squared es el estadístico chi-cuadrada; df representa los grados de libertad de la prueba; p-value la probabilidad de obtener un estadístico igual o mayor que el observado si H0 fuera verdadera.
 
 - Class: text
-  Output: La función chisq.test() devuelve un objeto que contiene distintos elementos. Podemos acceder a ellos mediante el operador $. Por ejemplo prueba$statistic devuelve el estadistico chi-cuadrada, prueba$parameter devuelve los grados de libertad y prueba$p.value devuelve el valor p. Esto nos permite consultar cada resultado individualmente sin tener que visualizar nuevamente todo el objeto. 
+  Output: La función chisq.test() devuelve un objeto que contiene distintos elementos. Podemos acceder a ellos mediante el operador $. Por ejemplo prueba$statistic devuelve el estadístico chi-cuadrada, prueba$parameter devuelve los grados de libertad y prueba$p.value devuelve el valor p. Esto nos permite consultar cada resultado individualmente sin tener que visualizar nuevamente todo el objeto. 
 
 - Class: text
   Output: Paso 9. Extraer el valor p. El componente p.value contiene la probabilidad que utilizaremos para tomar una decisión estadística. Es importante recordar que el valor p no es la probabilidad de que H0 sea verdadera.
@@ -199,7 +199,7 @@
   Hint: Utiliza el operador $ para acceder a p.value dentro del objeto prueba.
   
 - Class: text
-  Output: Paso 10. Establecer el nivel de significancia. Antes de tomar una decisión debemos el nivel de significancia, representado por alfa. En este ejercicio utilizaremos alfa = 0.05, equivalente al 5%. Si el valor p es menor o igual que alfa, rechazamos H0. Si el valor p es nayor que alfa, no rechazamos H0.
+  Output: Paso 10. Establecer el nivel de significancia. Antes de tomar una decisión debemos establecer el nivel de significancia, representado por alfa. En este ejercicio utilizaremos alfa = 0.05, equivalente al 5%. Si el valor p es menor o igual que alfa, rechazamos H0. Si el valor p es mayor que alfa, no rechazamos H0.
   
 - Class: cmd_question
   Output: Establece el nivel de significancia de 0.05 y almacénalo en la variable alfa.
@@ -208,7 +208,7 @@
   Hint: Utiliza el operador <- para asignar el valor 0.05 a la variable alfa.
   
 - Class: text
-  Output: Paso 11. Comparar el valor p con el nivel de significancia. La expresión valor_p > alfa compara ambos valores. R devuelve TRUE si el valor p es mayo que alf y FALSE si no lo es. En este ejercicio esperamos obtener TRUE.
+  Output: Paso 11. Comparar el valor p con el nivel de significancia. La expresión valor_p > alfa compara ambos valores. R devuelve TRUE si el valor p es mayor que alf y FALSE si no lo es. En este ejercicio esperamos obtener TRUE.
   
 - Class: cmd_question
   Output: Utiliza el operador > para comprobar si valor_p es mayor que alfa.
@@ -217,7 +217,7 @@
   Hint: La comparación valor_p > alfa devuelve TRUE cuando el valor p supera el nivel de significancia.
   
 # ===============================================================
-# Iinterpretacion y conclusion
+# Interpretacion y conclusion
 # ===============================================================
 
 - Class: text
@@ -278,12 +278,3 @@
     Consulta estos materiales para profundizar en la prueba chi-cuadrada,
     revisar los argumentos de chisq.test() y conocer cómo se construyen
     las pruebas automáticas de respuestas en swirl.
-    
-
-# R Core Team. (s. f.). chisq.test: Pearson's Chi-squared Test for Count Data. R Documentation. https://web.mit.edu/r/current/lib/R/library/stats/html/chisq.test.html
-
-# Penn State University. (s. f.). STAT 200: Chi-Square Tests. https://online.stat.psu.edu/stat200/Lesson11
-
-# Swirl. (s. f.). Instructor Guide. https://swirlstats.com/instructors.html
-
-# Swirl. (s. f.). Answer Tests. https://rdrr.io/cran/swirl/man/AnswerTests.html
