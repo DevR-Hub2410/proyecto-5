@@ -1,0 +1,238 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Leccion_4_Pruebas_de_homogeneidad
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autónoma de Ciudad Juárez
+  Version: 1.0.0
+
+#===============================================================
+# Introducción
+#===============================================================
+
+- Class: text
+  Output: |
+    En estadística, en ocasiones necesitamos comparar las características de diferentes grupos para determinar si presentan una distribución similar.
+
+    Por ejemplo, una universidad podría querer conocer si los estudiantes de distintas carreras tienen las mismas preferencias al elegir recursos de estudio, como videos, lecturas o ejercicios prácticos.
+
+    Para analizar este tipo de situaciones podemos utilizar la prueba chi-cuadrado de homogeneidad.
+
+    Esta prueba permite determinar si la distribución de una variable categórica es similar entre dos o más poblaciones o grupos independientes.
+
+    A lo largo de esta lección aprenderás a organizar los datos en una tabla de contingencia, formular las hipótesis, aplicar la prueba e interpretar sus resultados.
+
+#===============================================================
+# Tabla de contingencia
+#===============================================================
+
+- Class: text
+  Output: |
+    Los datos ya se encuentran preparados en el conjunto datos_estudiantes.
+
+    Tenemos dos variables categóricas. La variable carrera identifica el grupo al que pertenece cada estudiante, mientras que recurso_estudio representa su preferencia.
+
+    Para comparar las distribuciones de preferencias entre las carreras, primero necesitamos construir una tabla de contingencia.
+
+    En R podemos utilizar la función table(), indicando las dos variables que deseamos cruzar.
+
+- Class: cmd_question
+  Output: |
+    Construye una tabla de contingencia utilizando las variables carrera y recurso_estudio del conjunto datos_estudiantes.
+
+    Guarda el resultado en una variable llamada tabla_homogeneidad.
+  CorrectAnswer: tabla_homogeneidad <- table(datos_estudiantes$carrera, datos_estudiantes$recurso_estudio)
+  AnswerTests: test_tabla_homogeneidad()
+  Hint: Utiliza table() con las dos variables del conjunto de datos y asigna el resultado a tabla_homogeneidad.
+  
+#===============================================================
+# Frecuencias esperadas e hipótesis
+#===============================================================
+
+- Class: text
+  Output: |
+    En la lección anterior también aprendiste que las frecuencias esperadas representan las cantidades que se obtendrían bajo el supuesto establecido por la hipótesis nula.
+
+    En una prueba de homogeneidad utilizamos el mismo principio matemático, pero con un propósito diferente.
+
+    Ahora queremos comparar las distribuciones de una característica categórica entre diferentes grupos.
+
+    Si las preferencias por los recursos de estudio fueran homogéneas entre las tres carreras, esperaríamos que cada una presentara proporciones similares de estudiantes que prefieren videos,lecturas y ejercicios prácticos.
+
+    Para nuestro conjunto de datos, las frecuencias esperadas son aproximadamente las siguientes en cada carrera.
+
+    Videos: 21.67 estudiantes.
+    Lecturas: 20 estudiantes.
+    Practicos: 18.33 estudiantes.
+
+    No es necesario volver a calcularlas manualmente, ya que este procedimiento fue estudiado en la lección anterior.
+
+    Ahora formulemos las hipótesis de nuestra prueba.
+
+- Class: text
+  Output: |
+    Las hipótesis para una prueba de homogeneidad son:
+
+    H0: La distribución de las preferencias por los recursos de estudio es la misma en las tres carreras.
+
+    H1: Al menos una de las carreras presenta una distribución de preferencias diferente.
+
+    Observa que la hipótesis alternativa no afirma que todas las carreras sean diferentes. Basta con que al menos una distribución difiera de las demás.
+
+    El objetivo será determinar si las diferencias observadas en nuestra tabla son suficientemente grandes para concluir que las distribuciones no son homogéneas.
+    
+#===============================================================
+# Prueba chi-cuadrado de homogeneidad
+#===============================================================
+
+- Class: text
+  Output: |
+    Para realizar la prueba chi-cuadrado de homogeneidad utilizaremos la función chisq.test(), que ya conoces de las lecciones anteriores.
+
+    En esta ocasión, proporcionaremos como argumento la tabla de contingencia que construimos anteriormente.
+
+    R comparará las frecuencias observadas con las frecuencias esperadas bajo el supuesto de que las distribuciones son iguales entre las carreras.
+
+    El resultado incluirá el estadístico chi-cuadrado, los grados de libertad y el valor p.
+
+- Class: cmd_question
+  Output: |
+    Aplica la prueba chi-cuadrado a la tabla de contingencia que construiste anteriormente.
+
+    Guarda el resultado en una variable llamada prueba_homogeneidad.
+  CorrectAnswer: prueba_homogeneidad <- chisq.test(tabla_homogeneidad)
+  AnswerTests: test_prueba_homogeneidad()
+  Hint: Utiliza chisq.test() con tabla_homogeneidad y guarda el resultado en prueba_homogeneidad.
+  
+- Class: text
+  Output: |
+    La función chisq.test() también almacena las frecuencias esperadas
+    dentro del resultado de la prueba.
+
+    Podemos acceder a ellas mediante el elemento expected.
+
+    Esto nos permite comprobar los valores que R utilizó para realizar la comparación estadística y verificar que las condiciones de aplicación sean adecuadas.
+
+- Class: cmd_question
+  Output: |
+    Extrae las frecuencias esperadas del objeto prueba_homogeneidad.
+
+    Guarda los valores en una variable llamada esperadas_homogeneidad.
+  CorrectAnswer: esperadas_homogeneidad <- prueba_homogeneidad$expected
+  AnswerTests: test_esperadas_homogeneidad()
+  Hint: Utiliza el símbolo $ para acceder al elemento expected de prueba_homogeneidad.
+  
+- Class: cmd_question
+  Output: |
+    Ahora que has guardado las frecuencias esperadas, es momento de visualizarlas para observar cómo se distribuyen entre las tres carreras.
+
+    Escribe el nombre de la variable que contiene estos valores.
+  CorrectAnswer: esperadas_homogeneidad
+  AnswerTests: omnitest(correctExpr='esperadas_homogeneidad')
+  Hint: Escribe esperadas_homogeneidad para mostrar la matriz.
+  
+#===============================================================
+# Decisión estadística e intrepetación del valor p
+#===============================================================
+
+- Class: text
+  Output: |
+    Una vez realizada la prueba, necesitamos utilizar el valor p para determinar si existe evidencia estadística suficiente para rechazar la hipótesis nula.
+
+    Recuerda que el valor p se compara con el nivel de significancia establecido.
+
+    Si el valor p es menor que alfa, rechazamos H0. En caso contrario, no rechazamos H0.
+
+    Para este ejercicio utilizaremos un nivel de significancia de 0.05.
+
+- Class: cmd_question
+  Output: |
+    Extrae el valor p del objeto prueba_homogeneidad y guárdalo en una variable llamada valor_p_homogeneidad.
+  CorrectAnswer: valor_p_homogeneidad <- prueba_homogeneidad$p.value
+  AnswerTests: test_valor_p_homogeneidad()
+  Hint: Accede al elemento p.value del objeto prueba_homogeneidad utilizando el símbolo $.
+
+- Class: cmd_question
+  Output: |
+    Asigna el nivel de significancia de 0.05 a una variable llamada alfa_homogeneidad.
+  CorrectAnswer: alfa_homogeneidad <- 0.05
+  AnswerTests: test_alfa_homogeneidad()
+  Hint: Asigna el valor numérico 0.05 a alfa_homogeneidad.
+
+- Class: cmd_question
+  Output: |
+    Utiliza ifelse() para comparar el valor p con el nivel de significancia.
+
+    Guarda la decisión en una variable llamada decision_homogeneidad.
+
+    Utiliza los resultados "Rechazar H0" y "No rechazar H0".
+  CorrectAnswer: decision_homogeneidad <- ifelse(valor_p_homogeneidad < alfa_homogeneidad, "Rechazar H0", "No rechazar H0")
+  AnswerTests: test_decision_homogeneidad()
+  Hint: Utiliza ifelse() para comprobar si valor_p_homogeneidad es menor que alfa_homogeneidad.
+  
+- Class: cmd_question
+  Output: |
+    Escribe el nombre de la variable que contiene la decisión de la prueba para visualizar el resultado.
+  CorrectAnswer: decision_homogeneidad
+  AnswerTests: omnitest(correctExpr='decision_homogeneidad')
+  Hint: Escribe decision_homogeneidad.
+  
+#===============================================================
+# Interpretación de los resultados
+#===============================================================
+
+- Class: mult_question
+  Output: |
+    De acuerdo con los resultados obtenidos, el valor p fue menor que el nivel de significancia de 0.05, por lo que se rechazó la hipótesis nula. ¿Cuál es la interpretación correcta de este resultado?
+  AnswerChoices: Las tres carreras tienen exactamente las mismas preferencias;Existe evidencia estadística de que al menos una carrera presenta una distribución de preferencias diferente;Todas las carreras presentan preferencias completamente diferentes entre sí;La modalidad de estudio determina el recurso que prefieren los estudiantes
+  CorrectAnswer: Existe evidencia estadística de que al menos una carrera presenta una distribución de preferencias diferente
+  AnswerTests: omnitest(correctVal='Existe evidencia estadística de que al menos una carrera presenta una distribución de preferencias diferente')
+  Hint: Recuerda que rechazar H0 indica que las distribuciones no son iguales en todos los grupos, pero no significa que todas sean diferentes entre sí.
+
+- Class: text
+  Output: |
+    ¡Correcto!
+
+    Los resultados indican que existe evidencia estadística suficiente para concluir que las preferencias por los recursos de estudio no siguen la misma distribución en las tres carreras.
+
+    Sin embargo, debemos tener presente que la prueba chi-cuadrado de homogeneidad únicamente permite identificar que existe una diferencia entre las distribuciones.
+
+    No nos indica directamente cuáles carreras presentan esas diferencias ni en qué categorías se encuentran.
+
+    Para conocer las diferencias específicas sería necesario realizar un análisis posterior.
+    
+#===============================================================
+# Conclusión y cierre
+#===============================================================
+
+- Class: text
+  Output: |
+    ¡Has concluido la lección sobre pruebas de homogeneidad!
+
+    En esta lección aprendiste a comparar la distribución de una variable categórica entre diferentes grupos mediante la prueba chi-cuadrado de homogeneidad.
+
+    También aplicaste la función chisq.test() en R, identificaste las frecuencias esperadas y utilizaste el valor p para tomar una decisión estadística.
+
+    Recuerda que las pruebas de independencia y homogeneidad utilizan el mismo procedimiento estadístico, pero responden a preguntas diferentes.
+
+    La prueba de independencia permite determinar si existe una asociación entre dos variables categóricas dentro de una población.
+
+    Por otro lado, la prueba de homogeneidad permite determinar si la distribución de una variable categórica es igual entre diferentes poblaciones o grupos.
+
+    Saber distinguir el propósito de cada prueba es fundamental para seleccionar el procedimiento estadístico adecuado.
+
+    ¡Continúa practicando y recuerda que una conclusión estadística debe interpretarse siempre dentro del contexto del problema!
+    
+- Class: text
+  Output: |
+    Referencias bibliográficas
+
+    Agresti, A. (2019). An introduction to categorical data analysis (3rd ed.). Wiley.
+
+    Devore, J. L. (2016). Probability and statistics for engineering and the sciences (9th ed.). Cengage Learning.
+
+    R Core Team. (2026). R: A language and environment for statistical computing. R Foundation for Statistical Computing. https://www.R-project.org/
+    
+    R Documentation. (s. f.). Chi-squared tests.https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html
+   
+    

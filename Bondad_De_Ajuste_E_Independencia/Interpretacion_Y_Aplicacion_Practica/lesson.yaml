@@ -1,0 +1,329 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Interpretacion_y_aplicacion_practica
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autónoma de Ciudad Juárez
+  Version: 1.0
+
+#===============================================================
+# Introducción
+#===============================================================
+
+- Class: text
+  Output: En las lecciones anteriores estudiaste diferentes procedimientos estadísticos que permiten analizar datos categóricos y evaluar si las frecuencias observadas se ajustan a un modelo esperado, si existe una relación entre dos variables o si una característica presenta la misma distribución en distintos grupos.
+
+- Class: text
+  Output: Sin embargo, conocer los procedimientos no es suficiente. También es importante reconocer qué prueba corresponde a cada situación, formular correctamente las hipótesis y comprender lo que los resultados indican.
+
+- Class: text
+  Output: En esta última lección integrarás los conocimientos adquiridos mediante situaciones prácticas que te permitirán seleccionar, ejecutar e interpretar las pruebas estadísticas estudiadas.
+  
+#===============================================================
+# Identificación de la prueba estadística
+#===============================================================
+- Class: text
+  Output: Antes de realizar un análisis estadístico, es necesario identificar qué se desea investigar. Aunque las pruebas estudiadas utilizan frecuencias y datos categóricos, cada una responde a una pregunta diferente. Recuerda las siguientes diferencias.
+
+- Class: text
+  Output: 1. Prueba de bondad de ajuste. Permite determinar si las frecuencias observadas de una variable categórica se ajustan a una distribución teórica o esperada.
+
+- Class: text
+  Output: 2. Prueba de independencia. Permite determinar si existe una asociación estadísticamente significativa entre dos variables categóricas dentro de una misma población.
+
+- Class: text
+  Output: 3. Prueba de homogeneidad. Permite determinar si la distribución de una variable categórica es igual entre dos o más poblaciones o grupos.
+
+- Class: text
+  Output: Para seleccionar correctamente una prueba, identifica si deseas comparar los datos observados con una distribución teórica, analizar la relación entre variables o comparar distribuciones entre diferentes grupos.
+  
+- Class: mult_question
+  Output: Una institución educativa desea investigar si existe una relación entre el turno de estudio (matutino o vespertino) y el resultado de un examen (aprobado o reprobado). ¿Qué prueba estadística debería utilizar?
+  AnswerChoices: Prueba de bondad de ajuste;Prueba de independencia;Prueba de homogeneidad
+  CorrectAnswer: Prueba de independencia
+  AnswerTests: omnitest(correctVal = 'Prueba de independencia')
+  Hint: Se busca analizar si existe una asociación entre dos variables categóricas dentro de una misma población.
+  
+- Class: mult_question
+  Output: Una fábrica produce focos y afirma que el 20% de su producción presenta una duración baja, el 50% una duración media y el 30% una duración alta. Se selecciona una muestra de focos para comprobar si las frecuencias observadas corresponden a las proporciones anunciadas por la fábrica. ¿Qué prueba estadística debería utilizarse?
+  AnswerChoices: Prueba de independencia;Prueba de homogeneidad;Prueba de bondad de ajuste
+  CorrectAnswer: Prueba de bondad de ajuste
+  AnswerTests: omnitest(correctVal = 'Prueba de bondad de ajuste')
+  Hint: Se desea comparar las frecuencias observadas con una distribución teórica establecida previamente.
+  
+- Class: mult_question
+  Output: Una universidad desea comparar las preferencias de sus estudiantes por tres modalidades de aprendizaje (presencial, virtual y mixta) entre las carreras de Ingeniería, Derecho y Medicina. Se busca determinar si las preferencias presentan la misma distribución en las tres carreras. ¿Qué prueba estadística debería utilizarse?
+  AnswerChoices: Prueba de independencia;Prueba de bondad de ajuste;Prueba de homogeneidad
+  CorrectAnswer: Prueba de homogeneidad
+  AnswerTests: omnitest(correctVal = 'Prueba de homogeneidad')
+  Hint: Se comparan las distribuciones de una misma variable categórica entre diferentes grupos o poblaciones.
+  
+- Class: text
+  Output: CASO PRÁCTICO 1. CONTROL DE CALIDAD EN EL DESARROLLO DE SOFTWARE
+
+- Class: text
+  Output: Una empresa de desarrollo de software realiza pruebas de calidad sobre una aplicación antes de publicarla. El equipo de pruebas ejecutó la misma cantidad de pruebas en cuatro módulos del sistema y desea investigar si los errores detectados se distribuyen uniformemente entre ellos.
+
+- Class: text
+  Output: Después de analizar los resultados, se registraron 100 errores con las siguientes frecuencias.
+
+    - Inicio de sesión. 32 errores.
+    - Gestión de usuarios. 28 errores.
+    - Inventario. 21 errores.
+    - Reportes. 19 errores.
+
+- Class: text
+  Output: El objetivo es determinar si existe evidencia estadística de que la distribución de errores difiere de una distribución uniforme. Antes de realizar los cálculos, identifica qué procedimiento estadístico permite resolver esta situación.
+  
+- Class: mult_question
+  Output: De acuerdo con el objetivo del problema, ¿qué prueba estadística debe utilizarse?
+  AnswerChoices: Prueba de independencia;Prueba de homogeneidad;Prueba de bondad de ajuste
+  CorrectAnswer: Prueba de bondad de ajuste
+  AnswerTests: omnitest(correctVal = 'Prueba de bondad de ajuste')
+  Hint: Se desea comparar las frecuencias observadas con una distribución teórica uniforme.
+  
+- Class: text
+  Output: PREPARACIÓN DE LOS DATOS
+
+- Class: text
+  Output: Para realizar una prueba de bondad de ajuste en R, necesitamos organizar las frecuencias observadas en un vector numérico. En este caso, cada posición del vector representa la cantidad de errores detectados en uno de los cuatro módulos de la aplicación.
+
+- Class: text
+  Output: Las frecuencias observadas son 32, 28, 21 y 19, respectivamente. Además, como el equipo desea comprobar si los errores se distribuyen uniformemente, la proporción esperada para cada módulo es de 0.25. Recuerda que la suma de las proporciones esperadas debe ser igual a 1.
+  
+- Class: cmd_question
+  Output: Crea un vector llamado errores_observados que contenga las frecuencias 32, 28, 21 y 19, en ese orden, utilizando la función c().
+  CorrectAnswer: errores_observados <- c(32, 28, 21, 19)
+  AnswerTests: test_errores_observados()
+  Hint: Utiliza el operador de asignación <- y la función c() para reunir las cuatro frecuencias en un vector.
+  
+- Class: cmd_question
+  Output: Crea un vector llamado proporciones_esperadas que contenga cuatro valores iguales a 0.25, utilizando la función rep().
+  CorrectAnswer: proporciones_esperadas <- rep(0.25, 4)
+  AnswerTests: test_proporciones_esperadas()
+  Hint: Utiliza rep() para repetir el valor 0.25 cuatro veces.
+  
+- Class: text
+  Output: FORMULACIÓN DE HIPÓTESIS
+
+- Class: text
+  Output: Antes de ejecutar una prueba estadística, es necesario establecer las hipótesis que se desean evaluar.Para este caso se plantean las siguientes.
+
+- Class: text
+  Output: Hipótesis nula (H0). Los errores se distribuyen uniformemente entre los cuatro módulos de la aplicación. Cada módulo presenta una proporción esperada de 0.25.
+
+- Class: text
+  Output: Hipótesis alternativa (H1). Los errores no se distribuyen uniformemente entre los cuatro módulos. Al menos una de las proporciones es diferente de la esperada.
+
+- Class: text
+  Output: El nivel de significancia que utilizaremos será de 0.05. Recuerda que la prueba de bondad de ajuste chi-cuadrado permite comparar las frecuencias observadas con las frecuencias esperadas para determinar si las diferencias encontradas son estadísticamente significativas.
+  
+- Class: cmd_question
+  Output: Utiliza la función chisq.test() para realizar una prueba de bondad de ajuste con el vector errores_observados y las proporciones esperadas almacenadas en proporciones_esperadas. Asigna el resultado a una variable llamada prueba_errores.
+  CorrectAnswer: prueba_errores <- chisq.test(errores_observados, p = proporciones_esperadas)
+  AnswerTests: test_prueba_errores()
+  Hint: Utiliza chisq.test() e indica el vector de frecuencias observadas como primer argumento y las proporciones esperadas mediante el argumento p =.
+  
+- Class: text
+  Output: INTERPRETACIÓN DE LOS RESULTADOS
+
+- Class: text
+  Output: Después de ejecutar una prueba estadística, es necesario interpretar sus resultados para determinar si existe evidencia suficiente para rechazar la hipótesis nula.
+
+- Class: text
+  Output: Una de las medidas principales para tomar esta decisión es el valor p. Recuerda la regla de decisión.
+
+    - Si el valor p es menor que el nivel de significancia (0.05), se rechaza la hipótesis nula.
+    - Si el valor p es mayor o igual que el nivel de significancia (0.05), no se rechaza la hipótesis nula.
+
+- Class: text
+  Output: No rechazar la hipótesis nula no significa demostrar que sea verdadera. Significa que no existe evidencia estadística suficiente para rechazarla con el nivel de significancia establecido.
+  
+- Class: cmd_question
+  Output: Extrae el valor p del objeto prueba_errores utilizando el operador $ y asígnalo a una variable llamada valor_p_errores.
+  CorrectAnswer: valor_p_errores <- prueba_errores$p.value
+  AnswerTests: test_valor_p_errores()
+  Hint: Utiliza prueba_errores$p.value para acceder al valor p de la prueba.
+  
+- Class: cmd_question
+  Output: Utiliza ifelse() para comparar valor_p_errores con 0.05. Si el valor p es menor que 0.05, el resultado debe ser "Rechazar H0". En caso contrario, debe ser "No rechazar H0". Asigna el resultado a decision_errores.
+  CorrectAnswer: decision_errores <- ifelse(valor_p_errores < 0.05, "Rechazar H0", "No rechazar H0")
+  AnswerTests: test_decision_errores()
+  Hint: Utiliza ifelse(condicion, valor_si_verdadero, valor_si_falso) para establecer la decisión.
+  
+- Class: mult_question
+  Output: La prueba obtuvo un valor p aproximado de 0.207. Considerando un nivel de significancia de 0.05, ¿cuál es la interpretación correcta?
+  AnswerChoices: Se rechaza la hipótesis nula porque los módulos presentan diferentes proporciones de errores;No se rechaza la hipótesis nula porque no existe evidencia estadística suficiente para afirmar que la distribución de errores difiere de una distribución uniforme;Se demuestra que todos los módulos tienen exactamente la misma cantidad de errores
+  CorrectAnswer: No se rechaza la hipótesis nula porque no existe evidencia estadística suficiente para afirmar que la distribución de errores difiere de una distribución uniforme
+  AnswerTests: omnitest(correctVal = 'No se rechaza la hipótesis nula porque no existe evidencia estadística suficiente para afirmar que la distribución de errores difiere de una distribución uniforme')
+  Hint: Compara el valor p obtenido con el nivel de significancia de 0.05. Recuerda que no rechazar H0 no significa demostrar que sea verdadera.
+  
+- Class: text
+  Output: CONCLUSIÓN DEL CASO PRÁCTICO 1
+
+- Class: text
+  Output: En este ejercicio se utilizó una prueba de bondad de ajuste chi-cuadrado para evaluar si los errores detectados en una aplicación se distribuían uniformemente entre cuatro módulos.
+
+- Class: text
+  Output: El valor p obtenido fue aproximadamente 0.207, superior al nivel de significancia de 0.05. Por lo tanto, no se rechaza la hipótesis nula. Esto indica que no se encontró evidencia estadística suficiente para afirmar que la distribución de errores difiere de una distribución uniforme.
+
+- Class: text
+  Output: En un contexto de desarrollo de software, este resultado puede servir como referencia para el análisis de calidad del sistema. Sin embargo, no demuestra que los módulos tengan exactamente la misma cantidad de errores ni que la aplicación esté libre de problemas.
+  
+- Class: text
+  Output: CASO PRÁCTICO 2. PRUEBA DE INDEPENDENCIA
+  
+- Class: text
+  Output: Una empresa de software desea investigar si el tipo de dispositivo utilizado para probar una aplicación está relacionado con la presencia de errores durante su ejecución. Se analizaron 120 pruebas. El objetivo es determinar si existe una asociación entre el tipo de dispositivo y la presencia de errores.
+  
+- Class: text
+  Output: Se utilizará una tabla de contingencia para organizar las frecuencias observadas. La hipótesis nula establece que el tipo de dispositivo y la presencia de errores son independientes. La hipótesis alternativa establece que existe una asociación entre ambas variables.
+
+- Class: cmd_question
+  Output: Crea una matriz llamada tabla_dispositivos con las frecuencias 15, 45, 30 y 30, en ese orden, utilizando matrix(), con dos filas, por filas y con los nombres de filas Computadora y Movil, y columnas Con_errores y Sin_errores.
+  CorrectAnswer: tabla_dispositivos <- matrix(c(15, 45, 30, 30), nrow = 2, byrow = TRUE, dimnames = list(c("Computadora", "Movil"), c("Con_errores", "Sin_errores")))
+  AnswerTests: test_tabla_dispositivos()
+  Hint: Utiliza matrix(), nrow = 2, byrow = TRUE y dimnames para nombrar las filas y columnas.
+
+- Class: cmd_question
+  Output: Aplica chisq.test() a tabla_dispositivos y asigna el resultado a prueba_dispositivos.
+  CorrectAnswer: prueba_dispositivos <- chisq.test(tabla_dispositivos)
+  AnswerTests: test_prueba_dispositivos()
+  Hint: Utiliza chisq.test(tabla_dispositivos).
+
+- Class: cmd_question
+  Output: Extrae el valor p de prueba_dispositivos y asígnalo a valor_p_dispositivos.
+  CorrectAnswer: valor_p_dispositivos <- prueba_dispositivos$p.value
+  AnswerTests: test_valor_p_dispositivos()
+  Hint: Accede al componente p.value mediante el operador $.
+
+- Class: cmd_question
+  Output: Utiliza ifelse() para comparar valor_p_dispositivos con 0.05. Asigna "Rechazar H0" si es menor y "No rechazar H0" en caso contrario. Guarda el resultado en decision_dispositivos.
+  CorrectAnswer: decision_dispositivos <- ifelse(valor_p_dispositivos < 0.05, "Rechazar H0", "No rechazar H0")
+  AnswerTests: test_decision_dispositivos()
+  Hint: Utiliza la misma estructura de ifelse() de la actividad anterior.
+  
+- Class: text
+  Output: INTERPRETACIÓN DEL CASO PRÁCTICO 2
+
+- Class: text
+  Output: La prueba chi-cuadrado de independencia, utilizando la corrección de continuidad de Yates que R aplica por defecto en tablas de 2 por 2, obtiene un estadístico aproximado de 6.969 y un valor p de 0.0083.
+
+- Class: text
+  Output: Como el valor p es menor que 0.05, se rechaza la hipótesis nula. Existe evidencia estadística de una asociación entre el tipo de dispositivo y la presencia de errores durante las pruebas de la aplicación.
+
+    Este resultado no demuestra que el dispositivo cause los errores, sino que ambas variables presentan una asociación estadísticamente significativa.
+    
+- Class: text
+  Output: CASO PRÁCTICO 3. PRUEBA DE HOMOGENEIDAD
+  
+- Class: text
+  Output: Una empresa de desarrollo de software cuenta con tres equipos encargados de probar una aplicación. Cada equipo clasifica los errores encontrados según su gravedad.El objetivo es determinar si la distribución de la gravedad de los errores es igual entre los tres equipos.
+  
+- Class: text
+  Output: La hipótesis nula establece que la distribución de la gravedad de los errores es igual en los tres equipos. La hipótesis alternativa establece que al menos uno presenta una distribución diferente.
+
+- Class: cmd_question
+  Output: Crea una matriz llamada tabla_equipos con las frecuencias 20, 25, 15, 12, 28, 20, 18, 17 y 25, utilizando tres filas, por filas y los nombres Equipo_A, Equipo_B y Equipo_C para las filas, y Criticos, Moderados y Leves para las columnas.
+  CorrectAnswer: tabla_equipos <- matrix(c(20, 25, 15, 12, 28, 20, 18, 17, 25), nrow = 3, byrow = TRUE, dimnames = list(c("Equipo_A", "Equipo_B", "Equipo_C"), c("Criticos", "Moderados", "Leves")))
+  AnswerTests: test_tabla_equipos()
+  Hint: Utiliza matrix() con nrow = 3, byrow = TRUE y dimnames.
+
+- Class: cmd_question
+  Output: Aplica chisq.test() a tabla_equipos y asigna el resultado a prueba_equipos.
+  CorrectAnswer: prueba_equipos <- chisq.test(tabla_equipos)
+  AnswerTests: test_prueba_equipos()
+  Hint: Utiliza chisq.test(tabla_equipos).
+
+- Class: cmd_question
+  Output: Extrae el valor p de prueba_equipos y asígnalo a valor_p_equipos.
+  CorrectAnswer: valor_p_equipos <- prueba_equipos$p.value
+  AnswerTests: test_valor_p_equipos()
+  Hint: Utiliza el operador $ para extraer p.value.
+
+- Class: cmd_question
+  Output: Compara valor_p_equipos con 0.05 mediante ifelse(). Asigna "Rechazar H0" si es menor y "No rechazar H0" en caso contrario. Guarda el resultado en decision_equipos.
+  CorrectAnswer: decision_equipos <- ifelse(valor_p_equipos < 0.05, "Rechazar H0", "No rechazar H0")
+  AnswerTests: test_decision_equipos()
+  Hint: Sigue la estructura utilizada en los casos anteriores.
+  
+- Class: text
+  Output: INTERPRETACIÓN DEL CASO PRÁCTICO 3
+
+- Class: text
+  Output: Como el valor p es aproximadamente 0.039, menor que el nivel de significancia de 0.05, se rechaza la hipótesis nula. Existe evidencia estadística de que al menos uno de los equipos presenta una distribución diferente en la gravedad de los errores identificados.
+
+- Class: text
+  Output: La prueba no permite determinar directamente qué equipos presentan diferencias específicas. Para ello sería necesario realizar un análisis adicional.
+
+- Class: text
+  Output: En el desarrollo de software, esta información puede ayudar a identificar diferencias en los resultados de las pruebas de calidad y orientar futuras investigaciones.
+  
+- Class: text
+  Output: ACTIVIDAD INTEGRADORA FINAL
+
+- Class: text
+  Output: Has llegado al final de este curso. En esta actividad pondrás a prueba los conocimientos adquiridos sobre las pruebas de bondad de ajuste, independencia y homogeneidad. Lee cuidadosamente cada situación e identifica el procedimiento estadístico que permite responder al objetivo de investigación.
+  
+- Class: mult_question
+  Output: Un equipo de desarrollo desea comprobar si los tipos de errores registrados en una aplicación siguen las proporciones establecidas en un modelo teórico de calidad. ¿Qué prueba debe utilizar?
+  AnswerChoices: Prueba de independencia;Prueba de homogeneidad;Prueba de bondad de ajuste
+  CorrectAnswer: Prueba de bondad de ajuste
+  AnswerTests: omnitest(correctVal = 'Prueba de bondad de ajuste')
+  Hint: Se comparan frecuencias observadas con proporciones teóricas establecidas.
+  
+- Class: mult_question
+  Output: Una empresa desea investigar si existe una relación entre el sistema operativo de un dispositivo y la aparición de fallas al utilizar una aplicación. ¿Qué prueba debe utilizar?
+  AnswerChoices: Prueba de bondad de ajuste;Prueba de independencia;Prueba de homogeneidad
+  CorrectAnswer: Prueba de independencia
+  AnswerTests: omnitest(correctVal = 'Prueba de independencia')
+  Hint: Se busca determinar si existe asociación entre dos variables categóricas.
+  
+- Class: mult_question
+  Output: Una empresa compara la distribución de los niveles de satisfacción de los usuarios entre tres versiones diferentes de un programa. ¿Qué prueba debe utilizar?
+  AnswerChoices: Prueba de homogeneidad;Prueba de independencia;Prueba de bondad de ajuste
+  CorrectAnswer: Prueba de homogeneidad
+  AnswerTests: omnitest(correctVal = 'Prueba de homogeneidad')
+  Hint: Se compara la distribución de una misma variable categórica entre diferentes grupos.
+  
+- Class: mult_question
+  Output: En una prueba chi-cuadrado se obtiene un valor p de 0.032 y se establece un nivel de significancia de 0.05. ¿Cuál es la decisión estadística correcta?
+  AnswerChoices: No rechazar la hipótesis nula porque el valor p es mayor que 0.05;Rechazar la hipótesis nula porque el valor p es menor que 0.05;Aceptar definitivamente la hipótesis alternativa
+  CorrectAnswer: Rechazar la hipótesis nula porque el valor p es menor que 0.05
+  AnswerTests: omnitest(correctVal = 'Rechazar la hipótesis nula porque el valor p es menor que 0.05')
+  Hint: Compara el valor p con el nivel de significancia y recuerda que una decisión estadística no demuestra una hipótesis de manera definitiva.
+  
+#===============================================================
+# Conclusión y cierre
+#===============================================================
+
+- Class: text
+  Output: A lo largo de este curso estudiaste tres procedimientos estadísticos fundamentales para el análisis de datos categóricos.
+
+- Class: text
+  Output: La prueba de bondad de ajuste permite evaluar si las frecuencias observadas se ajustan a una distribución teórica. La prueba de independencia permite investigar si existe una asociación entre dos variables categóricas dentro de una población. La prueba de homogeneidad permite comparar si la distribución de una variable categórica es igual entre diferentes grupos o poblaciones.
+
+- Class: text
+  Output: También aprendiste a formular hipótesis, organizar datos, utilizar funciones estadísticas de R, interpretar valores p y establecer decisiones con base en un nivel de significancia.
+
+- Class: text
+  Output: En Ingeniería en Desarrollo de Software, estas herramientas pueden contribuir al análisis de calidad, la evaluación de aplicaciones, el estudio de experiencias de usuarios y la interpretación de resultados obtenidos durante las pruebas de un sistema.
+
+- Class: text
+  Output: Recuerda que el análisis estadístico no consiste únicamente en obtener resultados numéricos. También requiere comprender el problema, seleccionar el procedimiento adecuado y comunicar conclusiones de manera clara y responsable.
+
+- Class: text
+  Output: ¡Felicidades! Continúa aplicando estos conocimientos para tomar decisiones fundamentadas en el análisis de datos.
+  
+#===============================================================
+# Referencias
+#===============================================================
+- Class: text
+  Output: Agresti, A. (2019). An Introduction to Categorical Data Analysis (3rd ed.). Wiley.
+
+    Devore, J. L. (2016). Probability and Statistics for Engineering and the Sciences (9th ed.). Cengage Learning.
+
+    R Core Team. (2026). R, A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/
+
+    R Core Team. (s. f.). chisq.test, Pearson's Chi-squared Test for Count Data. R Documentation. https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html
+    
