@@ -16,17 +16,25 @@ curso <- "Curso_Estadistica"
 
 # Orden del curso. Nombre con el que aparece en swirl = carpeta dentro del repositorio
 lecciones <- c(
-  "Conociendo_R_y_RStudio"                           = "Conociendo_R_Y_RStudio",
-  "Unidad_1_Leccion_1_Datos_y_variables"             = "Unidad_1_Estadistica_Descriptiva/Leccion_1_Datos_y_variables",
-  "Unidad_1_Leccion_2_Analisis_de_datos"             = "Unidad_1_Estadistica_Descriptiva/Leccion_2_Analisis_de_datos",
-  "Unidad_1_Leccion_3_Dispersion_de_datos"           = "Unidad_1_Estadistica_Descriptiva/Leccion_3_Dispersion_de_datos",
-  "Unidad_2_Leccion_1_Introduccion_al_muestreo"      = "Unidad_2_Muestreo/Leccion_1_Introduccion_al_muestreo",
-  "Unidad_2_Leccion_2_Metodos_de_muestreo"           = "Unidad_2_Muestreo/Leccion_2_Metodos_de_muestreo",
-  "Unidad_2_Leccion_3_Distribuciones_Muestrales"     = "Unidad_2_Muestreo/Leccion_3_Distribuciones_Muestrales",
-  "Unidad_2_Leccion_4_Aplicacion_Integral"           = "Unidad_2_Muestreo/Leccion_4_Aplicacion_Integral",
-  "Unidad_3_Leccion_1_Estimacion_Puntual_Intervalos" = "Unidad_3_Estimacion/Leccion_1_Estimacion_Puntual_Intervalos",
-  "Unidad_3_Leccion_2_Confianza_Precision_Tamano"    = "Unidad_3_Estimacion/Leccion_2_Confianza_Precision_Tamano",
-  "Unidad_3_Leccion_3_Estimacion_Dos_Poblaciones"    = "Unidad_3_Estimacion/Leccion_3_Estimacion_Dos_Poblaciones"
+  "Conociendo_R_y_RStudio"         = "Conociendo_R_Y_RStudio",
+  "Datos_Y_Variables"              = "Estadistica_Descriptiva/Datos_Y_Variables",
+  "Analisis_De_Datos"              = "Estadistica_Descriptiva/Analisis_De_Datos",
+  "Dispersion_De_Datos"            = "Estadistica_Descriptiva/Dispersion_De_Datos",
+  "Introduccion_Al_Muestreo"       = "Muestreo/Introduccion_Al_Muestreo",
+  "Metodos_De_Muestreo"            = "Muestreo/Metodos_De_Muestreo",
+  "Distribuciones_Muestrales"      = "Muestreo/Distribuciones_Muestrales",
+  "Aplicacion_Integral"            = "Muestreo/Aplicacion_Integral",
+  "Estimacion_Puntual_Intervalos"  = "Estimacion/Estimacion_Puntual_Intervalos",
+  "Confianza_Precision_Tamano"     = "Estimacion/Confianza_Precision_Tamano",
+  "Estimacion_Dos_Poblaciones"     = "Estimacion/Estimacion_Dos_Poblaciones",
+  "Pruebas_De_Hipotesis"           = "Pruebas_De_Hipotesis",
+  "Bondad_Ajuste_Distribuciones_De_Probabilidad"    = "Bondad_De_Ajuste_E_Independencia/Bondad_Ajuste_Distribuciones_De_Probabilidad",
+  "Introduccion_Bondad_Ajuste"     = "Bondad_De_Ajuste_E_Independencia/Introduccion_Bondad_Ajuste",
+  "Correlacion_Y_Regresion_Lineal" = "Correlacion_Y_Regresion_Lineal",
+  "Comparaciones_Multiples"        = "ANOVA_De_Un_Factor/Comparaciones_Multiples",
+  "Introduccion_ANOVA_De_Un_Fator" = "ANOVA_De_Un_Factor/Introduccion_ANOVA_De_Un_Factor",
+  "Supuestos_Del_ANOVA"            = "ANOVA_De_Un_Factor/Supuestos_Del_ANOVA",
+  "Tabla_ANOVA"                    = "ANOVA_De_Un_Factor/Tabla_ANOVA"
 )
 
 # Comprobacion: el directorio de trabajo debe ser la raiz del repositorio
