@@ -170,7 +170,7 @@
 - Class: cmd_question
   Output: Escribe esperados para ver el resultado.
   CorrectAnswer: esperados
-  AnswerTests: omnitest(correctExpr = 'total')
+  AnswerTests: omnitest(correctExpr = 'esperados')
   Hint: Escribe esperados.
   
 - Class: text
@@ -224,7 +224,7 @@
 - Class: cmd_question
   Output: Escribe decision para ver el resultado.
   CorrectAnswer: decision
-  AnswerTests: omnitest(correctExpr = 'total')
+  AnswerTests: omnitest(correctExpr = 'decision')
   Hint: Escribe decision.
   
 - Class: text
@@ -311,7 +311,7 @@
 - Class: cmd_question
   Output: Escribe esperados_binomial para ver el resultado.
   CorrectAnswer: esperados_binomial
-  AnswerTests: omnitest(correctExpr = 'total')
+  AnswerTests: omnitest(correctExpr = 'esperados_binomial')
   Hint: Escribe esperados_binomial.
 
 - Class: text
@@ -353,7 +353,7 @@
 - Class: cmd_question
   Output: Escribe decision_binomial para ver el resultado.
   CorrectAnswer: decision_binomial
-  AnswerTests: omnitest(correctExpr = 'total')
+  AnswerTests: omnitest(correctExpr = 'decision_binomial')
   Hint: Escribe decision_binomial.
 
 - Class: text
@@ -477,7 +477,7 @@
 - Class: cmd_question
   Output: Escribe esperados_poisson para ver el resultado.
   CorrectAnswer: esperados_poisson
-  AnswerTests: omnitest(correctExpr = 'total')
+  AnswerTests: omnitest(correctExpr = 'esperados_poisson')
   Hint: Escribe esperados_poisson.
 
 - Class: text
@@ -519,7 +519,7 @@
 - Class: cmd_question
   Output: Escribe decision_poisson para ver el resultado.
   CorrectAnswer: decision_poisson
-  AnswerTests: omnitest(correctExpr = 'total')
+  AnswerTests: omnitest(correctExpr = 'decision_poisson')
   Hint: Escribe decision_poisson.
 
 - Class: text
