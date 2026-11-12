@@ -1,0 +1,590 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Leccion_2_Bondad_de_ajuste_para_distribuciones_de_probabilidad
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autonoma de Ciudad Juarez
+  Version: 2.4.5
+  
+#===============================================================
+# Objetivo
+#===============================================================
+
+- Class: text
+  Output: Al finalizar esta lección, serás capaz de calcular las frecuencias esperadas a partir de distribuciones de probabilidad normal, binomial y Poisson, aplicar la prueba chi-cuadrado de bondad de ajuste e interpretar sus resultados para determinar si los datos observados son compatibles con una distribución teórica. 
+  
+#===============================================================
+# Introduccion
+#===============================================================
+
+- Class: text
+  Output: En la lección anterior aprendimos que una prueba de bondad de ajuste permite comparar las frecuencias observadas en una muestra con las frecuencias que esperaríamos obtener si los datos siguieran una distribución determinada.
+  
+- Class: text
+  Output: En nuestro primer ejercicio trabajamos con un dado de seis caras. Como suponíamos que era justo, asignamos a cada cara una probabilidad teórica de 1/6. A partir de esas probabilidades calculamos las frecuencias esperadas y aplicamos la prueba chi-cuadrado. 
+  
+- Class: text
+  Output: Sin embargo, no todos los fenómenos siguen una distribución uniforme. Algunos pueden aproximarse mediante una distribución normal, otros mediante una distribución binomial o una distribución de Poisson. 
+  
+- Class: text
+  Output: En esta lección aprenderás a utilizar estas tres distribuciones para calcular probabilidades teóricas y convertirlas en frecuencias esperadas que posteriormente podremos comparar con nuestros datos. 
+  
+- Class: mult_question
+  Output: Si tenemos una muestra de 200 observaciones y la probabilidad teórica de una categoría es 0.25, ¿cuál sería su frecuencia esperada?
+  AnswerChoices: 25; 50; 75; 100
+  CorrectAnswer: 50
+  AnswerTests: omnitest(correctVal='50')
+  Hint: Multiplica el tamaño de la muestra por la probabilidad teórica. Recuerda que E = n * p.
+  
+#===============================================================
+# Distribución normal
+#===============================================================
+
+- Class: text
+  Output: La distribución normal es una distribución de probabilidad continua que presenta una forma de campana, simétrica respecto a su media. En ella, la densidad de probabilidad es mayor cerca de la media que los valores muy alejados. Se utiliza para modelar fenómenos como mediciones, tiempos, alturas y otras variables que pueden presentar una distribución aproximadamente simétrica. 
+  
+# Agregar grafica de una distribucion normal
+
+- Class: text
+  Output: La distribución normal se caracteriza principalmente por dos parámetros, la media y la desviación estándar. La media indica el centro de la distribución y la desviación estándar indica qué tan dispersos se encuentran los valores alrededor de la media. 
+  
+- Class: text
+  Output: Matemáticamente, representamos una variable normal como X ~ N(mu, sigma^2), donde mu representa la media y sigma^2 representa la varianza. Por ejemplo, X ~ N(100, 225) indica que la media es de 100 milisegundos y la desviación estándar es de 15 milisegundos. 
+
+- Class: text
+  Output: En R utilizamos la función pnorm() para obtener probabilidades acumuladas de una distribución normal. Su estructura básica es pnorm(q, mean = 0, sd = 1), donde q es el valor hasta el cual queremos calcular la probabilidad, mean representa la media de la distribución y sd su desviación estándar. 
+  
+- Class: text
+  Output: Por ejemplo, si los tiempos de respuesta de un servidor siguen aproximadamente una distribución normal con una media de 100 milisegundos y una desviación estándar de 15 milisegundos, podemos calcular la probabilidad de que un tiempo de respuesta sea menor o igual a 115 milisegundos utilizando pnorm(115, mean = 100, sd = 15).
+  
+- Class: text
+  Output: El resultado será aproximadamente 0.8413, lo que representa una probabilidad del 84.13%. Es importante recordar que pnorm() devuelve una probabilidad acumulada, no una frecuencia esperada directamente. 
+  
+- Class: mult_question
+  Output: Si utilizamos pnorm(115, mean = 100, sd = 15), ¿qué probabilidad estamos calculando?
+  AnswerChoices: Que el tiempo sea mayor que 115 milisegundos; Que el tiempo sea menor o igual a 115 milisegundos; Que el tiempo sea exactamente 115 milisegundos; Que el tiempo sea igual a la media
+  CorrectAnswer: Que el tiempo sea menor o igual a 115 milisegundos
+  AnswerTests: omnitest(correctVal='Que el tiempo sea menor o igual a 115 milisegundos')
+  Hint: Recuerda que pnorm() calcula el área acumulada a la izquierda del valor indicado.
+  
+#===============================================================
+# Probabilidades entre intervalos
+#===============================================================
+
+- Class: text
+  Output: En una distribución continua, también podemos calcular la probabilidad de que una observación se encuentre entre dos valores. Para hacerlo, restamos las probabilidades acumuladas correspondientes a los límites del intervalo.
+
+- Class: text
+  Output: Por ejemplo, si queremos conocer la probabilidad de que el tiempo de respuesta de un servidor se encuentre entre 85 y 115 milisegundos, debemos calcular la probabilidad acumulada hasta 115 y restarle la probabilidad acumulada hasta 85.
+
+- Class: text
+  Output: Matemáticamente, esto se expresa como P(85 < X <= 115) = F(115) - F(85), donde F representa la función de distribución acumulada.
+
+- Class: text
+  Output: En R podemos realizar este cálculo utilizando dos llamadas a pnorm(). La primera obtiene la probabilidad acumulada hasta 115 y la segunda hasta 85. Después restamos ambos resultados.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de que el tiempo de respuesta se encuentre entre 85 y 115 milisegundos.
+  CorrectAnswer: pnorm(115, mean = 100, sd = 15) - pnorm(85, mean = 100, sd = 15)
+  AnswerTests: test_probabilidad_intervalo()
+  Hint: Calcula la probabilidad acumulada hasta 115 y réstale la probabilidad acumulada hasta 85. 
+  
+#===============================================================
+# Ejercicio práctico
+#===============================================================
+
+- Class: text
+  Output: Supongamos que un servidor tiene tiempos de respuesta que históricamente siguen una distribución normal con una media de 100 milisegundos y una desviación estándar de 15 milisegundos. Se recopilaron 200 tiempos de respuesta que se clasificarán en cuatro categorías.
+  
+# Mostrar tabla de categorias 
+
+- Class: text
+  Output: Usamos estos intervalos porque 85 y 115 se encuentran a una desviación estándar por debajo y por encima de la media, respectivamente. Esto nos permite construir categorías que aprovechan la simetría de la distribución normal. Además, agrupamos los valores extremos en dos categorías que incluyen las colas completas de la distribución. Así evitamos crear intervalos extremos con frecuencias esperadas demasiado pequeñas. 
+  
+- Class: text
+  Output: Para calcular la probabilidad de cada intervalo, utilizaremos pnorm(). Recordemos que esta función calcula probabilidades acumuladas. Por eso, para obtener la probabilidad entre dos límites debemos restar sus probabilidades acumuladas. 
+  
+- Class: text
+  Output: Para la primera categoría necesitamos calcular la probabilidad acumulada hasta 85 milisegundos. Para ello utilizaremos pnorm(85, mean = 100, sd = 15). Esta probabilidad representa todos los tiempos de respuesta menores o iguales a 85 milisegundos.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de que el tiempo de respuesta sea menor o igual a 85 milisegundos y guarda el resultado en prob_1.
+  CorrectAnswer: prob_1 <- pnorm(85, mean = 100, sd = 15)
+  AnswerTests: test_prob_1()
+  Hint: Utiliza pnorm() con q = 85, mean = 100 y sd = 15. Guarda el resultado en prob_1 utilizando <-.
+
+- Class: text
+  Output: Para la segunda categoría necesitamos obtener la probabilidad entre 85 y 100 milisegundos. Restaremos la probabilidad acumulada hasta 85 de la probabilidad acumulada hasta 100.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de que el tiempo de respuesta sea mayor que 85 y menor o igual a 100 milisegundos. Guarda el resultado en prob_2.
+  CorrectAnswer: prob_2 <- pnorm(100, mean = 100, sd = 15) - pnorm(85, mean = 100, sd = 15)
+  AnswerTests: test_prob_2()
+  Hint: Calcula pnorm(100, mean = 100, sd = 15) y réstale pnorm(85, mean = 100, sd = 15).
+
+- Class: text
+  Output: Para la tercera categoría realizaremos el mismo procedimiento, pero ahora utilizaremos los límites de 100 y 115 milisegundos.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de que el tiempo de respuesta sea mayor que 100 y menor o igual a 115 milisegundos. Guarda el resultado en prob_3.
+  CorrectAnswer: prob_3 <- pnorm(115, mean = 100, sd = 15) - pnorm(100, mean = 100, sd = 15)
+  AnswerTests: test_prob_3()
+  Hint: Resta la probabilidad acumulada hasta 100 de la probabilidad acumulada hasta 115.
+
+- Class: text
+  Output: Finalmente, necesitamos calcular la probabilidad de que el tiempo de respuesta sea mayor que 115 milisegundos. Podemos obtenerla utilizando pnorm() con el argumento lower.tail = FALSE. Este argumento indica que queremos calcular el área situada a la derecha del valor indicado.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de que el tiempo de respuesta sea mayor que 115 milisegundos y guarda el resultado en prob_4.
+  CorrectAnswer: prob_4 <- pnorm(115, mean = 100, sd = 15, lower.tail = FALSE)
+  AnswerTests: test_prob_4()
+  Hint: Utiliza pnorm() con q = 115, mean = 100, sd = 15 y lower.tail = FALSE.
+
+- Class: text
+  Output: Ahora que tenemos las cuatro probabilidades, podemos reunirlas en un solo vector. Esto facilitará los cálculos posteriores, ya que cada posición del vector representará una de las categorías de nuestra tabla.
+
+- Class: cmd_question
+  Output: Crea un vector llamado probabilidades que contenga, en orden, prob_1, prob_2, prob_3 y prob_4.
+  CorrectAnswer: probabilidades <- c(prob_1, prob_2, prob_3, prob_4)
+  AnswerTests: test_probabilidades_normal()
+  Hint: Utiliza c() para reunir las cuatro probabilidades en un vector y guárdalo en probabilidades.
+
+- Class: text
+  Output: Antes de continuar, debemos comprobar que las probabilidades sumen 1. Esto significa que las cuatro categorías abarcan todos los resultados posibles de la distribución.
+
+- Class: cmd_question
+  Output: Calcula la suma de las probabilidades y comprueba que sumen 1
+  CorrectAnswer: sum(probabilidades)
+  AnswerTests: test_suma_probabilidades()
+  Hint: Utiliza sum() sobre el vector probabilidades.
+  
+- Class: text
+  Output: Recuerda que una probabilidad representa una proporción, mientras que una frecuencia esperada representa una cantidad de observaciones. Para convertir las probabilidades en frecuencias esperadas, multiplicamos cada elemento del vector probabilidades por el tamaño de la muestra.
+
+- Class: cmd_question
+  Output: Calcula las frecuencias esperadas y guarda el vector resultante en esperados. Utiliza el tamaño de muestra de 200 observaciones.
+  CorrectAnswer: esperados <- 200 * probabilidades
+  AnswerTests: test_esperados_normal()
+  Hint: Multiplica cada elemento de probabilidades por 200 y guarda el resultado en esperados.
+
+- Class: cmd_question
+  Output: Escribe esperados para ver el resultado.
+  CorrectAnswer: esperados
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe esperados.
+  
+- Class: text
+  Output: Las frecuencias esperadas deben sumar 200, igual que las frecuencias observadas. Además, todas deben ser suficientemente grandes para aplicar la aproximación de la prueba chi-cuadrado. En este ejercicio, todas las frecuencias esperadas son mayores que 5.
+  
+- Class: cmd_question
+  Output: Crea un vector llamado observados con las frecuencias 34, 64, 70 y 32, en ese orden.
+  CorrectAnswer: observados <- c(34, 64, 70, 32)
+  AnswerTests: test_observados_normal()
+  Hint: Utiliza c() para crear un vector con las cuatro frecuencias observadas y guárdalo en observados.
+
+- Class: text
+  Output: Ya tenemos los dos elementos necesarios para realizar la prueba. Nuestra hipótesis nula H0 establece que los tiempos de respuesta siguen una distribución normal con media 100 milisegundos y desviación estándar 15 milisegundos. La hipótesis alternativa H1 establece que los tiempos de respuesta no siguen esa distribución.
+
+- Class: cmd_question
+  Output: Aplica la prueba chi-cuadrado utilizando observados y probabilidades. Guarda el resultado en prueba_normal.
+  CorrectAnswer: prueba_normal <- chisq.test(observados, p = probabilidades)
+  AnswerTests: test_prueba_normal()
+  Hint: Utiliza chisq.test() con observados como primer argumento y p = probabilidades. Guarda el resultado en prueba_normal.
+  
+- Class: text
+  Output: Como conocemos la media y la desviación estándar por el historial de referencia, no necesitamos estimar parámetros a partir de nuestra muestra. Por eso, con cuatro categorías, los grados de libertad se calculan como gl = k - 1 = 4 - 1 = 3.
+  
+- Class: text
+  Output: Ahora que hemos realizado la prueba, necesitamos interpretar su resultado. Para ello utilizaremos el valor p, que nos permitirá determinar si existe evidencia estadística suficiente para rechazar la hipótesis nula.
+
+- Class: cmd_question
+  Output: Extrae el valor p de prueba_normal y guárdalo en la variable valor_p.
+  CorrectAnswer: valor_p <- prueba_normal$p.value
+  AnswerTests: test_valor_p_normal()
+  Hint: Accede al componente p.value del objeto prueba_normal utilizando el operador $ y guarda el resultado en valor_p.
+
+- Class: text
+  Output: Utilizaremos un nivel de significancia de 0.05. Esto significa que rechazaremos la hipótesis nula cuando el valor p sea menor o igual a 0.05.
+
+- Class: cmd_question
+  Output: Crea una variable llamada alfa y asígnale el valor 0.05.
+  CorrectAnswer: alfa <- 0.05
+  AnswerTests: test_alfa_normal()
+  Hint: Utiliza el operador <- para guardar el valor 0.05 en la variable alfa.
+
+- Class: text
+  Output: Para tomar la decisión estadística, compararemos el valor p con el nivel de significancia. Si el valor p es mayor que alfa, no rechazamos la hipótesis nula. En caso contrario, la rechazamos.
+
+- Class: cmd_question
+  Output: Compara valor_p con alfa y guarda el resultado lógico en una variable llamada decision. La comparación debe devolver TRUE cuando no se rechaza la hipótesis nula.
+  CorrectAnswer: decision <- valor_p > alfa
+  AnswerTests: test_decision_normal()
+  Hint: Utiliza el operador > para comprobar si valor_p es mayor que alfa. Guarda el resultado en decision.
+  
+- Class: cmd_question
+  Output: Escribe decision para ver el resultado.
+  CorrectAnswer: decision
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe decision.
+  
+- Class: text
+  Output: En nuestro ejercicio, el valor p es aproximadamente 0.9243, mayor que el nivel de significancia de 0.05. Por lo tanto, no rechazamos la hipótesis nula. No encontramos evidencia estadística suficiente para afirmar que los tiempos de respuesta difieren de una distribución normal con media de 100 milisegundos y desviación estándar de 15 milisegundos.
+
+- Class: mult_question
+  Output: ¿Cuál es la interpretación correcta de este resultado?
+  AnswerChoices: Los tiempos de respuesta siguen perfectamente una distribución normal; No existe evidencia estadística suficiente para rechazar la distribución normal propuesta; La hipótesis alternativa queda demostrada; El valor p indica que existe un 92.43% de probabilidad de que la hipótesis nula sea verdadera
+  CorrectAnswer: No existe evidencia estadística suficiente para rechazar la distribución normal propuesta
+  AnswerTests: omnitest(correctVal='No existe evidencia estadística suficiente para rechazar la distribución normal propuesta')
+  Hint: Recuerda que no rechazar la hipótesis nula no significa demostrar que sea verdadera. Solo indica que no encontramos evidencia suficiente para rechazarla.
+
+#===============================================================
+# Distribución binomial
+#===============================================================
+
+- Class: text
+  Output: La distribución binomial es una distribución de probabilidad discreta que permite calcular la probabilidad de obtener una cantidad determinada de éxitos en un número fijo de ensayos. Por ejemplo, puede utilizarse para estudiar cuántas respuestas correctas obtiene un estudiante al contestar varias preguntas, cuántos productos cumplen una característica o cuántas personas responden afirmativamente a una pregunta.
+
+- Class: text
+  Output: Para utilizar una distribución binomial deben cumplirse cuatro condiciones. Primero, debe existir un número fijo de ensayos. Segundo, cada ensayo debe tener únicamente dos resultados posibles, que podemos llamar éxito y fracaso. Tercero, la probabilidad de éxito debe mantenerse constante en todos los ensayos. Finalmente, los ensayos deben ser independientes entre sí.
+
+- Class: text
+  Output: La distribución binomial se caracteriza por dos parámetros. El primero es n, que representa el número total de ensayos. El segundo es p, que representa la probabilidad de éxito en cada ensayo. La cantidad de éxitos obtenidos se representa mediante la variable aleatoria X.
+
+- Class: text
+  Output: Matemáticamente, representamos una variable binomial como X ~ Bin(n, p). Por ejemplo, X ~ Bin(4, 0.5) indica que realizamos cuatro ensayos independientes y que la probabilidad de éxito en cada uno es 0.5.
+
+- Class: text
+  Output: En R utilizamos la función dbinom() para calcular la probabilidad de obtener exactamente una cantidad determinada de éxitos. Su estructura básica es dbinom(x, size, prob), donde x representa la cantidad de éxitos que queremos estudiar, size indica el número total de ensayos y prob corresponde a la probabilidad de éxito en cada ensayo.
+
+- Class: text
+  Output: Supongamos que un estudiante responde cuatro preguntas de verdadero o falso al azar. Como cada pregunta tiene dos opciones y solo una es correcta, la probabilidad de responder correctamente cada pregunta es 0.5. Si consideramos que las respuestas son independientes, podemos modelar la cantidad de respuestas correctas mediante una distribución binomial con n = 4 y p = 0.5.
+
+- Class: text
+  Output: Si queremos calcular la probabilidad de que el estudiante responda exactamente dos preguntas correctamente, utilizamos dbinom(2, size = 4, prob = 0.5). El resultado es aproximadamente 0.375, lo que representa una probabilidad del 37.5%.
+
+- Class: mult_question
+  Output: En el ejemplo anterior, ¿qué representa el resultado de dbinom(2, size = 4, prob = 0.5)?
+  AnswerChoices: La probabilidad de obtener al menos dos respuestas correctas; La probabilidad de obtener exactamente dos respuestas correctas; La probabilidad de obtener cuatro respuestas correctas; La cantidad esperada de estudiantes con dos respuestas correctas
+  CorrectAnswer: La probabilidad de obtener exactamente dos respuestas correctas
+  AnswerTests: omnitest(correctVal='La probabilidad de obtener exactamente dos respuestas correctas')
+  Hint: Recuerda que dbinom() calcula la probabilidad de obtener exactamente la cantidad de éxitos indicada en x.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de que el estudiante responda exactamente tres preguntas correctamente.
+  CorrectAnswer: dbinom(3, size = 4, prob = 0.5)
+  AnswerTests: test_probabilidad_tres()
+  Hint: Utiliza dbinom() con x = 3, size = 4 y prob = 0.5.
+
+- Class: text
+  Output: Supongamos que aplicamos el cuestionario a 200 estudiantes y registramos cuántas respuestas correctas obtuvo cada uno. Para comparar los resultados con el modelo binomial, clasificaremos a los estudiantes según hayan obtenido 0, 1, 2, 3 o 4 respuestas correctas.
+
+- Class: text
+  Output: Como cada estudiante respondió cuatro preguntas y la probabilidad de acertar cada una al azar es 0.5, utilizaremos una distribución binomial con n = 4 y p = 0.5. A partir de este modelo calcularemos la probabilidad teórica correspondiente a cada una de las cinco categorías.
+
+- Class: text
+  Output: En R podemos utilizar dbinom() para calcular varias probabilidades en una sola instrucción. Para ello, podemos proporcionar un vector de valores en el argumento x. Por ejemplo, 0:4 genera una secuencia de números enteros desde 0 hasta 4. Así, dbinom(0:4, size = 4, prob = 0.5) calcula las probabilidades de obtener 0, 1, 2, 3 y 4 respuestas correctas, respectivamente.
+
+- Class: cmd_question
+  Output: Calcula las probabilidades teóricas para las cinco categorías y guarda el vector resultante en probabilidades_binomial.
+  CorrectAnswer: probabilidades_binomial <- dbinom(0:4, size = 4, prob = 0.5)
+  AnswerTests: test_probabilidades_binomial()
+  Hint: Utiliza dbinom() con x = 0:4, size = 4 y prob = 0.5. Guarda el resultado en probabilidades_binomial.
+
+- Class: text
+  Output: Antes de continuar, debemos comprobar que las probabilidades sumen 1. Esto nos permite verificar que estamos considerando todos los resultados posibles de la distribución binomial.
+
+- Class: cmd_question
+  Output: Calcula la suma de las probabilidades del vector probabilidades_binomial.
+  CorrectAnswer: sum(probabilidades_binomial)
+  AnswerTests: test_suma_probabilidades_binomial()
+  Hint: Utiliza sum() sobre el vector probabilidades_binomial. El resultado debe ser igual a 1.
+
+- Class: text
+  Output: Ahora convertiremos las probabilidades teóricas en frecuencias esperadas. Recuerda que para obtenerlas multiplicamos cada probabilidad por el tamaño de la muestra. En este ejercicio utilizaremos 200 estudiantes.
+
+- Class: cmd_question
+  Output: Calcula las frecuencias esperadas y guarda el resultado en esperados_binomial.
+  CorrectAnswer: esperados_binomial <- 200 * probabilidades_binomial
+  AnswerTests: test_esperados_binomial()
+  Hint: Multiplica el vector probabilidades_binomial por 200 y guarda el resultado en esperados_binomial.
+
+- Class: cmd_question
+  Output: Escribe esperados_binomial para ver el resultado.
+  CorrectAnswer: esperados_binomial
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe esperados_binomial.
+
+- Class: text
+  Output: Las frecuencias esperadas representan la cantidad de estudiantes que esperaríamos encontrar en cada categoría si el modelo binomial fuera adecuado. En este ejercicio obtenemos 12.5, 50, 75, 50 y 12.5. Todas las frecuencias esperadas son mayores que 5, por lo que podemos conservar las cinco categorías para aplicar la prueba chi-cuadrado.
+
+- Class: cmd_question
+  Output: Crea un vector llamado observados_binomial con las frecuencias 15, 46, 78, 45 y 16, en ese orden.
+  CorrectAnswer: observados_binomial <- c(15, 46, 78, 45, 16)
+  AnswerTests: test_observados_binomial()
+  Hint: Utiliza c() para crear un vector con las cinco frecuencias observadas y guárdalo en observados_binomial.
+
+- Class: text
+  Output: Ya contamos con las frecuencias observadas y las probabilidades teóricas necesarias para realizar la prueba. La hipótesis nula establece que la cantidad de respuestas correctas sigue una distribución binomial con n = 4 y p = 0.5. La hipótesis alternativa establece que los resultados no siguen esa distribución.
+
+- Class: cmd_question
+  Output: Aplica la prueba chi-cuadrado utilizando observados_binomial y probabilidades_binomial. Guarda el resultado en prueba_binomial.
+  CorrectAnswer: prueba_binomial <- chisq.test(observados_binomial, p = probabilidades_binomial)
+  AnswerTests: test_prueba_binomial()
+  Hint: Utiliza chisq.test() con observados_binomial como primer argumento y p = probabilidades_binomial.
+
+- Class: text
+  Output: Como los parámetros de la distribución binomial fueron establecidos antes de analizar los resultados y no se estimaron a partir de esta muestra, los grados de libertad se calculan restando uno al número de categorías. En este caso tenemos gl = 5 - 1 = 4.
+
+- Class: cmd_question
+  Output: Extrae el valor p de prueba_binomial y guárdalo en valor_p_binomial.
+  CorrectAnswer: valor_p_binomial <- prueba_binomial$p.value
+  AnswerTests: test_valor_p_binomial()
+  Hint: Accede al componente p.value del objeto prueba_binomial utilizando el operador $ y guarda el resultado en valor_p_binomial.
+
+- Class: text
+  Output: Utilizaremos nuevamente un nivel de significancia de 0.05. Si el valor p es mayor que este nivel, no rechazaremos la hipótesis nula. Si es menor o igual, la rechazaremos.
+
+- Class: cmd_question
+  Output: Compara valor_p_binomial con 0.05 y guarda el resultado lógico en decision_binomial. La comparación debe devolver TRUE cuando no se rechaza la hipótesis nula.
+  CorrectAnswer: decision_binomial <- valor_p_binomial > 0.05
+  AnswerTests: test_decision_binomial()
+  Hint: Utiliza el operador > para comprobar si valor_p_binomial es mayor que 0.05. Guarda el resultado en decision_binomial.
+  
+- Class: cmd_question
+  Output: Escribe decision_binomial para ver el resultado.
+  CorrectAnswer: decision_binomial
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe decision_binomial.
+
+- Class: text
+  Output: En este ejercicio, el valor p es aproximadamente 0.6590, mayor que 0.05. Por lo tanto, no rechazamos la hipótesis nula. No encontramos evidencia estadística suficiente para afirmar que la cantidad de respuestas correctas difiere de una distribución binomial con n = 4 y p = 0.5.
+
+- Class: mult_question
+  Output: ¿Cuál es la interpretación correcta de este resultado?
+  AnswerChoices: Los estudiantes respondieron correctamente las preguntas únicamente por azar; Los resultados demuestran que la distribución binomial es verdadera; No existe evidencia estadística suficiente para rechazar el modelo binomial propuesto; El valor p indica que el 82% de los estudiantes respondió correctamente dos preguntas
+  CorrectAnswer: No existe evidencia estadística suficiente para rechazar el modelo binomial propuesto
+  AnswerTests: omnitest(correctVal='No existe evidencia estadística suficiente para rechazar el modelo binomial propuesto')
+  Hint: No rechazar la hipótesis nula no demuestra que sea verdadera. Significa que no encontramos evidencia estadística suficiente para rechazar el modelo propuesto.
+
+#===============================================================
+# Distribución de Poisson
+#===============================================================
+
+- Class: text
+  Output: La distribución de Poisson es una distribución de probabilidad discreta que permite modelar la cantidad de veces que ocurre un evento dentro de un intervalo determinado de tiempo, espacio o cualquier otra unidad de observación. Por ejemplo, puede utilizarse para estudiar la cantidad de llamadas que recibe una central telefónica, los clientes que llegan a un establecimiento o los errores registrados en un proceso de producción.
+
+- Class: text
+  Output: Para utilizar una distribución de Poisson, consideramos que los eventos ocurren de manera independiente y que existe una tasa promedio constante de ocurrencia dentro del intervalo estudiado. También suponemos que la probabilidad de que ocurran varios eventos exactamente al mismo instante es despreciable.
+
+- Class: text
+  Output: La distribución de Poisson se caracteriza por un parámetro llamado lambda, representado por la letra griega λ. Este parámetro indica el número promedio de veces que ocurre el evento dentro del intervalo establecido. La variable aleatoria X representa la cantidad de eventos que pueden ocurrir en ese intervalo.
+
+- Class: text
+  Output: Matemáticamente, representamos una variable de Poisson como X ~ Poisson(λ). Por ejemplo, X ~ Poisson(2) indica que esperamos un promedio de dos eventos por intervalo de observación.
+
+- Class: text
+  Output: En R utilizamos la función dpois() para calcular la probabilidad de que ocurran exactamente cierta cantidad de eventos. Su estructura básica es dpois(x, lambda), donde x representa la cantidad de eventos que queremos estudiar y lambda corresponde al promedio esperado de eventos por intervalo.
+
+- Class: text
+  Output: Supongamos que una central de soporte técnico recibe un promedio de dos solicitudes cada diez minutos. Si queremos calcular la probabilidad de recibir exactamente tres solicitudes durante un intervalo de diez minutos, utilizamos dpois(3, lambda = 2). El resultado es aproximadamente 0.1804, lo que representa una probabilidad del 18.04%.
+
+- Class: mult_question
+  Output: En el ejemplo anterior, ¿qué representa el parámetro lambda = 2?
+  AnswerChoices: La cantidad máxima de solicitudes que pueden recibirse; La probabilidad de recibir una solicitud; El promedio de solicitudes recibidas en cada intervalo de diez minutos; La cantidad de intervalos observados
+  CorrectAnswer: El promedio de solicitudes recibidas en cada intervalo de diez minutos
+  AnswerTests: omnitest(correctVal='El promedio de solicitudes recibidas en cada intervalo de diez minutos')
+  Hint: Recuerda que lambda representa la tasa promedio de ocurrencia de eventos dentro del intervalo estudiado.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de recibir exactamente cuatro solicitudes en un intervalo de diez minutos
+  CorrectAnswer: dpois(4, lambda = 2)
+  AnswerTests: test_probabilidad_cuatro()
+  Hint: Utiliza dpois() con x = 4 y lambda = 2.
+  
+- Class: text
+  Output: En ocasiones no necesitamos conocer la probabilidad de obtener exactamente una cantidad de eventos, sino la probabilidad de alcanzar o superar cierta cantidad. Para estos casos podemos utilizar la función ppois().
+
+- Class: text
+  Output: Su estructura básica es ppois(q, lambda), donde q representa el límite hasta el cual queremos acumular las probabilidades y lambda es el promedio esperado de eventos. De manera predeterminada, ppois() calcula la probabilidad acumulada de obtener una cantidad menor o igual a q.
+
+- Class: text
+  Output: Por ejemplo, si queremos calcular la probabilidad de recibir cuatro o más solicitudes, podemos utilizar ppois(3, lambda = 2, lower.tail = FALSE). El argumento lower.tail = FALSE indica que queremos obtener la probabilidad situada por encima de 3, es decir, P(X > 3).
+
+- Class: mult_question
+  Output: ¿Qué probabilidad calcula ppois(3, lambda = 2, lower.tail = FALSE)?
+  AnswerChoices: La probabilidad de recibir exactamente tres solicitudes; La probabilidad de recibir tres o menos solicitudes; La probabilidad de recibir cuatro o más solicitudes; La probabilidad de recibir exactamente cuatro solicitudes
+  CorrectAnswer: La probabilidad de recibir cuatro o más solicitudes
+  AnswerTests: omnitest(correctVal='La probabilidad de recibir cuatro o más solicitudes')
+  Hint: lower.tail = FALSE permite calcular la probabilidad de obtener un valor mayor que el límite indicado.
+
+#===============================================================
+# Ejercicio práctico
+#===============================================================
+
+- Class: text
+  Output: Situación de estudio. Una central de soporte técnico recibe en promedio dos solicitudes cada diez minutos. Se registraron las solicitudes recibidas durante 200 intervalos independientes de diez minutos. 
+  
+# Mostrar la tabla de categorias que utilizaremos
+
+- Class: text
+  Output: Agrupamos la última categoría porque una distribución de Poisson puede tomar valores desde cero hasta cantidades muy grandes. Al reunir los valores de cuatro en adelante, podemos incluir todos los resultados posibles sin generar categorías con frecuencias esperadas demasiado pequeñas. 
+
+- Class: text
+  Output: Para calcular las probabilidades de las primeras cuatro categorías utilizaremos dpois(). Podemos proporcionar un vector de valores en el argumento x, de manera similar a lo que hicimos con dbinom(). En este caso, 0:3 genera una secuencia con los valores 0, 1, 2 y 3.
+
+- Class: cmd_question
+  Output: Calcula las probabilidades de recibir 0, 1, 2 y 3 solicitudes y guarda el vector resultante en probabilidades_iniciales.
+  CorrectAnswer: probabilidades_iniciales <- dpois(0:3, lambda = 2)
+  AnswerTests: test_probabilidades_iniciales()
+  Hint: Utiliza dpois() con x = 0:3 y lambda = 2. Guarda el resultado en probabilidades_iniciales.
+
+- Class: text
+  Output: Ahora necesitamos calcular la probabilidad de recibir cuatro o más solicitudes. Para ello utilizaremos ppois() con q = 3 y lower.tail = FALSE. Recuerda que estamos calculando la probabilidad de obtener un valor mayor que 3.
+
+- Class: cmd_question
+  Output: Calcula la probabilidad de recibir cuatro o más solicitudes y guarda el resultado en probabilidad_cuatro_mas.
+  CorrectAnswer: probabilidad_cuatro_mas <- ppois(3, lambda = 2, lower.tail = FALSE)
+  AnswerTests: test_probabilidad_cuatro_mas()
+  Hint: Utiliza ppois() con q = 3, lambda = 2 y lower.tail = FALSE.
+
+- Class: text
+  Output: Ya tenemos las probabilidades de las cinco categorías. Ahora las reuniremos en un solo vector, conservando el orden de 0, 1, 2, 3 y cuatro o más solicitudes.
+
+- Class: cmd_question
+  Output: Crea un vector llamado probabilidades_poisson que contenga probabilidades_iniciales y probabilidad_cuatro_mas, en ese orden.
+  CorrectAnswer: probabilidades_poisson <- c(probabilidades_iniciales, probabilidad_cuatro_mas)
+  AnswerTests: test_probabilidades_poisson()
+  Hint: Utiliza c() para reunir el vector probabilidades_iniciales y el valor probabilidad_cuatro_mas.
+
+- Class: text
+  Output: Antes de continuar, debemos comprobar que las probabilidades sumen 1. Esto significa que nuestras cinco categorías incluyen todos los resultados posibles de la distribución de Poisson.
+
+- Class: cmd_question
+  Output: Calcula la suma de las probabilidades del vector probabilidades_poisson.
+  CorrectAnswer: sum(probabilidades_poisson)
+  AnswerTests: test_suma_probabilidades_poisson()
+  Hint: Utiliza sum() sobre el vector probabilidades_poisson. El resultado debe ser igual a 1.
+
+- Class: text
+  Output: Para obtener las frecuencias esperadas multiplicaremos cada probabilidad por los 200 intervalos observados. De esta manera obtendremos la cantidad de intervalos que esperaríamos encontrar en cada categoría si el modelo de Poisson fuera adecuado.
+
+- Class: cmd_question
+  Output: Calcula las frecuencias esperadas y guarda el resultado en esperados_poisson.
+  CorrectAnswer: esperados_poisson <- 200 * probabilidades_poisson
+  AnswerTests: test_esperados_poisson()
+  Hint: Multiplica el vector probabilidades_poisson por 200 y guarda el resultado en esperados_poisson.
+  
+- Class: cmd_question
+  Output: Escribe esperados_poisson para ver el resultado.
+  CorrectAnswer: esperados_poisson
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe esperados_poisson.
+
+- Class: text
+  Output: Las frecuencias esperadas son aproximadamente 27.07, 54.13, 54.13, 36.09 y 28.58. Todas son mayores que 5, por lo que podemos conservar las cinco categorías para aplicar la prueba chi-cuadrado.
+
+- Class: cmd_question
+  Output: Crea un vector llamado observados_poisson con las frecuencias 30, 50, 56, 35 y 29, en ese orden.
+  CorrectAnswer: observados_poisson <- c(30, 50, 56, 35, 29)
+  AnswerTests: test_observados_poisson()
+  Hint: Utiliza c() para crear un vector con las cinco frecuencias observadas y guárdalo en observados_poisson.
+
+- Class: text
+  Output: La hipótesis nula establece que la cantidad de solicitudes recibidas por intervalo sigue una distribución de Poisson con lambda = 2. La hipótesis alternativa establece que los resultados no siguen esa distribución.
+
+- Class: cmd_question
+  Output: Aplica la prueba chi-cuadrado utilizando observados_poisson y probabilidades_poisson. Guarda el resultado en prueba_poisson.
+  CorrectAnswer: prueba_poisson <- chisq.test(observados_poisson, p = probabilidades_poisson)
+  AnswerTests: test_prueba_poisson()
+  Hint: Utiliza chisq.test() con observados_poisson como primer argumento y p = probabilidades_poisson.
+
+- Class: text
+  Output: Como el parámetro lambda fue establecido previamente a partir del historial de la central y no fue estimado con la muestra actual, los grados de libertad se calculan restando uno al número de categorías. En este caso tenemos gl = 5 - 1 = 4.
+
+- Class: cmd_question
+  Output: Extrae el valor p de prueba_poisson y guárdalo en valor_p_poisson.
+  CorrectAnswer: valor_p_poisson <- prueba_poisson$p.value
+  AnswerTests: test_valor_p_poisson()
+  Hint: Accede al componente p.value del objeto prueba_poisson utilizando el operador $ y guarda el resultado en valor_p_poisson.
+
+- Class: text
+  Output: Utilizaremos nuevamente un nivel de significancia de 0.05. Si el valor p es mayor que este nivel, no rechazaremos la hipótesis nula. Si es menor o igual, la rechazaremos.
+
+- Class: cmd_question
+  Output: Compara valor_p_poisson con 0.05 y guarda el resultado lógico en decision_poisson. La comparación debe devolver TRUE cuando no se rechaza la hipótesis nula.
+  CorrectAnswer: decision_poisson <- valor_p_poisson > 0.05
+  AnswerTests: test_decision_poisson()
+  Hint: Utiliza el operador > para comprobar si valor_p_poisson es mayor que 0.05. Guarda el resultado en decision_poisson.
+  
+- Class: cmd_question
+  Output: Escribe decision_poisson para ver el resultado.
+  CorrectAnswer: decision_poisson
+  AnswerTests: omnitest(correctExpr = 'total')
+  Hint: Escribe decision_poisson.
+
+- Class: text
+  Output: En este ejercicio, el valor p es aproximadamente 0.9467, mayor que 0.05. Por lo tanto, no rechazamos la hipótesis nula. No encontramos evidencia estadística suficiente para afirmar que la cantidad de solicitudes recibidas difiere de una distribución de Poisson con lambda = 2.
+
+- Class: mult_question
+  Output: ¿Cuál es la interpretación correcta de este resultado?
+  AnswerChoices: La central recibe exactamente dos solicitudes en todos los intervalos; Los resultados demuestran que el promedio siempre será de dos solicitudes; No existe evidencia estadística suficiente para rechazar el modelo de Poisson propuesto; El valor p indica que el 94.67% de los intervalos recibió dos solicitudes
+  CorrectAnswer: No existe evidencia estadística suficiente para rechazar el modelo de Poisson propuesto
+  AnswerTests: omnitest(correctVal='No existe evidencia estadística suficiente para rechazar el modelo de Poisson propuesto')
+  Hint: No rechazar la hipótesis nula no demuestra que sea verdadera. Significa que no encontramos evidencia suficiente para rechazar el modelo propuesto.
+
+
+#===============================================================
+# Actividad integradora
+#===============================================================
+
+- Class: text
+  Output: A lo largo de esta lección trabajamos con tres distribuciones de probabilidad. Aunque todas permiten modelar fenómenos aleatorios, cada una se utiliza en situaciones diferentes. La distribución normal modela variables continuas, la binomial cuenta éxitos en un número fijo de ensayos y la distribución de Poisson cuenta eventos dentro de un intervalo determinado.
+
+- Class: text
+  Output: En R también utilizamos funciones diferentes para calcular sus probabilidades. Para la distribución normal empleamos pnorm(), para la binomial utilizamos dbinom() y para Poisson utilizamos dpois(). Cuando necesitamos probabilidades acumuladas o de cola, podemos recurrir a funciones como pnorm() y ppois(), según el modelo que estemos trabajando.
+
+- Class: mult_question
+  Output: Una empresa registra el tiempo que tarda en completar cada pedido. Históricamente, estos tiempos siguen una distribución aproximadamente normal. ¿Qué distribución sería adecuada para modelar esta variable?
+  AnswerChoices: Distribución binomial; Distribución de Poisson; Distribución normal; Ninguna de las anteriores
+  CorrectAnswer: Distribución normal
+  AnswerTests: omnitest(correctVal='Distribución normal')
+  Hint: El tiempo es una variable continua y puede modelarse mediante una distribución normal cuando sus características se aproximan a ese modelo.
+
+- Class: mult_question
+  Output: Un estudiante responde diez preguntas de opción múltiple, cada una con una sola respuesta correcta. Queremos estudiar cuántas respuestas correctas obtiene. ¿Qué distribución sería adecuada si la probabilidad de acertar se mantiene constante y las respuestas son independientes?
+  AnswerChoices: Distribución normal; Distribución binomial; Distribución de Poisson; Distribución uniforme
+  CorrectAnswer: Distribución binomial
+  AnswerTests: omnitest(correctVal='Distribución binomial')
+  Hint: Tenemos un número fijo de ensayos y cada uno tiene dos resultados posibles, éxito o fracaso.
+
+- Class: mult_question
+  Output: Una tienda registra cuántos clientes llegan durante cada hora. Se conoce que llegan en promedio ocho clientes por hora y se cumplen las condiciones del modelo. ¿Qué distribución sería adecuada para estudiar esta cantidad?
+  AnswerChoices: Distribución normal; Distribución binomial; Distribución de Poisson; Distribución uniforme
+  CorrectAnswer: Distribución de Poisson
+  AnswerTests: omnitest(correctVal='Distribución de Poisson')
+  Hint: Estamos contando la cantidad de eventos que ocurren dentro de un intervalo de tiempo y conocemos su promedio.
+
+- Class: mult_question
+  Output: ¿Qué función de R utilizarías para calcular la probabilidad de obtener exactamente cinco éxitos en ocho ensayos independientes, cuando la probabilidad de éxito es 0.4?
+  AnswerChoices: pnorm(5, mean = 8, sd = 0.4); dpois(5, lambda = 8); dbinom(5, size = 8, prob = 0.4); ppois(5, lambda = 0.4)
+  CorrectAnswer: dbinom(5, size = 8, prob = 0.4)
+  AnswerTests: omnitest(correctVal='dbinom(5, size = 8, prob = 0.4)')
+  Hint: Recuerda que dbinom() calcula la probabilidad de obtener exactamente una cantidad de éxitos en un número fijo de ensayos.
+
+- Class: mult_question
+  Output: ¿Para qué multiplicamos las probabilidades teóricas por el tamaño de la muestra antes de aplicar la prueba chi-cuadrado?
+  AnswerChoices: Para obtener las frecuencias observadas; Para convertir las probabilidades en frecuencias esperadas; Para calcular directamente el valor p; Para modificar los grados de libertad
+  CorrectAnswer: Para convertir las probabilidades en frecuencias esperadas
+  AnswerTests: omnitest(correctVal='Para convertir las probabilidades en frecuencias esperadas')
+  Hint: Las probabilidades representan proporciones, mientras que las frecuencias esperadas representan cantidades de observaciones.
+
+- Class: text
+  Output: Recuerda que, independientemente de la distribución utilizada, el procedimiento de bondad de ajuste sigue una misma idea. Primero identificamos el modelo teórico, después calculamos sus probabilidades, las convertimos en frecuencias esperadas y las comparamos con las frecuencias observadas mediante la prueba chi-cuadrado.
+
+- Class: text
+  Output: Finalmente, interpretamos el valor p utilizando un nivel de significancia. Si el valor p es menor o igual que alfa, rechazamos la hipótesis nula. Si es mayor, no encontramos evidencia estadística suficiente para rechazarla. Esta decisión debe interpretarse dentro del contexto del problema y no como una demostración de que el modelo es verdadero.
+
+- Class: text
+  Output: ¡Felicidades! Has concluido la lección sobre pruebas de bondad de ajuste para distribuciones de probabilidad. Ahora conoces cómo utilizar los modelos normal, binomial y Poisson para calcular probabilidades teóricas, obtener frecuencias esperadas y evaluar si los datos observados son compatibles con una distribución propuesta.
+
+
