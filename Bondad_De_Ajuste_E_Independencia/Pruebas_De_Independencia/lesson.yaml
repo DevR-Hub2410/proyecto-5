@@ -1,0 +1,316 @@
+- Class: meta
+  Course: Curso_Estadistica
+  Lesson: Pruebas_De_Independencia
+  Author: Zyanya Tajani Mireles Gaspar | Rafael Castillo Villalba | Gabriela Carrillo Navarrete | Yamileth Jalil Calderon | Amanda Sofía López Escarcega
+  Type: Standard
+  Organization: Universidad Autónoma de Ciudad Juárez
+  Version: 1.0
+
+#===============================================================
+# Introducción
+#===============================================================
+
+- Class: text
+  Output: En las lecciones anteriores estudiamos las pruebas de bondad de ajuste, las cuales permiten determinar si las frecuencias observadas se ajustan a una distribución de probabilidad teórica. En esta lección estudiaremos otro tipo de problema estadístico. Ahora nos interesa analizar si existe una relación entre dos variables categóricas.
+
+- Class: text
+  Output: Una prueba de independencia permite determinar si dos variables categóricas presentan una asociación estadísticamente significativa o si, por el contrario, existe evidencia suficiente para considerarlas independientes. Para ello se analizan las frecuencias con las que aparecen las distintas combinaciones de categorías.
+
+- Class: text
+  Output: Imaginemos que una universidad desea investigar si existe una relación entre la modalidad de estudio de sus estudiantes y el resultado que obtienen en un examen. Para realizar este análisis se consideran dos variables. La primera es la modalidad de estudio, que puede ser presencial o virtual. La segunda es el resultado del examen, que puede ser aprobado o reprobado.
+
+- Class: text
+  Output: El objetivo no es comparar directamente las calificaciones ni determinar cuál modalidad es mejor. Lo que se busca es identificar si la modalidad de estudio y el resultado del examen están relacionados. Para responder esta pregunta utilizaremos una prueba de independencia.
+
+- Class: mult_question
+  Output: ¿Qué procedimiento estadístico sería adecuado para investigar esta situación?
+  AnswerChoices: Prueba de bondad de ajuste;Prueba de independencia;Prueba de homogeneidad; Prueba para comparar medias
+  CorrectAnswer: Prueba de independencia
+  AnswerTests: omnitest(correctVal='Prueba de independencia')
+  Hint: Identifica si el problema analiza una sola variable y su distribución teórica o si busca estudiar la relación entre dos variables categóricas.
+
+
+#===============================================================
+# Variables categóricas y tablas de contingencia
+#===============================================================
+
+- Class: text
+  Output: Para realizar una prueba de independencia necesitamos trabajar con dos variables categóricas. Cada variable contiene un conjunto de categorías que permiten clasificar a los individuos de una muestra. En nuestro ejemplo, la modalidad de estudio tiene las categorías presencial y virtual, mientras que el resultado del examen tiene las categorías aprobado y reprobado.
+
+- Class: text
+  Output: Cuando analizamos dos variables categóricas, podemos organizar la información mediante una tabla de contingencia. Esta tabla muestra cuántos individuos pertenecen a cada combinación de categorías. Las filas representan las categorías de una variable y las columnas representan las categorías de la otra.
+
+- Class: text
+  Output: En nuestro ejemplo, cada celda de la tabla representa la cantidad de estudiantes que pertenecen a una modalidad de estudio y que obtuvieron un determinado resultado en el examen. Estas cantidades se conocen como frecuencias observadas, ya que corresponden a los datos registrados en la muestra.
+
+- Class: mult_question
+  Output: En una tabla de contingencia que relaciona la modalidad de estudio con el resultado de un examen, ¿qué representa el valor ubicado en la intersección de la fila Presencial y la columna Aprobado?
+  AnswerChoices: El total de estudiantes de la muestra;La cantidad de estudiantes presenciales que aprobaron;La cantidad de estudiantes virtuales que aprobaron;La probabilidad de aprobar el examen
+  CorrectAnswer: La cantidad de estudiantes presenciales que aprobaron
+  AnswerTests: omnitest(correctVal='La cantidad de estudiantes presenciales que aprobaron')
+  Hint: Recuerda que cada celda representa la frecuencia de individuos que pertenecen simultáneamente a una categoría de cada variable.
+
+- Class: text
+  Output: En R podemos construir una tabla de contingencia utilizando la función table(). Esta función recibe las variables categóricas que deseamos relacionar y cuenta automáticamente cuántas observaciones corresponden a cada combinación de categorías.
+
+- Class: cmd_question
+  Output: Utiliza la función table() para relacionar las variables modalidad y resultado de la base datos_estudiantes. Guarda la tabla obtenida en una variable llamada tabla_contingencia.
+  CorrectAnswer: tabla_contingencia <- table(datos_estudiantes$modalidad, datos_estudiantes$resultado)
+  AnswerTests: test_tabla_contingencia()
+  Hint: Utiliza table() con las dos variables de datos_estudiantes. Recuerda guardar el resultado mediante el operador de asignación <-.
+
+- Class: text
+  Output: La tabla obtenida contiene las frecuencias observadas de cada combinación. Las filas corresponden a la modalidad de estudio y las columnas al resultado del examen. Por ejemplo, el valor de la primera fila y primera columna indica cuántos estudiantes presenciales aprobaron.
+
+- Class: mult_question
+  Output: Si una tabla de contingencia muestra las frecuencias observadas de dos variables categóricas, ¿qué información podemos obtener directamente de ella?
+  AnswerChoices: La relación causal entre las variables;Las frecuencias de cada combinación de categorías;La probabilidad de que las variables sean independientes;La media de cada variable
+  CorrectAnswer: Las frecuencias de cada combinación de categorías
+  AnswerTests: omnitest(correctVal='Las frecuencias de cada combinación de categorías')
+  Hint: La tabla organiza los conteos registrados en la muestra, pero por sí sola no demuestra que una variable cause cambios en la otra.
+  
+
+#===============================================================
+# Frecuencias esperadas e hipótesis de independencia
+#===============================================================
+
+- Class: text
+  Output: Hasta ahora hemos organizado los datos mediante una tabla de contingencia que contiene las frecuencias observadas. Sin embargo, para evaluar si dos variables son independientes necesitamos compararlas con las frecuencias que esperaríamos encontrar si no existiera asociación entre ellas. Estas cantidades se conocen como frecuencias esperadas.
+
+- Class: text
+  Output: Las frecuencias esperadas representan la cantidad de observaciones que corresponderían a cada combinación de categorías bajo el supuesto de que las dos variables son independientes. No son cantidades registradas directamente en la muestra, sino valores calculados a partir de los totales de la tabla.
+
+- Class: text
+  Output: Para calcular una frecuencia esperada se multiplica el total de la fila correspondiente por el total de la columna correspondiente y se divide entre el número total de observaciones. Esta operación se realiza para cada celda de la tabla de contingencia.
+
+- Class: text
+  Output: La fórmula general es Eij igual al producto del total de la fila i por el total de la columna j, dividido entre el total de observaciones n. El resultado representa la frecuencia que esperaríamos encontrar en esa celda si las variables fueran independientes.
+
+- Class: mult_question
+  Output: ¿Qué representan las frecuencias esperadas dentro de una prueba de independencia?
+  AnswerChoices: Los valores registrados directamente en la muestra;Las cantidades que se obtendrían si las variables fueran independientes;El número total de categorías de las variables;Los resultados que demuestran que existe una asociación
+  CorrectAnswer: Las cantidades que se obtendrían si las variables fueran independientes
+  AnswerTests: omnitest(correctVal='Las cantidades que se obtendrían si las variables fueran independientes')
+  Hint: Las frecuencias esperadas se calculan a partir de los totales de la tabla y representan lo que se esperaría encontrar bajo el supuesto de independencia.
+
+- Class: text
+  Output: Una prueba de independencia utiliza dos hipótesis estadísticas. La hipótesis nula, representada por H0, establece que las dos variables son independientes, es decir, que no existe una asociación estadísticamente significativa entre ellas. La hipótesis alternativa, representada por H1, establece que las variables no son independientes y que existe una asociación estadísticamente significativa.
+
+- Class: text
+  Output: En nuestro ejemplo, la hipótesis nula establece que la modalidad de estudio y el resultado del examen son independientes. Por otro lado, la hipótesis alternativa plantea que existe una asociación entre ambas variables.
+
+- Class: mult_question
+  Output: Si deseamos investigar si existe una asociación entre la modalidad de estudio y el resultado del examen, ¿cuál sería la hipótesis nula?
+  AnswerChoices: La modalidad de estudio determina el resultado del examen;La modalidad de estudio y el resultado del examen son independientes;Todos los estudiantes aprueban el examen;Existe una asociación entre las dos variables
+  CorrectAnswer: La modalidad de estudio y el resultado del examen son independientes
+  AnswerTests: omnitest(correctVal='La modalidad de estudio y el resultado del examen son independientes')
+  Hint: Recuerda que la hipótesis nula de una prueba de independencia establece que no existe asociación entre las variables.
+
+#===============================================================
+# Práctica en R
+#===============================================================
+- Class: text
+  Output: En R podemos obtener los totales de las filas de una tabla mediante rowSums() y los totales de las columnas mediante colSums(). Estas funciones permiten sumar los valores de cada dimensión de una tabla y facilitan el cálculo de las frecuencias esperadas.
+
+- Class: cmd_question
+  Output: Utiliza rowSums() para obtener los totales de las filas de tabla_contingencia. Guarda el resultado en una variable llamada totales_filas.
+  CorrectAnswer: totales_filas <- rowSums(tabla_contingencia)
+  AnswerTests: omnitest(correctExpr='totales_filas <- rowSums(tabla_contingencia)')
+  Hint: Utiliza rowSums() y proporciona como argumento tabla_contingencia. Guarda el resultado en totales_filas.
+
+- Class: cmd_question
+  Output: Ahora utiliza colSums() para obtener los totales de las columnas de tabla_contingencia. Guarda el resultado en una variable llamada totales_columnas.
+  CorrectAnswer: totales_columnas <- colSums(tabla_contingencia)
+  AnswerTests: omnitest(correctExpr='totales_columnas <- colSums(tabla_contingencia)')
+  Hint: Utiliza colSums() para sumar las frecuencias de cada columna.
+
+- Class: cmd_question
+  Output: Utiliza sum() para obtener el número total de observaciones de tabla_contingencia. Guarda el resultado en una variable llamada total_observaciones.
+  CorrectAnswer: total_observaciones <- sum(tabla_contingencia)
+  AnswerTests: omnitest(correctExpr='total_observaciones <- sum(tabla_contingencia)')
+  Hint: La función sum() permite sumar todas las frecuencias de la tabla.
+
+- Class: text
+  Output: La función outer() permite aplicar una operación entre todos los elementos de dos vectores y organizar los resultados en una matriz. En nuestro ejercicio la utilizaremos para multiplicar los totales de las filas por los totales de las columnas y dividir cada resultado entre el total de observaciones. Así obtendremos todas las frecuencias esperadas en una sola operación.
+
+- Class: cmd_question
+  Output: Utiliza outer() para calcular las frecuencias esperadas a partir de totales_filas y totales_columnas. Divide el resultado entre total_observaciones y guarda la matriz obtenida en una variable llamada frecuencias_esperadas.
+  CorrectAnswer: frecuencias_esperadas <- outer(totales_filas, totales_columnas) / total_observaciones
+  AnswerTests: omnitest(correctExpr='frecuencias_esperadas <- outer(totales_filas, totales_columnas) / total_observaciones')
+  Hint: Utiliza outer() con los totales de las filas y columnas. Después divide el resultado entre total_observaciones.
+
+
+- Class: cmd_question
+  Output: Para visualizar la matriz de frecuencias esperadas escribe frecuencias_esperadas.
+  CorrectAnswer: frecuencias_esperadas
+  AnswerTests: omnitest(correctExpr='frecuencias_esperadas')
+  Hint: Escribe frecuencias_esperadas.
+
+
+- Class: mult_question
+  Output: Al comparar las frecuencias esperadas con las observadas, ¿qué representa el valor 36 en la primera fila y primera columna de la matriz?
+  AnswerChoices: La cantidad de estudiantes presenciales que aprobaron realmente;La cantidad de estudiantes presenciales que se esperarían con resultado aprobado si las variables fueran independientes;El total de estudiantes presenciales;La cantidad de estudiantes que reprobaron
+  CorrectAnswer: La cantidad de estudiantes presenciales que se esperarían con resultado aprobado si las variables fueran independientes
+  AnswerTests: omnitest(correctVal='La cantidad de estudiantes presenciales que se esperarían con resultado aprobado si las variables fueran independientes')
+  Hint: Recuerda que las frecuencias esperadas representan cantidades teóricas calculadas bajo el supuesto de independencia, no los conteos registrados directamente.
+
+
+#===============================================================
+# Prueba chi-cuadrado de independencia
+#===============================================================
+
+- Class: text
+  Output: Una vez que conocemos las frecuencias observadas y esperadas, podemos aplicar la prueba chi-cuadrado de independencia. Este procedimiento permite evaluar si las diferencias entre ambas frecuencias son suficientemente grandes para considerar que existe una asociación estadísticamente significativa entre las variables.
+
+- Class: text
+  Output: La prueba utiliza un estadístico que compara las frecuencias observadas con las esperadas en cada celda de la tabla. Cuanto mayores sean las diferencias entre estos valores, mayor será el estadístico chi-cuadrado y más evidencia podría existir contra la hipótesis de independencia.
+
+- Class: text
+  Output: La fórmula del estadístico chi-cuadrado es la suma de las diferencias entre las frecuencias observadas y esperadas, elevadas al cuadrado y divididas entre las frecuencias esperadas. Este cálculo considera todas las celdas de la tabla de contingencia.
+
+- Class: mult_question
+  Output: ¿Qué compara el estadístico chi-cuadrado en una prueba de independencia?
+  AnswerChoices: Las medias de las dos variables;Las frecuencias observadas y las frecuencias esperadas;Los tamaños de las muestras de diferentes poblaciones;Las probabilidades individuales de cada estudiante
+  CorrectAnswer: Las frecuencias observadas y las frecuencias esperadas
+  AnswerTests: omnitest(correctVal='Las frecuencias observadas y las frecuencias esperadas')
+  Hint: Recuerda que la prueba analiza las diferencias entre los conteos registrados y los que esperaríamos bajo el supuesto de independencia.
+
+- Class: text
+  Output: La función chisq.test() permite realizar una prueba chi-cuadrado de independencia cuando recibe una tabla de contingencia. R calcula automáticamente las frecuencias esperadas y el estadístico de prueba, por lo que no es necesario proporcionarle manualmente la matriz que calculamos anteriormente.
+
+- Class: cmd_question
+  Output: Utiliza chisq.test() para aplicar la prueba de independencia a tabla_contingencia. Guarda el resultado en una variable llamada prueba_independencia.
+  CorrectAnswer: prueba_independencia <- chisq.test(tabla_contingencia)
+  AnswerTests: test_prueba_independencia()
+  Hint: Proporciona tabla_contingencia como argumento de chisq.test() y guarda el resultado en prueba_independencia.
+
+- Class: text
+  Output: La prueba se ha almacenado en prueba_independencia. Aunque R ya calculó los resultados, todavía necesitamos observarlos para comprender qué información proporciona el procedimiento.
+
+- Class: cmd_question
+  Output: Escribe el nombre de la variable prueba_independencia para visualizar el resultado completo de la prueba.
+  CorrectAnswer: prueba_independencia
+  AnswerTests: omnitest(correctExpr='prueba_independencia')
+  Hint: Escribe únicamente el nombre de la variable que contiene el resultado de la prueba.
+
+- Class: mult_question
+  Output: ¿Qué realiza R automáticamente cuando aplicamos chisq.test() a una tabla de contingencia?
+  AnswerChoices: Únicamente calcula las frecuencias observadas;Calcula las frecuencias esperadas y realiza la prueba chi-cuadrado;Determina cuál variable causa cambios en la otra;Convierte las variables categóricas en variables numéricas
+  CorrectAnswer: Calcula las frecuencias esperadas y realiza la prueba chi-cuadrado
+  AnswerTests: omnitest(correctVal='Calcula las frecuencias esperadas y realiza la prueba chi-cuadrado')
+  Hint: La función utiliza la tabla de contingencia para calcular los valores esperados y realizar el procedimiento estadístico.
+  
+#===============================================================
+# Interpretación y toma de decisiones
+#===============================================================
+
+- Class: text
+  Output: Después de aplicar una prueba chi-cuadrado de independencia, necesitamos interpretar el valor p para determinar si existe evidencia estadística suficiente para rechazar la hipótesis nula. El valor p permite evaluar qué tan compatibles son los datos observados con el supuesto de que las variables son independientes.
+
+- Class: text
+  Output: Un valor p pequeño indica que sería poco probable observar diferencias como las encontradas si las variables fueran realmente independientes. Por el contrario, un valor p grande indica que los datos no proporcionan evidencia estadística suficiente para rechazar ese supuesto.
+
+- Class: text
+  Output: Para tomar una decisión utilizamos un nivel de significancia, representado por la letra griega alfa. Un valor habitual es 0.05, que establece un umbral del 5 por ciento para tomar una decisión estadística.
+
+- Class: text
+  Output: La regla de decisión es sencilla. Si el valor p es menor o igual que alfa, rechazamos la hipótesis nula. Si el valor p es mayor que alfa, no rechazamos la hipótesis nula. Es importante recordar que no rechazar la hipótesis nula no significa demostrar que las variables son independientes.
+
+- Class: mult_question
+  Output: Si el valor p obtenido en una prueba de independencia es menor que el nivel de significancia, ¿qué decisión debemos tomar?
+  AnswerChoices: Aceptar definitivamente la hipótesis nula;Rechazar la hipótesis nula;Demostrar que existe una relación causal;Repetir la prueba hasta obtener un valor p mayor
+  CorrectAnswer: Rechazar la hipótesis nula
+  AnswerTests: omnitest(correctVal='Rechazar la hipótesis nula')
+  Hint: Compara el valor p con alfa. Cuando el valor p es menor o igual que el nivel de significancia, se rechaza la hipótesis nula.
+
+- Class: cmd_question
+  Output: Extrae el valor p de prueba_independencia utilizando $p.value y guarda el resultado en una variable llamada valor_p_independencia.
+  CorrectAnswer: valor_p_independencia <- prueba_independencia$p.value
+  AnswerTests: test_valor_p_independencia()
+  Hint: Utiliza el operador $ para acceder al elemento p.value de prueba_independencia.
+
+- Class: cmd_question
+  Output: Escribe el nombre de la variable valor_p_independencia para visualizar el valor p obtenido.
+  CorrectAnswer: valor_p_independencia
+  AnswerTests: omnitest(correctExpr='valor_p_independencia')
+  Hint: Escribe únicamente el nombre de la variable que contiene el valor p.
+
+- Class: text
+  Output: El nivel de significancia representa el umbral que utilizamos para decidir si la evidencia estadística es suficiente para rechazar la hipótesis nula. En este ejercicio trabajaremos con alfa igual a 0.05, equivalente al 5 por ciento.
+
+- Class: cmd_question
+  Output: Crea una variable llamada alfa_independencia y asígnale el valor 0.05.
+  CorrectAnswer: alfa_independencia <- 0.05
+  AnswerTests: test_alfa_independencia()
+  Hint: Utiliza el operador <- para asignar el valor numérico 0.05 a alfa_independencia.
+
+- Class: text
+  Output: La función ifelse() evalúa una condición lógica. Si la condición es verdadera, devuelve un primer resultado; si es falsa, devuelve un segundo resultado. En nuestro ejercicio la utilizaremos para comparar el valor p con el nivel de significancia y determinar si debemos rechazar o no rechazar la hipótesis nula.
+
+- Class: cmd_question
+  Output: Utiliza ifelse() para comparar valor_p_independencia con alfa_independencia. Si el valor p es menor o igual que alfa, devuelve el texto Rechazar H0. En caso contrario, devuelve No rechazar H0. Guarda el resultado en decision_independencia.
+  CorrectAnswer: decision_independencia <- ifelse(valor_p_independencia <= alfa_independencia, "Rechazar H0", "No rechazar H0")
+  AnswerTests: test_decision_independencia()
+  Hint: La condición debe comparar valor_p_independencia <= alfa_independencia. Utiliza los dos textos como resultados de ifelse().
+  
+- Class: cmd_question
+  Output: Escribe el nombre de la variable decision_independencia para visualizar la decisión obtenida.
+  CorrectAnswer: decision_independencia
+  AnswerTests: omnitest(correctExpr='decision_independencia')
+  Hint: Escribe únicamente el nombre de la variable que contiene la decisión.
+
+- Class: mult_question
+  Output: En nuestro ejemplo se obtuvo un valor p aproximado de 0.0404 y un nivel de significancia de 0.05. ¿Cuál es la interpretación correcta?
+  AnswerChoices: No existe ninguna relación entre las variables;La modalidad presencial causa que los estudiantes aprueben más;Existe evidencia estadística de una asociación entre la modalidad de estudio y el resultado del examen;Se demuestra que todos los estudiantes tienen la misma probabilidad de aprobar
+  CorrectAnswer: Existe evidencia estadística de una asociación entre la modalidad de estudio y el resultado del examen
+  AnswerTests: omnitest(correctVal='Existe evidencia estadística de una asociación entre la modalidad de estudio y el resultado del examen')
+  Hint: La prueba permite identificar una asociación estadística, pero no demuestra que una variable sea la causa de la otra.
+
+
+- Class: text
+  Output: En esta lección aprendimos que una prueba de independencia permite analizar si existe una asociación estadísticamente significativa entre dos variables categóricas. Para ello construimos una tabla de contingencia, calculamos las frecuencias esperadas, aplicamos la prueba chi-cuadrado y utilizamos el valor p para tomar una decisión estadística.
+
+- Class: mult_question
+  Output: ¿Cuál de las siguientes situaciones corresponde al uso de una prueba de independencia?
+  AnswerChoices: Determinar si las alturas de los árboles siguen una distribución normal;Investigar si existe asociación entre el turno de trabajo y la preferencia por un producto;Comparar el promedio de calificaciones de dos grupos;Determinar si una muestra sigue una distribución de Poisson
+  CorrectAnswer: Investigar si existe asociación entre el turno de trabajo y la preferencia por un producto
+  AnswerTests: omnitest(correctVal='Investigar si existe asociación entre el turno de trabajo y la preferencia por un producto')
+  Hint: Busca una situación que relacione dos variables categóricas dentro de una misma población.
+
+
+#===============================================================
+# Conclusión 
+#===============================================================
+
+- Class: text
+  Output: ¡Felicidades! Has concluido la lección sobre pruebas de independencia. A lo largo de esta unidad aprendiste a identificar situaciones en las que es necesario analizar la relación entre dos variables categóricas, organizar sus datos mediante tablas de contingencia y calcular las frecuencias esperadas bajo el supuesto de independencia.
+
+- Class: text
+  Output: También aplicaste la prueba chi-cuadrado de independencia mediante la función chisq.test() en R. A partir del valor p y del nivel de significancia, aprendiste a tomar decisiones sobre las hipótesis estadísticas e interpretar los resultados dentro del contexto de un problema.
+
+- Class: text
+  Output: Recuerda que rechazar la hipótesis nula proporciona evidencia estadística de una asociación entre las variables, pero no demuestra que una de ellas sea la causa de la otra. Del mismo modo, no rechazar la hipótesis nula no significa demostrar que las variables sean independientes.
+
+- Class: text
+  Output: Las pruebas de independencia son herramientas útiles para estudiar relaciones entre características categóricas en diferentes contextos, como la educación, la salud, la investigación social y los estudios de mercado. Comprender su aplicación e interpretación permite obtener conclusiones fundamentadas a partir de los datos.
+
+
+#===============================================================
+# Referencias
+#===============================================================
+
+- Class: text
+  Output: Referencias bibliográficas
+
+- Class: text
+  Output: Agresti, A. (2019). An Introduction to Categorical Data Analysis (3rd ed.). Wiley.
+
+- Class: text
+  Output: Devore, J. L. (2016). Probability and Statistics for Engineering and the Sciences (9th ed.). Cengage Learning.
+
+- Class: text
+  Output: R Core Team. (2026). R, A Language and Environment for Statistical Computing. R Foundation for Statistical Computing. https://www.R-project.org/
+
+- Class: text
+  Output: R Core Team. (s. f.). chisq.test, Pearson's Chi-squared Test for Count Data. R Documentation. https://stat.ethz.ch/R-manual/R-devel/library/stats/html/chisq.test.html
+
