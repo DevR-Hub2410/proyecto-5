@@ -28,13 +28,16 @@ lecciones <- c(
   "Confianza_Precision_Tamano"     = "Estimacion/Confianza_Precision_Tamano",
   "Estimacion_Dos_Poblaciones"     = "Estimacion/Estimacion_Dos_Poblaciones",
   "Pruebas_De_Hipotesis"           = "Pruebas_De_Hipotesis",
-  "Bondad_Ajuste_Distribuciones_De_Probabilidad"    = "Bondad_De_Ajuste_E_Independencia/Bondad_Ajuste_Distribuciones_De_Probabilidad",
   "Introduccion_Bondad_Ajuste"     = "Bondad_De_Ajuste_E_Independencia/Introduccion_Bondad_Ajuste",
+  "Bondad_Ajuste_Distribuciones_De_Probabilidad"    = "Bondad_De_Ajuste_E_Independencia/Bondad_Ajuste_Distribuciones_De_Probabilidad",
+  "Pruebas_De_Independencia"       = "Bondad_De_Ajuste_E_Independencia/Pruebas_De_Independencia",
+  "Pruebas_De_Homogeneidad"        = "Bondad_De_Ajuste_E_Independencia/Pruebas_De_Homogeneidad",
+  "Interpretacion_Y_Aplicacion_Practica" = "Bondad_De_Ajuste_E_Independencia/Interpretacion_Y_Aplicacion_Practica",
   "Correlacion_Y_Regresion_Lineal" = "Correlacion_Y_Regresion_Lineal",
-  "Comparaciones_Multiples"        = "ANOVA_De_Un_Factor/Comparaciones_Multiples",
-  "Introduccion_ANOVA_De_Un_Fator" = "ANOVA_De_Un_Factor/Introduccion_ANOVA_De_Un_Factor",
+  "Introduccion_ANOVA_De_Un_Factor" = "ANOVA_De_Un_Factor/Introduccion_ANOVA_De_Un_Factor",
   "Supuestos_Del_ANOVA"            = "ANOVA_De_Un_Factor/Supuestos_Del_ANOVA",
-  "Tabla_ANOVA"                    = "ANOVA_De_Un_Factor/Tabla_ANOVA"
+  "Tabla_ANOVA"                    = "ANOVA_De_Un_Factor/Tabla_ANOVA",
+  "Comparaciones_Multiples"        = "ANOVA_De_Un_Factor/Comparaciones_Multiples"
 )
 
 # Comprobacion: el directorio de trabajo debe ser la raiz del repositorio
