@@ -228,9 +228,9 @@
   
 - Class: mult_question
   Output: El valor p obtenido fue aproximadamente 0.9626 y el nivel de significancia es 0.05. ¿Cuál es la conclusión correcta?
-  AnswerChoices: Se rechaza H0 porque el valor p es mayor que 0.05;No se rechaza H0 porque el valor p es mayor que 0.05;Se demuestra que el dado es perfectamente justo;No se puede realizar ninguna conclusión.
-  CorrectAnswer: No se rechaza H0 porque el valor p es mayor que 0.05.
-  AnswerTests: omnitest(correctVal = 'No se rechaza H0 porque el valor p es mayor que 0.05.')
+  AnswerChoices: Se rechaza H0 porque el valor p es mayor que 0.05;No se rechaza H0 porque el valor p es mayor que 0.05;Se demuestra que el dado es perfectamente justo;No se puede realizar ninguna conclusión
+  CorrectAnswer: No se rechaza H0 porque el valor p es mayor que 0.05
+  AnswerTests: omnitest(correctVal = 'No se rechaza H0 porque el valor p es mayor que 0.05')
   Hint: Primero compara 0.9626 con 0.05. Después recuerda que un valor p mayor que alfa conduce a no rechazar H0. No rechazar H0 no equivale a demostrar que sea verdadera.
   
 - Class: mult_question
